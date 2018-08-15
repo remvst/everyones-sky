@@ -24,6 +24,11 @@ class Universe {
         asteroid.x = star.x + 100;
         asteroid.y = star.y + 100;
         this.bodies.push(asteroid);
+
+        const blackHole = new BlackHole();
+        blackHole.x = this.playerShip.x + 400;
+        blackHole.y = this.playerShip.y + 400;
+        this.bodies.push(blackHole);
     }
 
     cycle(e) {
