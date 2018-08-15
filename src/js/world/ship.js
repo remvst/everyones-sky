@@ -38,6 +38,19 @@ class Ship {
 
     render() {
         wrap(() => {
+            R.fillStyle = '#000';
+            R.globalAlpha = 0.5;
+            translate(this.x + 2, this.y + 2);
+            rotate(this.angle);
+            beginPath();
+            moveTo(-5, 0);
+            lineTo(-10, 10);
+            lineTo(20, 0);
+            lineTo(-10, -10);
+            fill();
+        });
+
+        wrap(() => {
             R.fillStyle = '#080';
             translate(this.x, this.y);
             rotate(this.angle);

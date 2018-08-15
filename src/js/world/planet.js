@@ -21,8 +21,6 @@ class Planet extends Body {
                 rgb = rgb.map(c => ~~limit(32, c + rnd(-PLANET_COLOR_CHANGE_FACTOR, PLANET_COLOR_CHANGE_FACTOR), 255));
             }
         });
-
-        document.body.appendChild(this.asset);
     }
 
     render() {
