@@ -1,3 +1,5 @@
 [
+    "src/js/util/resizer.js",
+
     "src/js/main.js"
 ]
