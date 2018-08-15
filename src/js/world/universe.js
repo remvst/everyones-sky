@@ -29,17 +29,19 @@ class Universe {
     }
 
     render() {
+        R.fillStyle = '#000';
+        fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        wrap(() => {
+            const x = V.x * 0.8;
+            const y = V.y * 0.8;
+            translate(-x, -y);
+            R.fillStyle = starsPattern;
+            fr(x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
+        });
+
         wrap(() => {
             R.translate(-V.x, -V.y);
-
-            R.fillStyle = '#000';
-            R.fr(V.x, V.y, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-            R.fillStyle = '#f00';
-            fr(V.x, V.y, 50, 50);
-    
-            R.fillStyle = starsPattern;
-            R.fr(V.x, V.y, CANVAS_WIDTH, CANVAS_HEIGHT);
     
             this.particles.forEach(particles => particles.render());
             this.bodies.forEach(b => wrap(() => b.render()));
