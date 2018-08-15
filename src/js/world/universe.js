@@ -18,6 +18,7 @@ class Universe {
 
         this.bodies.push(new Planet(star, 400));
         this.bodies.push(new Planet(star, 800));
+        this.bodies.push(new Planet(star, 1200));
     }
 
     cycle(e) {
@@ -39,10 +40,11 @@ class Universe {
         });
 
         wrap(() => {
+            R.scale(V.scale, V.scale);
             R.translate(-V.x, -V.y);
     
-            this.particles.forEach(particles => particles.render());
             this.bodies.forEach(b => wrap(() => b.render()));
+            this.particles.forEach(particles => particles.render());
             this.ships.forEach(ship => ship.render());
         });
     }

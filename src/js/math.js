@@ -16,6 +16,10 @@ const dist = (a, b) => {
     return distP(a.x, a.y, b.x, b.y);
 };
 
+const sign = x => {
+    return x < 0 ? -1 : (x > 0 ? 1 : 0);
+};
+
 // Make Math global
 const m = Math;
 Object.getOwnPropertyNames(m).forEach(n => w[n] = w[n] || m[n]);
