@@ -1,12 +1,14 @@
 class Planet extends Body {
 
-    constructor(star) {
+    constructor(star, orbitRadius) {
         super();
         this.radius = 100;
 
+        this.rotationSpeed = rnd(PI / 4, PI / 12)
+
         this.orbitsAround = star;
         this.orbitPhase = rnd(0, PI * 2);
-        this.orbitRadius = 400;
+        this.orbitRadius = orbitRadius;
         this.orbitPhase = PI;
 
         this.angle = 0;
@@ -45,12 +47,16 @@ class Planet extends Body {
     }
 
     cycle(e) {
-        this.orbitPhase += e * PI / 12;
+        const velocity = 100; // px/s
+        const yearTime = 2 * PI * this.orbitRadius / velocity;
+        const angularVelocity = 2 * PI / yearTime;
+
+        this.orbitPhase += e * angularVelocity;
 
         this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
         this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
 
-        this.angle = -this.orbitPhase;
+        this.angle += this.rotationSpeed * e;
 
         this.stations.forEach(station => station.cycle(e));
     }
@@ -63,7 +69,7 @@ class Planet extends Body {
         }));
 
         // Draw the orbit
-        R.lineWidth = 5;
+        R.lineWidth = 10;
         R.strokeStyle = 'rgba(255,255,255,0.1)';
         beginPath();
         arc(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius, 0, PI * 2);
