@@ -29,7 +29,7 @@ class Universe {
         R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
         this.particles.forEach(particles => particles.render());
-        this.bodies.forEach(b => b.render());
+        this.bodies.forEach(b => wrap(() => b.render()));
         this.ships.forEach(ship => ship.render());
     }
 
