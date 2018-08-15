@@ -10,7 +10,10 @@ class Universe {
 
     render() {
         R.fillStyle = '#000';
-        R.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        R.fillStyle = starsPattern;
+        R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     }
 
 }

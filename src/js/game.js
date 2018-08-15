@@ -8,4 +8,9 @@ class Game {
         U = new Universe();
     }
 
+    cycle(e) {
+        U.cycle(e);
+        U.render();
+    }
+
 }
