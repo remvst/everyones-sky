@@ -11,7 +11,7 @@ class Star extends Body {
         R.fillStyle = '#ff0';
         beginPath();
 
-        R.shadowBlur = 20;
+        R.shadowBlur = 100;
         R.shadowColor = '#f00';
 
         for (let i = 0 ; i < 40 ; i++) {
