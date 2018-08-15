@@ -15,6 +15,11 @@ class Universe {
         star.x = CANVAS_WIDTH / 2 + 200;
         star.y = CANVAS_HEIGHT / 2 + 200;
         this.bodies.push(star);
+
+        const planet = new Planet();
+        planet.x = CANVAS_WIDTH / 2 - 200;
+        planet.y = CANVAS_HEIGHT / 2 - 200;
+        this.bodies.push(planet);
     }
 
     cycle(e) {
