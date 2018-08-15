@@ -7,6 +7,7 @@ class Planet extends Body {
         this.orbitsAround = star;
         this.orbitPhase = rnd(0, PI * 2);
         this.orbitRadius = 400;
+        this.orbitPhase = PI;
 
         this.angle = 0;
 
@@ -27,6 +28,17 @@ class Planet extends Body {
                 rgb = rgb.map(c => ~~limit(32, c + rnd(-PLANET_COLOR_CHANGE_FACTOR, PLANET_COLOR_CHANGE_FACTOR), 255));
             }
         });
+
+        this.stations = [];
+
+        const city = new City(this, 0);
+        this.stations.push(city);
+
+        const mortar = new Mortar(this, PI / 2);
+        this.stations.push(mortar);
+
+        const mountain = new Mountain(this, PI);
+        this.stations.push(mountain);
     }
 
     cycle(e) {
@@ -36,9 +48,17 @@ class Planet extends Body {
         this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
 
         this.angle = -this.orbitPhase;
+
+        this.stations.forEach(station => station.cycle(e));
     }
 
     render() {
+        this.stations.forEach(station => wrap(() => {
+            translate(station.x, station.y);
+            rotate(station.angleOnPlanet + this.angle);
+            station.render();
+        }));
+
         // Draw the orbit
         R.lineWidth = 5;
         R.strokeStyle = 'rgba(255,255,255,0.1)';

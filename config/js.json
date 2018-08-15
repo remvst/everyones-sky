@@ -13,6 +13,10 @@
     "src/js/world/body.js",
     "src/js/world/star.js",
     "src/js/world/planet.js",
+    "src/js/world/planetary-station.js",
+    "src/js/world/city.js",
+    "src/js/world/mortar.js",
+    "src/js/world/mountain.js",
 
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
