@@ -1,11 +1,12 @@
 [
     "src/js/math.js",
-    
+
     "src/js/graphics/create-canvas.js",
     "src/js/graphics/create-pattern.js",
     "src/js/graphics/assets.js",
 
     "src/js/world/universe.js",
+    "src/js/world/ship.js",
 
     "src/js/util/resizer.js",
 

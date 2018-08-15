@@ -2,6 +2,12 @@ class Universe {
 
     constructor() {
         this.ships = [];
+
+        // Player ship
+        this.playerShip = new Ship();
+        this.playerShip.x = CANVAS_WIDTH / 2;
+        this.playerShip.y = CANVAS_HEIGHT / 2;
+        this.ships.push(this.playerShip);
     }
 
     cycle(e) {
@@ -14,6 +20,8 @@ class Universe {
 
         R.fillStyle = starsPattern;
         R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+        this.ships.forEach(ship => ship.render());
     }
 
 }
