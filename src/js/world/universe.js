@@ -25,18 +25,26 @@ class Universe {
     cycle(e) {
         this.bodies.forEach(b => b.cycle(e));
         this.ships.forEach(ship => ship.cycle(e));
+        V.cycle(e);
     }
 
     render() {
-        R.fillStyle = '#000';
-        R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        wrap(() => {
+            R.translate(-V.x, -V.y);
 
-        R.fillStyle = starsPattern;
-        R.fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            R.fillStyle = '#000';
+            R.fr(V.x, V.y, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        this.particles.forEach(particles => particles.render());
-        this.bodies.forEach(b => wrap(() => b.render()));
-        this.ships.forEach(ship => ship.render());
+            R.fillStyle = '#f00';
+            fr(V.x, V.y, 50, 50);
+    
+            R.fillStyle = starsPattern;
+            R.fr(V.x, V.y, CANVAS_WIDTH, CANVAS_HEIGHT);
+    
+            this.particles.forEach(particles => particles.render());
+            this.bodies.forEach(b => wrap(() => b.render()));
+            this.ships.forEach(ship => ship.render());
+        });
     }
 
     remove(array, item) {

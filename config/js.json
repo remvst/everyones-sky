@@ -23,6 +23,7 @@
     "src/js/util/interp.js",
 
     "src/js/keyboard.js",
+    "src/js/camera.js",
     "src/js/game.js",
     "src/js/main.js"
 ]

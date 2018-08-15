@@ -6,6 +6,7 @@ class Game {
         }
 
         U = new Universe();
+        V = new Camera();
     }
 
     cycle(e) {
