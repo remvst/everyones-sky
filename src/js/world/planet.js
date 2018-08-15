@@ -1,8 +1,14 @@
 class Planet extends Body {
 
-    constructor() {
+    constructor(star) {
         super();
         this.radius = 100;
+
+        this.orbitsAround = star;
+        this.orbitPhase = rnd(0, PI * 2);
+        this.orbitRadius = 400;
+
+        this.angle = 0;
 
         this.asset = createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
@@ -23,11 +29,30 @@ class Planet extends Body {
         });
     }
 
+    cycle(e) {
+        this.orbitPhase += e * PI / 12;
+
+        this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
+        this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
+
+        this.angle = -this.orbitPhase;
+    }
+
     render() {
+        // Draw the orbit
+        R.lineWidth = 5;
+        R.strokeStyle = 'rgba(255,255,255,0.1)';
+        beginPath();
+        arc(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius, 0, PI * 2);
+        stroke();
+
         R.shadowBlur = 100;
         R.shadowColor = 'rgba(255,255,255,0.5)';
 
-        drawImage(this.asset, this.x - this.asset.width / 2, this.y - this.asset.height / 2);
+        translate(this.x, this.y);
+        rotate(this.angle);
+
+        drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
     }
 
 }

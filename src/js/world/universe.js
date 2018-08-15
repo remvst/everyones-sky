@@ -16,13 +16,14 @@ class Universe {
         star.y = CANVAS_HEIGHT / 2 + 200;
         this.bodies.push(star);
 
-        const planet = new Planet();
+        const planet = new Planet(star);
         planet.x = CANVAS_WIDTH / 2 - 200;
         planet.y = CANVAS_HEIGHT / 2 - 200;
         this.bodies.push(planet);
     }
 
     cycle(e) {
+        this.bodies.forEach(b => b.cycle(e));
         this.ships.forEach(ship => ship.cycle(e));
     }
 

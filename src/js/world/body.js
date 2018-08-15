@@ -5,6 +5,10 @@ class Body {
         this.radius = 0;
     }
 
+    cycle(e) {
+        
+    }
+
     // For reference only
     // render() {
 
