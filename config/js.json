@@ -7,10 +7,12 @@
 
     "src/js/world/universe.js",
     "src/js/world/ship.js",
+    "src/js/world/player-ship.js",
 
     "src/js/util/resizer.js",
 
     "src/js/globals.js",
+    "src/js/keyboard.js",
     "src/js/game.js",
     "src/js/main.js"
 ]

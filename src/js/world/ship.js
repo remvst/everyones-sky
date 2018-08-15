@@ -1,13 +1,13 @@
 class Ship {
 
     constructor() {
-        this.x = 0;
-        this.y = 0;
+        this.x = this.y = 0;
+        this.vX = this.vY = 0;
 
-        this.vX = 0;
-        this.vY = 0;
+        // Controls
+        // this.thrust = false; // don't need this line, only here for reference
+        this.rotationDirection = 0;
 
-        this.thrust = false; // TODO don't need this line
         this.angle = 0;
     }
 
@@ -16,15 +16,24 @@ class Ship {
         this.y += this.vY * e;
 
         if (this.thrust) {
-            this.vX += Math.cos(this.angle) * SHIP_ACCELERATION * e;
-            this.vY += Math.sin(this.angle) * SHIP_ACCELERATION * e;
+            this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
+            this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
         }
+
+        const angle = Math.atan2(this.vY, this.vX);
+        const velocity = Math.max(0, distP(0, 0, this.vX, this.vY) - SHIP_DECELERATION * e);
+
+        this.vX = velocity * cos(angle);
+        this.vY = velocity * sin(angle);
+
+        this.angle += e * this.rotationDirection * SHIP_ROTATION_SPEED;
     }
 
     render() {
         wrap(() => {
             R.fillStyle = '#080';
             translate(this.x, this.y);
+            rotate(this.angle);
             beginPath();
             moveTo(0, 0);
             lineTo(-5, 10);

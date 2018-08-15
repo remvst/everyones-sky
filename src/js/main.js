@@ -8,6 +8,10 @@ p.wrap = function(f) {
 };
 p.fr = p.fillRect;
 
+// Make Math global
+const m = Math;
+Object.getOwnPropertyNames(m).forEach(n => w[n] = w[n] || m[n]);
+
 onload = () => {
     onresize(); // trigger initial sizing pass
 

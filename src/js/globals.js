@@ -3,4 +3,4 @@ let C, // canvas
     G, // Game instance
     V, // Camera instance
     U // Universe instance
-    ;
+    w = window;

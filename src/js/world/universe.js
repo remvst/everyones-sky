@@ -4,7 +4,7 @@ class Universe {
         this.ships = [];
 
         // Player ship
-        this.playerShip = new Ship();
+        this.playerShip = new PlayerShip();
         this.playerShip.x = CANVAS_WIDTH / 2;
         this.playerShip.y = CANVAS_HEIGHT / 2;
         this.ships.push(this.playerShip);
