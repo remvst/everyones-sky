@@ -10,6 +10,8 @@ class Game {
 
     cycle(e) {
         U.cycle(e);
+        INTERPOLATIONS.slice().forEach(i => i.cycle(e));
+
         U.render();
     }
 

@@ -18,6 +18,13 @@ class Ship {
         if (this.thrust) {
             this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
             this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
+
+            particle(10, '#fff', [
+                ['alpha', 1, 0, 1],
+                ['size', rnd(2, 4), rnd(5, 10), 1],
+                ['x', this.x, this.x + rnd(-20, 20), 1],
+                ['y', this.y, this.y + rnd(-20, 20), 1]
+            ]);
         }
 
         const angle = Math.atan2(this.vY, this.vX);
@@ -35,10 +42,10 @@ class Ship {
             translate(this.x, this.y);
             rotate(this.angle);
             beginPath();
-            moveTo(0, 0);
-            lineTo(-5, 10);
-            lineTo(25, 0);
-            lineTo(-5, -10);
+            moveTo(-5, 0);
+            lineTo(-10, 10);
+            lineTo(20, 0);
+            lineTo(-10, -10);
             fill();
         });
     }
