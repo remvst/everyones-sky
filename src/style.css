@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+}
+
+body, html{
+    height: 100%;
+}
+
+body{
+    background-color: #000;
+    width: 100%;
+}
+
+#t{
+    display: table;
+}
+
+#c{
+    display: table-cell;
+    vertical-align: middle
+}
+
+#cc{
+    margin: auto;
+    outline: 1px solid white;
+}
+
+#t, canvas{
+    width: 100%;
+    height: 100%;
+}
+
+canvas{
+    display: block;
+}
