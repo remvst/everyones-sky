@@ -1,4 +1,5 @@
 [
+    "src/js/globals.js",
     "src/js/math.js",
 
     "src/js/graphics/create-canvas.js",
@@ -9,11 +10,12 @@
     "src/js/world/universe.js",
     "src/js/world/ship.js",
     "src/js/world/player-ship.js",
+    "src/js/world/body.js",
+    "src/js/world/star.js",
 
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
 
-    "src/js/globals.js",
     "src/js/keyboard.js",
     "src/js/game.js",
     "src/js/main.js"

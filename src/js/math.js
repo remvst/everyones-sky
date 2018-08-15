@@ -5,13 +5,17 @@ const limit = (a, b, c) => {
 };
 
 const rnd = (min, max) => {
-    return Math.random() * (max - min) + min;
+    return random() * (max - min) + min;
 };
 
 const distP = (x1, y1, x2, y2) => {
-    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 };
 
 const dist = (a, b) => {
     return distP(a.x, a.y, b.x, b.y);
 };
+
+// Make Math global
+const m = Math;
+Object.getOwnPropertyNames(m).forEach(n => w[n] = w[n] || m[n]);
