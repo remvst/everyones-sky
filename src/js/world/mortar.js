@@ -1,7 +1,7 @@
 class Mortar extends PlanetaryStation {
 
     render() {
-        R.fillStyle = '#fff';
+        R.fillStyle = '#f00';
 
         beginPath();
         arc(0, 0, 10, 0, PI * 2);

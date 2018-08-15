@@ -39,6 +39,9 @@ class Planet extends Body {
 
         const mountain = new Mountain(this, PI);
         this.stations.push(mountain);
+
+        const factory = new Factory(this, -PI / 2);
+        this.stations.push(factory);
     }
 
     cycle(e) {

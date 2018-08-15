@@ -17,6 +17,7 @@
     "src/js/world/city.js",
     "src/js/world/mortar.js",
     "src/js/world/mountain.js",
+    "src/js/world/factory.js",
 
     "src/js/util/resizer.js",
     "src/js/util/interp.js",

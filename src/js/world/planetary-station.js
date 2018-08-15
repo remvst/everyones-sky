@@ -6,8 +6,8 @@ class PlanetaryStation {
     }
 
     cycle(e) {
-        this.x = this.planet.x + this.planet.radius * cos(this.angleOnPlanet + this.planet.angle);
-        this.y = this.planet.y + this.planet.radius * sin(this.angleOnPlanet + this.planet.angle);
+        this.x = this.planet.x + (this.planet.radius - 2) * cos(this.angleOnPlanet + this.planet.angle);
+        this.y = this.planet.y + (this.planet.radius - 2) * sin(this.angleOnPlanet + this.planet.angle);
     }
 
     // For reference only

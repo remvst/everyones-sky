@@ -1,7 +1,7 @@
 class Mountain extends PlanetaryStation {
 
     render() {
-        R.fillStyle = '#fff';
+        R.fillStyle = '#f00';
 
         // scale(4, 4);
 
