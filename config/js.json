@@ -12,6 +12,7 @@
     "src/js/world/player-ship.js",
     "src/js/world/body.js",
     "src/js/world/star.js",
+    "src/js/world/asteroid.js",
     "src/js/world/planet.js",
     "src/js/world/planetary-station.js",
     "src/js/world/city.js",
