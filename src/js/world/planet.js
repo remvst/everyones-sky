@@ -9,7 +9,6 @@ class Planet extends Body {
         this.orbitsAround = star;
         this.orbitPhase = rnd(0, PI * 2);
         this.orbitRadius = orbitRadius;
-        this.orbitPhase = PI;
 
         this.resources = 0;
 

@@ -25,9 +25,9 @@ class Laser {
         });
 
         const d = 0.3;
-        particle(10, 'cyan', [
+        particle(0, 'cyan', [
             ['alpha', 1, 0, d],
-            ['size', 2, rnd(2, 5), d],
+            ['size', 4, rnd(4, 6), d],
             ['x', this.x, this.x + rnd(-3, 3), d],
             ['y', this.y, this.y + rnd(-3, 3), d]
         ]);
@@ -39,7 +39,7 @@ class Laser {
             rotate(this.angle);
     
             R.fillStyle = 'cyan';
-            fr(0, -1, 4, 2);
+            fr(0, -2, 8, 4);
         });
     }
 

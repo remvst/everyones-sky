@@ -80,8 +80,8 @@ class Universe {
         R.fillStyle = '#000';
         fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        this.renderBackground(starsPattern2, 0.8);
-        this.renderBackground(starsPattern1, 0.4);
+        this.renderBackground(starsPattern2, 0.2);
+        this.renderBackground(starsPattern1, 0.1);
 
         wrap(() => {
             // translate(this.playerShip.x, this.playerShip.y);
@@ -127,10 +127,10 @@ class Universe {
     }
 
     generateUniverse() {
-        const maxOrbitsGap = UNIVERSE_GENERATE_PLANET_MAX_RADIUS * 2 + UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
+        const maxOrbitsGap = UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
         const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * maxOrbitsGap + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
 
-        for (let i = 0 ; i < 5 ; i++) {
+        for (let i = 0 ; i < 1 ; i++) {
             const radius = i * UNIVERSE_GENERATE_RADIUS_STEP;
             const circumference = 2 * PI * radius;
             const phase = rnd(0, PI * 2);
@@ -145,12 +145,12 @@ class Universe {
                 this.bodies.push(star);
 
                 const planets = rnd(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
-                let orbitRadius = star.radius + rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+                let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
                 for (let j = 0 ; j < planets ; j++) {
                     const planet = new Planet(star, orbitRadius, rnd(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS));
                     this.bodies.push(planet);
 
-                    orbitRadius += planet.radius + rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+                    orbitRadius += rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
                 }
             }
         }

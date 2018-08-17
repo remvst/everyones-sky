@@ -13,16 +13,13 @@ class Camera {
             minDistance = Math.min(minDistance, dist(body, U.playerShip));
         });
 
-        // console.log(minDistance);
-
         if (minDistance > BODY_UNZOOM_THRESHOLD) {
-            this.targetScale = 1;
+            this.targetScale = 0.5;
         } else if (minDistance < BODY_ZOOM_THRESHOLD) {
-            this.targetScale = 1.5;
+            this.targetScale = 1;
         }
 
-        const diff = Math.min(1, Math.abs(this.scale - this.targetScale)) * e;
-        this.scale += diff * sign(this.targetScale - this.scale);
+        this.scale += limit(-1 * e, this.targetScale - this.scale, 1 * e);
 
         this.width = (CANVAS_WIDTH / this.scale);
         this.height = (CANVAS_HEIGHT / this.scale);
