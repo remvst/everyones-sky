@@ -6,12 +6,16 @@ class Body {
     }
 
     cycle(e) {
-        
+
     }
 
     // For reference only
     // render() {
 
     // }
+
+    damage() {
+        console.log('damage, body');
+    }
 
 }

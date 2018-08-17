@@ -9,6 +9,8 @@ class Ship {
         this.rotationDirection = 0;
 
         this.angle = 0;
+
+        this.radius = 20;
     }
 
     cycle(e) {
@@ -70,8 +72,11 @@ class Ship {
 
         this.lastShot = G.clock;
 
-        const projectile = new Laser(this.x, this.y, this.angle);
-        U.projectiles.push(projectile);
+        U.projectiles.push(new Laser(this, this.x, this.y, this.angle));
+    }
+
+    damage() {
+        console.log('damage ship');
     }
 
 }

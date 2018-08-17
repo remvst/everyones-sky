@@ -71,6 +71,15 @@ class Universe {
             this.particles.forEach(particles => particles.render());
             this.projectiles.forEach(projectile => projectile.render());
             this.ships.forEach(ship => ship.render());
+
+            if (DEBUG) {
+                this.forEachTarget(t => {
+                    R.fillStyle = '#f00';
+                    beginPath();
+                    arc(t.x, t.y, t.radius, 0, PI * 2);
+                    stroke();
+                });
+            }
         });
     }
 
@@ -79,6 +88,12 @@ class Universe {
         if (index >= 0) {
             array.splice(index, 1);
         }
+    }
+
+    forEachTarget(fn) {
+        this.ships.forEach(fn);
+        this.bodies.forEach(fn);
+        this.bodies.forEach(p => (p.stations || []).forEach(fn));
     }
 
 }

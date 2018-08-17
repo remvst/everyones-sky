@@ -3,6 +3,7 @@ class PlanetaryStation {
     constructor(planet, angleOnPlanet) {
         this.planet = planet;
         this.angleOnPlanet = angleOnPlanet;
+        this.radius = 15;
     }
 
     cycle(e) {
@@ -14,5 +15,9 @@ class PlanetaryStation {
     // render() {
 
     // }
+
+    damage() {
+        console.log('hit!');
+    }
 
 }

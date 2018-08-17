@@ -1,6 +1,7 @@
 class Laser {
 
-    constructor(x, y, angle) {
+    constructor(owner, x, y, angle) {
+        this.owner = owner;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -14,6 +15,14 @@ class Laser {
         if (!V.isVisible(this.x, this.y)) {
             U.remove(U.projectiles, this);
         }
+
+        // Collisions
+        U.forEachTarget(target => {
+            if (target !== this.owner && dist(target, this) < target.radius) {
+                U.remove(U.projectiles, this);
+                target.damage(this);
+            }
+        });
 
         const d = 0.3;
         particle(10, 'cyan', [
