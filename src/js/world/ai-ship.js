@@ -1,10 +1,5 @@
 class AIShip extends Ship {
 
-    constructor(planet) {
-        super();
-        this.planet = planet;
-    }
-
     canShootEnemy() {
         if (!this.enemy) {
             return false;

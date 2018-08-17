@@ -1,6 +1,8 @@
 class Ship {
 
-    constructor() {
+    constructor(planet) {
+        this.planet = planet;
+
         this.x = this.y = 0;
         this.vX = this.vY = 0;
 
@@ -54,8 +56,9 @@ class Ship {
             fill();
         });
 
+        const damageFactor = 1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1;
         wrap(() => {
-            R.fillStyle = '#080';
+            R.fillStyle = damageFactor > 0 ? '#f00' : '#fff';
             translate(this.x, this.y);
             rotate(this.angle);
             beginPath();

@@ -14,4 +14,8 @@ class HealthItem extends Item {
         fill();
     }
 
+    pickUp(ship) {
+        ship.health = min(1, ship.health + 0.05);
+    }
+
 }

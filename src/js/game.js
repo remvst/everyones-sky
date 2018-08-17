@@ -44,7 +44,7 @@ class Game {
             fr(100, 50 - 10, 200, 10);
 
             R.fillStyle = '#fff';
-            fr(100, 50 - 10, 100, 10);
+            fr(100, 50 - 10, max(2, U.playerShip.health * 200), 10);
             fr(300, 50 - 10, 2, 10);
 
             wrap(() => {
@@ -65,7 +65,7 @@ class Game {
             fr(100, 80 - 10, 200, 10);
 
             R.fillStyle = '#fff';
-            fr(100, 80 - 10, 80, 10);
+            fr(100, 80 - 10, max(2, 200 * U.playerShip.planet.resources / MAX_PLANET_RESOURCES), 10);
             fr(300, 80 - 10, 2, 10);
         });
     }

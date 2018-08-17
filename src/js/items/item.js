@@ -6,8 +6,18 @@ class Item {
     }
 
     cycle(e) {
-        const distance = dist(this, U.playerShip);
+        let closestShip = null;
+        U.ships.forEach(ship => {
+            if (!closestShip || dist(ship, this) < dist(closestShip, this)) {
+                closestShip = ship;
+            }
+        });
 
+        if (!closestShip) {
+            return;
+        }
+
+        const distance = dist(this, U.playerShip);
         if (distance < ITEM_MAGNETIZED_RADIUS) {
             const angle = atan2(U.playerShip.y - this.y, U.playerShip.x - this.x);
             this.x += cos(angle) * min(distance, ITEM_MAGNETIZED_SPEED * e);
@@ -16,6 +26,7 @@ class Item {
 
         if (distance < ITEM_PICKUP_RADIUS) {
             U.remove(U.items, this);
+            this.pickUp(U.playerShip);
         }
     }
 
@@ -27,6 +38,11 @@ class Item {
             this.renderGraphic();
         });
     }
+
+    // For reference only
+    // pickUp(ship) {
+
+    // }
 
     // For reference only
     // renderGraphic() {

@@ -12,8 +12,8 @@ class Body {
             if (overlap > 0) {
                 // Push the ship away
                 const angle = atan2(ship.y - this.y, ship.x - this.x);
-                ship.x = this.x + cos(angle) * (minDist);
-                ship.y = this.y + sin(angle) * (minDist);
+                ship.x = this.x + cos(angle) * (minDist + 5);
+                ship.y = this.y + sin(angle) * (minDist + 5);
                 ship.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
                 ship.vY += sin(angle) * (overlap + SHIP_DECELERATION * 2);
                 

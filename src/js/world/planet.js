@@ -11,6 +11,8 @@ class Planet extends Body {
         this.orbitRadius = orbitRadius;
         this.orbitPhase = PI;
 
+        this.resources = 0;
+
         this.angle = 0;
 
         this.asset = createCanvas(this.radius * 2, this.radius * 2, r => {
