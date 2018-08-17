@@ -8,6 +8,10 @@ class Star extends Body {
     }
 
     render() {
+        if (!V.isVisible(this.x, this.y, this.radius)) {
+            return;
+        }
+
         R.fillStyle = '#ff0';
         beginPath();
 

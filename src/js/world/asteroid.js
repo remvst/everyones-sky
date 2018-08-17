@@ -45,6 +45,10 @@ class Asteroid extends Body {
     }
 
     render() {
+        if (!V.isVisible(this.x, this.y, this.radius)) {
+            return;
+        }
+        
         translate(this.x, this.y);
         rotate(this.rotation);
 

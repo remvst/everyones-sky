@@ -62,6 +62,10 @@ class Planet extends Body {
     }
 
     render() {
+        if (!V.isVisible(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius + this.radius + 50)) {
+            return;
+        }
+
         this.stations.forEach(station => wrap(() => {
             translate(station.x, station.y);
             rotate(station.angleOnPlanet + this.angle);
