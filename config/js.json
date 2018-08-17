@@ -21,6 +21,8 @@
     "src/js/world/mountain.js",
     "src/js/world/factory.js",
 
+    "src/js/projectiles/laser.js",
+
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
 

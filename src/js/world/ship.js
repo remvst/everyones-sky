@@ -63,4 +63,15 @@ class Ship {
         });
     }
 
+    shoot() {
+        if ((G.clock - (this.lastShot || 0)) < SHIP_SHOT_INTERVAL) {
+            return;
+        }
+
+        this.lastShot = G.clock;
+
+        const projectile = new Laser(this.x, this.y, this.angle);
+        U.projectiles.push(projectile);
+    }
+
 }

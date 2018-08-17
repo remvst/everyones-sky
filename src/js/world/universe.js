@@ -4,6 +4,7 @@ class Universe {
         this.ships = [];
         this.bodies = [];
         this.particles = [];
+        this.projectiles = [];
 
         // Player ship
         this.playerShip = new PlayerShip();
@@ -34,6 +35,7 @@ class Universe {
     cycle(e) {
         this.bodies.forEach(b => b.cycle(e));
         this.ships.forEach(ship => ship.cycle(e));
+        this.projectiles.forEach(projectile => projectile.cycle(e));
         V.cycle(e);
     }
 
@@ -60,6 +62,7 @@ class Universe {
     
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
+            this.projectiles.forEach(projectile => projectile.render());
             this.ships.forEach(ship => ship.render());
         });
     }

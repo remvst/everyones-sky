@@ -7,6 +7,8 @@ class PlayerShip extends Ship {
         if (w.down[37]) this.rotationDirection = -1;
         if (w.down[39]) this.rotationDirection = 1;
 
+        if (w.down[32]) this.shoot();
+
         super.cycle(e);
     }
 
