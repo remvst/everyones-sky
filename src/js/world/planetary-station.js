@@ -9,9 +9,13 @@ class PlanetaryStation {
         this.lastDamage = 0;
     }
 
+    get globalAngle() {
+        return this.angleOnPlanet + this.planet.angle;
+    }
+
     cycle(e) {
-        this.x = this.planet.x + (this.planet.radius - 2) * cos(this.angleOnPlanet + this.planet.angle);
-        this.y = this.planet.y + (this.planet.radius - 2) * sin(this.angleOnPlanet + this.planet.angle);
+        this.x = this.planet.x + (this.planet.radius - 2) * cos(this.globalAngle);
+        this.y = this.planet.y + (this.planet.radius - 2) * sin(this.globalAngle);
     }
 
     render() {

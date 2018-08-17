@@ -4,6 +4,10 @@ const limit = (a, b, c) => {
     return b;
 };
 
+const between = (a, b, c) => {
+    return b >= a && b <= c;
+};
+
 const rnd = (min, max) => {
     return random() * (max - min) + min;
 };

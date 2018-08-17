@@ -20,23 +20,23 @@ class Universe {
         this.bodies.push(new Planet(star, 400));
         this.bodies.push(new Planet(star, 800));
 
-        const p = new Planet(star, 1200);
-        this.bodies.push(p);
+        // const p = new Planet(star, 1200);
+        // this.bodies.push(p);
 
-        const ai = new AIShip(p);
-        // ai.enemy = this.playerShip;
-        this.ships.push(ai);
-        this.ai = ai;
+        // const ai = new AIShip(p);
+        // // ai.enemy = this.playerShip;
+        // this.ships.push(ai);
+        // this.ai = ai;
 
-        const asteroid = new Asteroid();
-        asteroid.x = star.x + 100;
-        asteroid.y = star.y + 100;
-        this.bodies.push(asteroid);
+        // const asteroid = new Asteroid();
+        // asteroid.x = star.x + 100;
+        // asteroid.y = star.y + 100;
+        // this.bodies.push(asteroid);
 
-        const blackHole = new BlackHole();
-        blackHole.x = this.playerShip.x + 400;
-        blackHole.y = this.playerShip.y + 400;
-        this.bodies.push(blackHole);
+        // const blackHole = new BlackHole();
+        // blackHole.x = this.playerShip.x + 400;
+        // blackHole.y = this.playerShip.y + 400;
+        // this.bodies.push(blackHole);
     }
 
     cycle(e) {
