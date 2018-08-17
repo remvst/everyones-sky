@@ -12,4 +12,10 @@ class PlayerShip extends Ship {
         super.cycle(e);
     }
 
+    damage(source) {
+        super.damage(source);
+
+        V.shake(0.5);
+    }
+
 }

@@ -76,7 +76,7 @@ class Ship {
     }
 
     damage() {
-        console.log('damage ship');
+        
     }
 
 }

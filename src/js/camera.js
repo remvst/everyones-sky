@@ -29,6 +29,12 @@ class Camera {
 
         this.x = U.playerShip.x - this.width / 2;
         this.y = U.playerShip.y - this.height / 2;
+
+        this.shakeTime -= e;
+        if ((this.shakeTime -= e) > 0) {
+            this.x += rnd(-10, 10);
+            this.y += rnd(-10, 10);
+        }
     }
 
     isVisible(x, y, radius = 0) {
@@ -36,6 +42,10 @@ class Camera {
             y + radius > this.y &&
             x - radius < this.x + this.width &&
             y - radius < this.y + this.height;
+    }
+
+    shake(duration) {
+        this.shakeTime = max(this.shakeTime || 0, duration);
     }
 
 }
