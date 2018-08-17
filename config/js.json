@@ -24,6 +24,10 @@
     "src/js/world/mountain.js",
     "src/js/world/factory.js",
 
+    "src/js/items/item.js",
+    "src/js/items/health-item.js",
+    "src/js/items/resource-item.js",
+
     "src/js/projectiles/laser.js",
 
     "src/js/util/resizer.js",

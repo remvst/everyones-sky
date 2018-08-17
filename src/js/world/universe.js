@@ -5,6 +5,7 @@ class Universe {
         this.bodies = [];
         this.particles = [];
         this.projectiles = [];
+        this.items = [];
 
         // Player ship
         this.playerShip = new PlayerShip();
@@ -37,11 +38,19 @@ class Universe {
         // blackHole.x = this.playerShip.x + 400;
         // blackHole.y = this.playerShip.y + 400;
         // this.bodies.push(blackHole);
+
+        for (let i = 0 ; i < 10 ; i++) {
+            const item = new ResourceItem();
+            item.x = this.playerShip.x + 200 + rnd(-50, 50);
+            item.y = this.playerShip.y + rnd(-50, 50);
+            this.items.push(item);
+        }
     }
 
     cycle(e) {
         this.bodies.forEach(b => b.cycle(e));
         this.ships.forEach(ship => ship.cycle(e));
+        this.items.forEach(item => item.cycle(e));
         this.projectiles.forEach(projectile => projectile.cycle(e));
         V.cycle(e);
     }
@@ -79,6 +88,7 @@ class Universe {
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
             this.projectiles.forEach(projectile => projectile.render());
+            this.items.forEach(item => item.render());
             this.ships.forEach(ship => ship.render());
 
             if (DEBUG) {

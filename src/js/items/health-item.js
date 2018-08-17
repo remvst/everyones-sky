@@ -1,0 +1,17 @@
+class HealthItem extends Item {
+
+    renderGraphic() {
+        scale(0.3, 0.3);
+
+        R.fillStyle = '#fff';
+        beginPath();
+        moveTo(0, -15)
+        lineTo(14, -10);
+        lineTo(10, 10);
+        lineTo(0, 18);
+        lineTo(-10, 10);
+        lineTo(-14, -10);
+        fill();
+    }
+
+}
