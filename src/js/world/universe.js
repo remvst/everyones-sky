@@ -45,6 +45,13 @@ class Universe {
             item.y = this.playerShip.y + rnd(-50, 50);
             this.items.push(item);
         }
+
+        for (let i = 0 ; i < 10 ; i++) {
+            const asteroid = new Asteroid();
+            asteroid.x = this.playerShip.x + 500 + rnd(-200, 200);
+            asteroid.y = this.playerShip.y + rnd(-200, 200);
+            this.bodies.push(asteroid);
+        }
     }
 
     cycle(e) {

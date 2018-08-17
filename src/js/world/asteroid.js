@@ -1,12 +1,14 @@
 class Asteroid extends Body {
 
-    constructor() {
+    constructor(radius = 25, speed) {
         super();
-        this.radius = 25;
+        this.radius = radius;
+
+        this.health = 1;
 
         this.rotation = 0;
         this.angle = random() * PI * 2;
-        this.speed = rnd(100, 200);
+        this.speed = speed || rnd(100, 200);
         this.rotationSpeed = rnd(PI / 2, PI / 4) * pick([-1, 1]);
 
         this.asset = createCanvas(this.radius * 2, this.radius * 2, r => {
@@ -24,14 +26,14 @@ class Asteroid extends Body {
             
             r.fill();
 
-            r.globalCompositeOperation = 'source-atop';
+            r.globalCompositeOperation = 'destination-out';
             r.fillStyle = '#000';
             r.lineWidth = 2;
             for (let i = 0 ; i < 10 ; i++) {
                 const a = rnd(0, PI * 2);
                 const d = rnd(0, this.radius * 1.5);
                 r.beginPath();
-                r.arc(cos(a) * d, sin(a) * d, rnd(2, 5), 0, PI * 2, 0);
+                r.arc(cos(a) * d, sin(a) * d, rnd(this.radius * 2 / 25, this.radius * 5 / 25), 0, PI * 2, 0);
                 r.fill();
             }
         });
@@ -51,10 +53,58 @@ class Asteroid extends Body {
             return;
         }
 
-        translate(this.x, this.y);
-        rotate(this.rotation);
+        wrap(() => {
+            translate(this.x, this.y);
+            rotate(this.rotation);
+    
+            drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
+        });
+    }
+    
+    damage(projectile) {
+        particle(10, pick(['#aaa', '#fff', '#ccc']), [
+            ['alpha', 1, 0, 1],
+            ['size', rnd(2, 4), rnd(5, 10), 1],
+            ['x', projectile.x, projectile.x + rnd(-20, 20), 1],
+            ['y', projectile.y, projectile.y + rnd(-20, 20), 1]
+        ]);
 
-        drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
+        this.lastDamage = G.clock;
+
+        const item = new ResourceItem();
+        U.items.push(item);
+        interp(item, 'x', this.x, this.x + cos(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
+        interp(item, 'y', this.y, this.y + sin(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
+
+        if ((this.health -= 0.1) <= 0) {
+            this.explode();
+        }
+    }
+
+    explode() {
+        for (let i = 0 ; i < 50 ; i++) {
+            const angle = random() * PI * 2;
+            const distanceStart = random() * this.radius;
+            const distance = random() * this.radius;
+
+            particle(10, pick(['#aaa', '#fff', '#ccc']), [
+                ['alpha', 1, 0, 1],
+                ['size', rnd(2, 4), rnd(5, 10), 1],
+                ['x', this.x + cos(angle) * distanceStart, this.x + cos(angle) * distanceStart + rnd(-20, 20), 1],
+                ['y', this.y + sin(angle) * distanceStart, this.y + sin(angle) * distanceStart + rnd(-20, 20), 1]
+            ]);
+        }
+
+        U.remove(U.bodies, this);
+
+        if (this.radius > 15) {
+            for (let i = 0 ; i < 2 ; i++) {
+                const smallerAsteroid = new Asteroid(this.radius / 2, this.speed / 4);
+                smallerAsteroid.x = this.x + rnd(-this.radius, this.radius);
+                smallerAsteroid.y = this.y + rnd(-this.radius, this.radius);
+                U.bodies.push(smallerAsteroid);
+            }
+        }
     }
 
 }
