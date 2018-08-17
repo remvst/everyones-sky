@@ -7,8 +7,13 @@ class Asteroid extends Body {
         this.health = 1;
 
         this.rotation = 0;
-        this.angle = random() * PI * 2;
-        this.speed = speed || rnd(100, 200);
+
+        speed = speed || rnd(100, 200);
+
+        const angle = random() * PI * 2;
+        this.vX = cos(angle) * speed;
+        this.vY = sin(angle) * speed;
+
         this.rotationSpeed = rnd(PI / 2, PI / 4) * pick([-1, 1]);
 
         this.asset = createCanvas(this.radius * 2, this.radius * 2, r => {
@@ -39,13 +44,39 @@ class Asteroid extends Body {
         });
     }
 
+    get speed() {
+        return distP(0, 0, this.vX, this.vY);
+    }
+
     cycle(e) {
         super.cycle(e);
 
-        this.x += this.speed * cos(this.angle) * e;
-        this.y += this.speed * sin(this.angle) * e;
+        this.x += this.vX * e;
+        this.y += this.vY * e;
 
         this.rotation += this.rotationSpeed * e;
+
+        U.bodies.forEach(body => {
+            if (body === this) {
+                return;
+            }
+
+            const minDist = this.radius + body.radius;
+            const overlap = minDist - dist(body, this);
+            if (overlap > 0) {
+                // Push the other body away
+                const angle = atan2(this.y - body.y, this.x - body.x);
+                this.x = body.x + cos(angle) * (minDist);
+                this.y = body.y + sin(angle) * (minDist);
+
+                // Using a ship constant LOL REMI WTF
+                this.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
+                this.vY += sin(angle) * (overlap + SHIP_DECELERATION * 2);
+
+                this.damage(body);
+                body.damage(this);
+            }
+        });
     }
 
     render() {
