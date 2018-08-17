@@ -1,8 +1,8 @@
 class Camera {
 
     constructor() {
-        this.x = 0;
-        this.y = 0;
+        this.x = this.y = 0;
+        this.shakeX = this.shakeY = 0;
 
         this.scale = this.targetScale = 1;
     }
@@ -27,14 +27,13 @@ class Camera {
         this.width = (CANVAS_WIDTH / this.scale);
         this.height = (CANVAS_HEIGHT / this.scale);
 
-        this.x = U.playerShip.x - this.width / 2;
-        this.y = U.playerShip.y - this.height / 2;
-
-        this.shakeTime -= e;
         if ((this.shakeTime -= e) > 0) {
-            this.x += rnd(-10, 10);
-            this.y += rnd(-10, 10);
+            this.shakeX = rnd(-10, 10);
+            this.shakeY = rnd(-10, 10);
         }
+
+        this.x = U.playerShip.x - this.width / 2 + this.shakeX;
+        this.y = U.playerShip.y - this.height / 2 + this.shakeY;
     }
 
     isVisible(x, y, radius = 0) {
