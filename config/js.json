@@ -1,6 +1,7 @@
 [
     "src/js/globals.js",
     "src/js/math.js",
+    "src/js/canvas-additions.js",
 
     "src/js/graphics/create-canvas.js",
     "src/js/graphics/create-pattern.js",

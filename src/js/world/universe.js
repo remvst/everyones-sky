@@ -64,22 +64,22 @@ class Universe {
         V.cycle(e);
     }
 
+    renderBackground(pattern, factor) {
+        wrap(() => {
+            const x = (V.width / 2 + V.x) * factor;
+            const y = (V.height / 2 + V.y) * factor;
+            translate(-x, -y);
+            R.fillStyle = pattern;
+            fr(x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
+        });
+    }
+
     render() {
         R.fillStyle = '#000';
         fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        wrap(() => {
-            translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-            scale(V.scale, V.scale);
-            translate(-CANVAS_WIDTH / 2, -CANVAS_HEIGHT / 2);
-
-            const x = V.x * 0.8;
-            const y = V.y * 0.8;
-            // scale(V.scale, V.scale);
-            translate(-x, -y);
-            R.fillStyle = starsPattern;
-            fr(x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
-        });
+        this.renderBackground(starsPattern2, 0.8);
+        this.renderBackground(starsPattern1, 0.4);
 
         wrap(() => {
             // translate(this.playerShip.x, this.playerShip.y);
