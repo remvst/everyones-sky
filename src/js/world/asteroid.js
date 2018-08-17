@@ -115,14 +115,13 @@ class Asteroid extends Body {
     explode() {
         for (let i = 0 ; i < 50 ; i++) {
             const angle = random() * PI * 2;
-            const distanceStart = random() * this.radius;
             const distance = random() * this.radius;
 
             particle(10, pick(['#aaa', '#fff', '#ccc']), [
                 ['alpha', 1, 0, 1],
                 ['size', rnd(2, 4), rnd(5, 10), 1],
-                ['x', this.x + cos(angle) * distanceStart, this.x + cos(angle) * distanceStart + rnd(-20, 20), 1],
-                ['y', this.y + sin(angle) * distanceStart, this.y + sin(angle) * distanceStart + rnd(-20, 20), 1]
+                ['x', this.x + cos(angle) * distance, this.x + cos(angle) * distance + rnd(-20, 20), 1],
+                ['y', this.y + sin(angle) * distance, this.y + sin(angle) * distance + rnd(-20, 20), 1]
             ]);
         }
 
