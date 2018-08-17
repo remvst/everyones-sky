@@ -19,7 +19,7 @@ class Camera {
             this.targetScale = 1;
         }
 
-        this.scale += limit(-1 * e, this.targetScale - this.scale, 1 * e);
+        this.scale += limit(-0.5 * e, this.targetScale - this.scale, 0.5 * e);
 
         this.width = (CANVAS_WIDTH / this.scale);
         this.height = (CANVAS_HEIGHT / this.scale);

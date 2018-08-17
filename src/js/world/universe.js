@@ -130,8 +130,8 @@ class Universe {
         const maxOrbitsGap = UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
         const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * maxOrbitsGap + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
 
-        for (let i = 0 ; i < 1 ; i++) {
-            const radius = i * UNIVERSE_GENERATE_RADIUS_STEP;
+        for (let i = 0 ; i < 3 ; i++) {
+            const radius = i * maxSystemRadius;
             const circumference = 2 * PI * radius;
             const phase = rnd(0, PI * 2);
 
