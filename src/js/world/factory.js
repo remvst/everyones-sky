@@ -1,10 +1,6 @@
 class Factory extends PlanetaryStation {
 
-    render() {
-        R.fillStyle = '#f00';
-
-        // scale(4, 4);
-
+    renderGraphic() {
         beginPath();
         moveTo(0, -10);
         lineTo(10, -10);
@@ -15,8 +11,6 @@ class Factory extends PlanetaryStation {
         lineTo(18, 9);
         lineTo(0, 9);
         fill();
-
-        // fr(0, -2, 20, 4);
     }
 
 }

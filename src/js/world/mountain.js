@@ -1,10 +1,6 @@
 class Mountain extends PlanetaryStation {
 
-    render() {
-        R.fillStyle = '#f00';
-
-        // scale(4, 4);
-
+    renderGraphic() {
         beginPath();
         moveTo(0, -10);
         lineTo(10, -6);
@@ -14,8 +10,6 @@ class Mountain extends PlanetaryStation {
         lineTo(8, 10);
         lineTo(0, 14);
         fill();
-
-        // fr(0, -2, 20, 4);
     }
 
 }

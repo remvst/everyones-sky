@@ -109,4 +109,15 @@ class Planet extends Body {
         drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
     }
 
+    damage(projectile) {
+        // TODO maybe super?
+
+        particle(10, '#fff', [
+            ['alpha', 1, 0, 1],
+            ['size', rnd(2, 4), rnd(5, 10), 1],
+            ['x', projectile.x, projectile.x + rnd(-20, 20), 1],
+            ['y', projectile.y, projectile.y + rnd(-20, 20), 1]
+        ]);
+    }
+
 }
