@@ -4,7 +4,7 @@ class Planet extends Body {
         super();
         this.radius = 100;
 
-        this.rotationSpeed = rnd(PI / 4, PI / 12)
+        this.rotationSpeed = rnd(PI / 8, PI / 12)
 
         this.orbitsAround = star;
         this.orbitPhase = rnd(0, PI * 2);
@@ -49,7 +49,7 @@ class Planet extends Body {
     cycle(e) {
         super.cycle(e);
 
-        const velocity = 100; // px/s
+        const velocity = 25; // px/s
         const yearTime = 2 * PI * this.orbitRadius / velocity;
         const angularVelocity = 2 * PI / yearTime;
 
@@ -81,11 +81,30 @@ class Planet extends Body {
         arc(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius, 0, PI * 2);
         stroke();
 
-        R.shadowBlur = 100;
-        R.shadowColor = 'rgba(255,255,255,0.5)';
+        if (DEBUG) {
+            const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
+
+            R.lineWidth = 2;
+            pts.forEach(pt => {
+                R.fillStyle = '#0f0';
+                fillRect(pt.x - 2, pt.y - 2, 4, 4);
+
+                pt.neighbors.forEach(neighbor => {
+                    beginPath();
+                    R.strokeStyle = '#0f0';
+                    moveTo(pt.x, pt.y);
+                    lineTo(neighbor.x, neighbor.y);
+                    stroke();
+                });
+            });
+        }
+
 
         translate(this.x, this.y);
         rotate(this.angle);
+
+        R.shadowBlur = 100;
+        R.shadowColor = 'rgba(255,255,255,0.5)';
 
         drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
     }

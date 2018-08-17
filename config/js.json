@@ -7,6 +7,8 @@
     "src/js/graphics/assets.js",
     "src/js/graphics/particle.js",
 
+    "src/js/ai/path-finder.js",
+
     "src/js/world/universe.js",
     "src/js/world/ship.js",
     "src/js/world/player-ship.js",

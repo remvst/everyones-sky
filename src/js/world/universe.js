@@ -24,6 +24,7 @@ class Universe {
         this.bodies.push(p);
 
         const ai = new AIShip(p);
+        // ai.enemy = this.playerShip;
         this.ships.push(ai);
         this.ai = ai;
 
