@@ -10,6 +10,7 @@
     "src/js/world/universe.js",
     "src/js/world/ship.js",
     "src/js/world/player-ship.js",
+    "src/js/world/ai-ship.js",
     "src/js/world/body.js",
     "src/js/world/star.js",
     "src/js/world/black-hole.js",

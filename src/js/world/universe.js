@@ -19,7 +19,13 @@ class Universe {
 
         this.bodies.push(new Planet(star, 400));
         this.bodies.push(new Planet(star, 800));
-        this.bodies.push(new Planet(star, 1200));
+
+        const p = new Planet(star, 1200);
+        this.bodies.push(p);
+
+        const ai = new AIShip(p);
+        this.ships.push(ai);
+        this.ai = ai;
 
         const asteroid = new Asteroid();
         asteroid.x = star.x + 100;

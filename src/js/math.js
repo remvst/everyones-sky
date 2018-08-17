@@ -24,6 +24,12 @@ const sign = x => {
     return x < 0 ? -1 : (x > 0 ? 1 : 0);
 };
 
+const normalize = x => {
+    while (x < -PI) x += PI * 2;
+    while (x > PI) x -= PI * 2;
+    return x;
+}
+
 // Make Math global
 const m = Math;
 Object.getOwnPropertyNames(m).forEach(n => w[n] = w[n] || m[n]);

@@ -23,7 +23,7 @@ class Planet extends Body {
             let rgb = [rnd(32, 255), rnd(32, 255), rnd(32, 255)];
 
             for (let y = 0 ; y < this.radius * 2 ; y += rnd(PLANET_STRIPE_MIN_SIZE, PLANET_STRIPE_MAX_SIZE)) {
-                r.fillStyle = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+                r.fillStyle = nomangle('rgb') + '(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
                 r.fillRect(0, y, this.radius * 2, this.radius * 2);
 
                 // Update colors for the next stripe
