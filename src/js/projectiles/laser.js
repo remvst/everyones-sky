@@ -10,6 +10,10 @@ class Laser {
     cycle(e) {
         this.x += cos(this.angle) * this.speed * e;
         this.y += sin(this.angle) * this.speed * e;
+
+        if (!V.isVisible(this.x, this.y)) {
+            U.remove(U.projectiles, this);
+        }
     }
 
     render() {

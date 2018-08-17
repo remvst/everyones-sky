@@ -24,8 +24,18 @@ class Camera {
         const diff = Math.min(1, Math.abs(this.scale - this.targetScale)) * e;
         this.scale += diff * sign(this.targetScale - this.scale);
 
-        this.x = U.playerShip.x - (CANVAS_WIDTH / 2 / this.scale);
-        this.y = U.playerShip.y - (CANVAS_HEIGHT / 2 / this.scale);
+        this.width = (CANVAS_WIDTH / this.scale);
+        this.height = (CANVAS_HEIGHT / this.scale);
+
+        this.x = U.playerShip.x - this.width / 2;
+        this.y = U.playerShip.y - this.height / 2;
+    }
+
+    isVisible(x, y, radius = 0) {
+        return x + radius > this.x &&
+            y + radius > this.y &&
+            x - radius < this.x + this.width &&
+            y - radius < this.y + this.height;
     }
 
 }

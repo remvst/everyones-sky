@@ -57,8 +57,15 @@ class Universe {
         });
 
         wrap(() => {
+            // translate(this.playerShip.x, this.playerShip.y);
+            // scale(V.scale, V.scale);
+            // translate(-this.playerShip.x, -this.playerShip.y);
+
             R.scale(V.scale, V.scale);
             R.translate(-V.x, -V.y);
+
+            R.strokeStyle = '#f00';
+            strokeRect(V.x + 10, V.y + 10, V.width - 20, V.height - 20);
     
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
