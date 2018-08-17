@@ -64,8 +64,10 @@ class Universe {
             R.scale(V.scale, V.scale);
             R.translate(-V.x, -V.y);
 
-            R.strokeStyle = '#f00';
-            strokeRect(V.x + 10, V.y + 10, V.width - 20, V.height - 20);
+            if (DEBUG) {
+                // R.strokeStyle = '#f00';
+                // strokeRect(V.x + 10, V.y + 10, V.width - 20, V.height - 20);
+            }
     
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
@@ -73,12 +75,12 @@ class Universe {
             this.ships.forEach(ship => ship.render());
 
             if (DEBUG) {
-                this.forEachTarget(t => {
-                    R.fillStyle = '#f00';
-                    beginPath();
-                    arc(t.x, t.y, t.radius, 0, PI * 2);
-                    stroke();
-                });
+                // this.forEachTarget(t => {
+                //     R.fillStyle = '#f00';
+                //     beginPath();
+                //     arc(t.x, t.y, t.radius, 0, PI * 2);
+                //     stroke();
+                // });
             }
         });
     }
