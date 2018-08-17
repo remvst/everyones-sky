@@ -11,6 +11,8 @@ class Ship {
         this.angle = 0;
 
         this.radius = 20;
+
+        this.health = 1;
     }
 
     cycle(e) {
@@ -76,7 +78,35 @@ class Ship {
     }
 
     damage() {
-        
+        particle(10, '#ff0', [
+            ['alpha', 1, 0, 1],
+            ['size', rnd(2, 4), rnd(5, 10), 1],
+            ['x', this.x, this.x + rnd(-20, 20), 1],
+            ['y', this.y, this.y + rnd(-20, 20), 1]
+        ]);
+
+        this.lastDamage = G.clock;
+
+        if ((this.health -= 0.1) <= 0) {
+            this.explode();
+        }
+    }
+
+    explode() {
+        for (let i = 0 ; i < 100 ; i++) {
+            const angle = random() * PI * 2;
+            const distance = rnd(5, 50);
+            const d = rnd(0.2, 1.5);
+
+            particle(10, pick(['#ff0', '#f80', '#f00']), [
+                ['alpha', 1, 0, d],
+                ['size', rnd(2, 4), rnd(5, 10), d],
+                ['x', this.x, this.x + cos(angle) * distance, d],
+                ['y', this.y, this.y + sin(angle) * distance, d]
+            ]);
+        }
+
+        U.remove(U.ships, this);
     }
 
 }

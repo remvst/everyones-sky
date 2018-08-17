@@ -7,6 +7,8 @@ class PlanetaryStation {
 
         this.scale = 1;
         this.lastDamage = 0;
+
+        this.health = 1;
     }
 
     get globalAngle() {
@@ -40,9 +42,32 @@ class PlanetaryStation {
             ['y', this.y, this.y + rnd(-20, 20), 1]
         ]);
 
-        // interp(this, 'scale', 1.2, 1, 0.2);
-
         this.lastDamage = G.clock;
+
+        const item = new ResourceItem();
+        U.items.push(item);
+        interp(item, 'x', this.x, this.x + cos(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
+        interp(item, 'y', this.y, this.y + sin(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
+
+        if ((this.health -= 0.1) <= 0) {
+            this.explode();
+        }
+    }
+
+    explode() {
+        for (let i = 0 ; i < 50 ; i++) {
+            const angle = this.globalAngle + rnd(-PI / 2, PI / 2);
+            const distance = rnd(30, 50);
+
+            particle(10, pick(['#ff0', '#f80', '#f00']), [
+                ['alpha', 1, 0, 1],
+                ['size', rnd(2, 4), rnd(5, 10), 1],
+                ['x', this.x, this.x + cos(angle) * distance, 1],
+                ['y', this.y, this.y + sin(angle) * distance, 1]
+            ]);
+        }
+
+        U.remove(this.planet.stations, this);
     }
 
 }
