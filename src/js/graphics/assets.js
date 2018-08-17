@@ -11,5 +11,5 @@ const createStarsPattern = (stars, alpha) => createPattern(STAR_PATTERN_SIZE, ST
     }
 });
 
-const starsPattern1 = createStarsPattern(200, () => rnd(0.5, 0.7));
-const starsPattern2 = createStarsPattern(50, () => rnd(0.8, 1));
+const starsPattern1 = createStarsPattern(200, () => rnd(0.2, 0.6));
+const starsPattern2 = createStarsPattern(40, () => rnd(0.6, 1));
