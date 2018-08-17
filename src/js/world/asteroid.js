@@ -38,6 +38,8 @@ class Asteroid extends Body {
     }
 
     cycle(e) {
+        super.cycle(e);
+
         this.x += this.speed * cos(this.angle) * e;
         this.y += this.speed * sin(this.angle) * e;
 
@@ -48,7 +50,7 @@ class Asteroid extends Body {
         if (!V.isVisible(this.x, this.y, this.radius)) {
             return;
         }
-        
+
         translate(this.x, this.y);
         rotate(this.rotation);
 

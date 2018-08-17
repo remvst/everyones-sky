@@ -47,6 +47,8 @@ class Planet extends Body {
     }
 
     cycle(e) {
+        super.cycle(e);
+
         const velocity = 100; // px/s
         const yearTime = 2 * PI * this.orbitRadius / velocity;
         const angularVelocity = 2 * PI / yearTime;
