@@ -15,13 +15,15 @@ class Universe {
         this.playerShip.y = CANVAS_HEIGHT / 2;
         this.ships.push(this.playerShip);
 
-        const star = new Star();
-        star.x = CANVAS_WIDTH / 2 + 200;
-        star.y = CANVAS_HEIGHT / 2 + 200;
-        this.bodies.push(star);
+        // const star = new Star();
+        // star.x = CANVAS_WIDTH / 2 + 200;
+        // star.y = CANVAS_HEIGHT / 2 + 200;
+        // this.bodies.push(star);
 
-        this.bodies.push(new Planet(star, 400));
-        this.bodies.push(new Planet(star, 800));
+        // this.bodies.push(new Planet(star, 400));
+        // this.bodies.push(new Planet(star, 800));
+
+        this.generateUniverse();
 
         // const p = new Planet(star, 1200);
         // this.bodies.push(p);
@@ -41,19 +43,19 @@ class Universe {
         // blackHole.y = this.playerShip.y + 400;
         // this.bodies.push(blackHole);
 
-        for (let i = 0 ; i < 10 ; i++) {
-            const item = new ResourceItem();
-            item.x = this.playerShip.x + 200 + rnd(-50, 50);
-            item.y = this.playerShip.y + rnd(-50, 50);
-            this.items.push(item);
-        }
+        // for (let i = 0 ; i < 10 ; i++) {
+        //     const item = new ResourceItem();
+        //     item.x = this.playerShip.x + 200 + rnd(-50, 50);
+        //     item.y = this.playerShip.y + rnd(-50, 50);
+        //     this.items.push(item);
+        // }
 
-        for (let i = 0 ; i < 10 ; i++) {
-            const asteroid = new Asteroid();
-            asteroid.x = this.playerShip.x + 500 + rnd(-200, 200);
-            asteroid.y = this.playerShip.y + rnd(-200, 200);
-            this.bodies.push(asteroid);
-        }
+        // for (let i = 0 ; i < 10 ; i++) {
+        //     const asteroid = new Asteroid();
+        //     asteroid.x = this.playerShip.x + 500 + rnd(-200, 200);
+        //     asteroid.y = this.playerShip.y + rnd(-200, 200);
+        //     this.bodies.push(asteroid);
+        // }
     }
 
     cycle(e) {
@@ -122,6 +124,36 @@ class Universe {
         this.ships.forEach(fn);
         this.bodies.forEach(fn);
         this.bodies.forEach(p => (p.stations || []).forEach(fn));
+    }
+
+    generateUniverse() {
+        const maxOrbitsGap = UNIVERSE_GENERATE_PLANET_MAX_RADIUS * 2 + UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
+        const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * maxOrbitsGap + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
+
+        for (let i = 0 ; i < 5 ; i++) {
+            const radius = i * UNIVERSE_GENERATE_RADIUS_STEP;
+            const circumference = 2 * PI * radius;
+            const phase = rnd(0, PI * 2);
+
+            const maxSystems = ~~(circumference / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
+
+            for (let angle = 0 ; angle < PI * 2 ; angle += PI * 2 / maxSystems) {
+                // Generate a system there
+                const star = new Star(rnd(UNIVERSE_GENERATE_STAR_MIN_RADIUS, UNIVERSE_GENERATE_STAR_MAX_RADIUS));
+                star.x = cos(angle + phase) * radius;
+                star.y = sin(angle + phase) * radius;
+                this.bodies.push(star);
+
+                const planets = rnd(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
+                let orbitRadius = star.radius + rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+                for (let j = 0 ; j < planets ; j++) {
+                    const planet = new Planet(star, orbitRadius, rnd(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS));
+                    this.bodies.push(planet);
+
+                    orbitRadius += planet.radius + rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+                }
+            }
+        }
     }
 
 }
