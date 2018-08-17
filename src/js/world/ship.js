@@ -17,7 +17,7 @@ class Ship {
         this.x += this.vX * e;
         this.y += this.vY * e;
 
-        if (this.thrust) {
+        if (this.thrust && !this.uncontrolledRotation) {
             this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
             this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
 
@@ -35,7 +35,7 @@ class Ship {
         this.vX = velocity * cos(angle);
         this.vY = velocity * sin(angle);
 
-        this.angle += e * this.rotationDirection * SHIP_ROTATION_SPEED;
+        this.angle += e * (this.uncontrolledRotation || this.rotationDirection) * SHIP_ROTATION_SPEED;
     }
 
     render() {
