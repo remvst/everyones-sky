@@ -11,6 +11,24 @@ class Game {
         this.clock = 0;
     }
 
+    renderGauge(x, y, ratio, color, renderIcon) {
+        wrap(() => {
+            translate(x, y);
+
+            R.fillStyle = 'rgba(128,128,128,0.5)';
+            fr(0, -5, 200, 10);
+
+            R.fillStyle = color;
+            fr(0, -5, -2, 10);
+            fr(200, -5, 2, 10);
+
+            fr(0, -5, 200 * limit(0, ratio, 1), 10);
+
+            translate(-25, 0);
+            renderIcon();
+        });
+    }
+
     cycle(e) {
         this.clock += e;
 
@@ -23,13 +41,13 @@ class Game {
         wrap(() => {
             translate(V.shakeX, V.shakeY);
 
-            R.font = '24pt Courier';
-            R.fillStyle = '#fff';
+            R.fillStyle = 'rgba(0,0,0,0.5)';
+            R.strokeStyle = '#fff';
+            fr(50, 30, 270, 100);
+            strokeRect(50.5, 30.5, 270, 100);
 
-            wrap(() => {
-                translate(50, 45);
+            this.renderGauge(100, 50, U.playerShip.health, U.playerShip.health > 0.25 ? '#fff' : '#f00', () => {
                 scale(0.5, 0.5);
-
                 beginPath();
                 moveTo(0, -15)
                 lineTo(14, -10);
@@ -40,15 +58,7 @@ class Game {
                 fill();
             });
 
-            R.fillStyle = 'rgba(128,128,128,0.5)';
-            fr(100, 50 - 10, 200, 10);
-
-            R.fillStyle = '#fff';
-            fr(100, 50 - 10, max(2, U.playerShip.health * 200), 10);
-            fr(300, 50 - 10, 2, 10);
-
-            wrap(() => {
-                translate(50, 75);
+            this.renderGauge(100, 80, U.playerShip.planet.resources / MAX_PLANET_RESOURCES, '#fff', () => {
                 scale(0.3, 0.3);
 
                 R.fillStyle = '#fff';
@@ -61,20 +71,13 @@ class Game {
                 fill();
             });
 
-            R.fillStyle = 'rgba(128,128,128,0.5)';
-            fr(100, 80 - 10, 200, 10);
+            this.renderGauge(100, 110, U.playerShip.heat, U.playerShip.coolingDown ? '#f00' : '#fff', () => {
 
-            R.fillStyle = '#fff';
-            fr(100, 80 - 10, max(2, 200 * U.playerShip.planet.resources / MAX_PLANET_RESOURCES), 10);
-            fr(300, 80 - 10, 2, 10);
+                fr(-5, -5, 3, 10);
+                fr(-1, -5, 3, 10);
+                fr(3, -5, 3, 10);
 
-
-            R.fillStyle = 'rgba(128,128,128,0.5)';
-            fr(100, 110 - 10, 200, 10);
-
-            R.fillStyle = U.playerShip.coolingDown ? '#f00' : '#fff';
-            fr(100, 110 - 10, max(2, 200 * U.playerShip.heat), 10);
-            fr(300, 110 - 10, 2, 10);
+            });
         });
     }
 

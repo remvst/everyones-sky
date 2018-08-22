@@ -19,4 +19,10 @@ class PlayerShip extends Ship {
         V.shake(0.5);
     }
 
+    shoot(type, interval) {
+        const p = super.shoot(type, interval);
+        // if (p)
+        // p.speed *= 2;
+    }
+
 }

@@ -87,12 +87,15 @@ class Ship {
 
         this.lastShot = G.clock;
 
-        U.projectiles.push(new type(this, this.x, this.y, this.angle));
+        const p = new type(this, this.x, this.y, this.angle);
+        U.projectiles.push(p);
 
         this.heat = max(this.heat + 0.05, 0);
         if (this.heat >= 1) {
             this.coolingDown = true;
         }
+
+        return p;
     }
 
     damage() {
