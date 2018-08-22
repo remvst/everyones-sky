@@ -7,7 +7,8 @@ class PlayerShip extends Ship {
         if (w.down[37]) this.rotationDirection = -1;
         if (w.down[39]) this.rotationDirection = 1;
 
-        if (w.down[32]) this.shoot();
+        if (w.down[32]) this.shoot(SimpleLaser);
+        if (w.down[90]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 
         super.cycle(e);
     }

@@ -15,6 +15,8 @@ class Ship {
         this.radius = 20;
 
         this.health = 1;
+
+        this.heat = 0;
     }
 
     cycle(e) {
@@ -40,6 +42,14 @@ class Ship {
         this.vY = velocity * sin(angle);
 
         this.angle += e * (this.uncontrolledRotation || this.rotationDirection) * SHIP_ROTATION_SPEED;
+
+        if ((G.clock - (this.lastShot || 0)) > 0.5) {
+            this.heat -= e * 0.5;
+        }
+
+        if (this.heat <= 0) {
+            this.coolingDown = false;
+        }
     }
 
     render() {
@@ -70,14 +80,19 @@ class Ship {
         });
     }
 
-    shoot() {
-        if ((G.clock - (this.lastShot || 0)) < SHIP_SHOT_INTERVAL) {
+    shoot(type, interval = SHIP_SHOT_INTERVAL) {
+        if ((G.clock - (this.lastShot || 0)) < interval || this.coolingDown) {
             return;
         }
 
         this.lastShot = G.clock;
 
-        U.projectiles.push(new Laser(this, this.x, this.y, this.angle));
+        U.projectiles.push(new type(this, this.x, this.y, this.angle));
+
+        this.heat = max(this.heat + 0.05, 0);
+        if (this.heat >= 1) {
+            this.coolingDown = true;
+        }
     }
 
     damage() {

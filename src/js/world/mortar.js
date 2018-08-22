@@ -29,13 +29,13 @@ class Mortar extends PlanetaryStation {
     }
 
     shoot() {
-        if (G.clock - (this.lastShot || 0) < 0.2) {
+        if (G.clock - (this.lastShot || 0) < 1) {
             return;
         }
 
         this.lastShot = G.clock;
 
-        U.projectiles.push(new Laser(this, this.x, this.y, this.globalAngle + this.shootAngle));
+        U.projectiles.push(new SuperLaser(this, this.x, this.y, this.globalAngle + this.shootAngle));
     }
 
 }

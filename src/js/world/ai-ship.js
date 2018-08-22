@@ -58,7 +58,7 @@ class AIShip extends Ship {
 
         if (this.canShootEnemy()) {
             if (abs(angleDiff) > PI / 64) {
-                this.shoot();
+                this.shoot(SimpleLaser);
             }
         }
 

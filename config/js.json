@@ -30,6 +30,8 @@
     "src/js/items/resource-item.js",
 
     "src/js/projectiles/laser.js",
+    "src/js/projectiles/simple-laser.js",
+    "src/js/projectiles/super-laser.js",
 
     "src/js/util/resizer.js",
     "src/js/util/interp.js",

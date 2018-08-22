@@ -67,6 +67,14 @@ class Game {
             R.fillStyle = '#fff';
             fr(100, 80 - 10, max(2, 200 * U.playerShip.planet.resources / MAX_PLANET_RESOURCES), 10);
             fr(300, 80 - 10, 2, 10);
+
+
+            R.fillStyle = 'rgba(128,128,128,0.5)';
+            fr(100, 110 - 10, 200, 10);
+
+            R.fillStyle = U.playerShip.coolingDown ? '#f00' : '#fff';
+            fr(100, 110 - 10, max(2, 200 * U.playerShip.heat), 10);
+            fr(300, 110 - 10, 2, 10);
         });
     }
 

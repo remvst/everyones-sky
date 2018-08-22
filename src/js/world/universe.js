@@ -155,7 +155,7 @@ class Universe {
                     const ai = new AIShip(planet);
                     ai.x = planet.x + planet.radius * 2;
                     ai.y = planet.y;
-                    // ai.enemy = this.playerShip;
+                    ai.enemy = this.playerShip;
                     this.ships.push(ai);
                 }
             }
