@@ -10,6 +10,11 @@ class Planet extends Body {
         this.orbitPhase = rnd(0, PI * 2);
         this.orbitRadius = orbitRadius;
 
+        if (this.orbitsAround) {
+            this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
+            this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
+        }
+
         this.resources = 0;
 
         this.angle = 0;
@@ -100,6 +105,9 @@ class Planet extends Body {
             });
         }
 
+        if (!V.isVisible(this.x, this.y, this.radius + 50)) {
+            return;
+        }
 
         translate(this.x, this.y);
         rotate(this.angle);

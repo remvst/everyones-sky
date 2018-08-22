@@ -24,7 +24,7 @@ class Mortar extends PlanetaryStation {
         this.shootAngle += limit(-maxRotation, targetAngle - this.shootAngle, maxRotation);
 
         if (abs(normalize(this.shootAngle - angleToPlayer)) < PI / 64) {
-            this.shoot();
+            // this.shoot();
         }
     }
 

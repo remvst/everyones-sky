@@ -151,6 +151,12 @@ class Universe {
                     this.bodies.push(planet);
 
                     orbitRadius += rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+
+                    const ai = new AIShip(planet);
+                    ai.x = planet.x + planet.radius * 2;
+                    ai.y = planet.y;
+                    // ai.enemy = this.playerShip;
+                    this.ships.push(ai);
                 }
             }
         }

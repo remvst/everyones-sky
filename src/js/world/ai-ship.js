@@ -39,7 +39,9 @@ class AIShip extends Ship {
         const angleToTarget = atan2(target.y - this.y, target.x - this.x);
         const angleDiff = normalize(angleToTarget - this.angle);
 
-        this.rotationDirection = sign(angleDiff);
+        if (abs(angleDiff) > PI / 64) {
+            this.rotationDirection = sign(angleDiff);
+        }
 
         if (abs(angleDiff) < PI / 64) {
             const moveAngle = atan2(this.vY, this.vX);
@@ -70,9 +72,10 @@ class AIShip extends Ship {
             this.pickNewTarget();
         }
 
-        this.updateControls();
-
-        super.cycle(e);
+        if (V.isVisible(this.x, this.y, V.width)) {
+            this.updateControls();
+            super.cycle(e);
+        }
     }
 
     render() {
@@ -138,7 +141,7 @@ class AIShip extends Ship {
 
         // Find the node we're the closest to
         const nodeStart = closestNode(this);
-        const nodeEnd = closestNode(U.playerShip);
+        const nodeEnd = U.enemy ? closestNode(U.enemy) : pick(pts);
 
         const path = pathFinder.findPath([nodeStart], nodeEnd).steps;
         this.targetRadius = AI_MOVE_TARGET_RADIUS;
