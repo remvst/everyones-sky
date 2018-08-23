@@ -46,7 +46,7 @@ class Game {
             fr(50, 30, 270, 100);
             strokeRect(50.5, 30.5, 270, 100);
 
-            this.renderGauge(100, 50, U.playerShip.health, U.playerShip.health > 0.25 ? '#fff' : '#f00', () => {
+            this.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : '#fff', () => {
                 scale(0.5, 0.5);
                 beginPath();
                 moveTo(0, -15)
@@ -72,11 +72,9 @@ class Game {
             });
 
             this.renderGauge(100, 110, U.playerShip.heat, U.playerShip.coolingDown ? '#f00' : '#fff', () => {
-
                 fr(-5, -5, 3, 10);
                 fr(-1, -5, 3, 10);
                 fr(3, -5, 3, 10);
-
             });
         });
     }
