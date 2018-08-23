@@ -7,7 +7,7 @@ class Laser {
         this.angle = angle;
         // this.speed = 800;
         // this.radius = 10;
-        this.magnetRadius = 100;
+        this.guideRadius = 0;
     }
 
     cycle(e) {
@@ -29,11 +29,11 @@ class Laser {
                 target.damage(this);
             }
 
-            if (dist(target, this) < this.magnetRadius) {
+            if (dist(target, this) < this.guideRadius) {
                 const angleToTarget = atan2(target.y - this.y, target.x - this.x);
                 const angleDiff = normalize(angleToTarget - this.angle);
                 if (abs(angleDiff) < PI / 4) {
-                    const appliedDiff = limit(-e * PI, angleDiff, e * PI);
+                    const appliedDiff = limit(-e * PI / 2, angleDiff, e * PI / 2);
                     this.angle += appliedDiff;
                 }
             }

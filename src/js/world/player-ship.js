@@ -21,8 +21,9 @@ class PlayerShip extends Ship {
 
     shoot(type, interval) {
         const p = super.shoot(type, interval);
-        // if (p)
-        // p.speed *= 2;
+        if (p) {
+            p.guideRadius = 100;
+        }
     }
 
 }
