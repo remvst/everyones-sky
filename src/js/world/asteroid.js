@@ -77,6 +77,10 @@ class Asteroid extends Body {
                 body.damage(this);
             }
         });
+
+        if (!V.isVisible(this.x, this.y, V.width)) {
+            U.remove(U.bodies, this);
+        }
     }
 
     render() {

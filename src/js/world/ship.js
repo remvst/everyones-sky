@@ -95,6 +95,8 @@ class Ship {
             this.coolingDown = true;
         }
 
+        G.eventHub.emit('shot', p);
+
         return p;
     }
 

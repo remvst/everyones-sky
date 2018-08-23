@@ -8,29 +8,23 @@ class Game {
         U = new Universe();
         V = new Camera();
 
+        this.eventHub = new EventHub();
+
         this.clock = 0;
         // this.promptText = null; // for reference
         // this.promptClock = 0; // for reference
 
-        setTimeout(() => {
-            this.showPrompt(nomangle('Use arrow keys to control your ship'));
-        }, 5000);
+        setTimeout(() => this.proceedToMissionStep(new MovementStep()), 5000);
+    }
 
-        setTimeout(() => {
-            this.showPrompt(nomangle('Press [SPACE] to use your blasters'));
-        }, 10000);
+    proceedToMissionStep(missionStep) {
+        if (!missionStep) {
+            this.showPrompt();
+            return;
+        }
 
-        // this.showPrompt('Communications offline', [{
-        //     'label': 'Help',
-        //     'action': () => {
-        //         this.showPrompt('Find resources to repair communications', [{
-        //             'label': 'Help',
-        //             'action': () => {
-        //                 // TODO
-        //             }
-        //         }]);
-        //     }
-        // }]);
+        missionStep.proceedListener = nextStep => this.proceedToMissionStep(nextStep);
+        missionStep.attach();
     }
 
     renderGauge(x, y, ratio, color, renderIcon) {
@@ -56,6 +50,8 @@ class Game {
 
         U.cycle(e);
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
+
+        this.eventHub.emit('cycle', e);
 
         U.render();
 
@@ -99,7 +95,7 @@ class Game {
             }).slice(0, 3);
 
             // If we are in a system, no need to show nearby systems
-            if (dist(targets[0], U.playerShip) < targets[0].reachRadius) {
+            if (targets[0] && dist(targets[0], U.playerShip) < targets[0].reachRadius) {
                 targets = [];
             }
             
@@ -157,7 +153,7 @@ class Game {
     }
 
     selectPromptOption(character) {
-        this.promptOptions.forEach(option => {
+        (this.promptOptions || []).forEach(option => {
             if (option.label.slice(0, 1).toLowerCase() === character.toLowerCase()) {
                 option.action();
             }

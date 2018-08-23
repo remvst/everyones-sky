@@ -10,13 +10,15 @@
 
     "src/js/ai/path-finder.js",
 
+    "src/js/missions/mission-step.js",
+    "src/js/missions/tutorial-steps.js",
+
     "src/js/world/universe.js",
     "src/js/world/ship.js",
     "src/js/world/player-ship.js",
     "src/js/world/ai-ship.js",
     "src/js/world/body.js",
     "src/js/world/star.js",
-    "src/js/world/black-hole.js",
     "src/js/world/asteroid.js",
     "src/js/world/planet.js",
     "src/js/world/planetary-station.js",
@@ -36,6 +38,7 @@
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
 
+    "src/js/event-hub.js",
     "src/js/keyboard.js",
     "src/js/camera.js",
     "src/js/game.js",
