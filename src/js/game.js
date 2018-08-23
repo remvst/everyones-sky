@@ -60,15 +60,7 @@ class Game {
 
             this.renderGauge(100, 80, U.playerShip.planet.resources / MAX_PLANET_RESOURCES, '#fff', () => {
                 scale(0.3, 0.3);
-
-                R.fillStyle = '#fff';
-                beginPath();
-                moveTo(0, 20)
-                lineTo(20, -10);
-                lineTo(10, -20);
-                lineTo(-10, -20);
-                lineTo(-20, -10);
-                fill();
+                renderResourcesIcon();
             });
 
             this.renderGauge(100, 110, U.playerShip.heat, U.playerShip.coolingDown ? '#f00' : '#fff', () => {
@@ -100,9 +92,9 @@ class Game {
                     R.fillStyle = '#fff';
                     beginPath();
                     moveTo(0, 0);
-                    lineTo(-7, 5);
-                    lineTo(-2, 0);
-                    lineTo(-7, -5);
+                    lineTo(-14, 10);
+                    lineTo(-8, 0);
+                    lineTo(-14, -10);
                     fill();
                 });
             });
