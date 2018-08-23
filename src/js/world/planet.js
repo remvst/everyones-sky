@@ -1,8 +1,9 @@
 class Planet extends Body {
 
-    constructor(star, orbitRadius, radius = 100) {
+    constructor(star, name, orbitRadius, radius = 100) {
         super();
         this.radius = radius;
+        this.name = name;
 
         this.rotationSpeed = rnd(PI / 8, PI / 12)
 

@@ -2,9 +2,10 @@ const rndArr = [random(), random(), random(), random()];
 
 class Star extends Body {
 
-    constructor(radius) {
+    constructor(radius, name) {
         super();
         this.radius = radius || 100;
+        this.name = name;
         // this.reachRadius = 0; // for reference only
     }
 

@@ -1,3 +1,17 @@
+class PromptTutorialStep extends MissionStep {
+
+    attach() {
+        G.showPrompt(nomangle('Follow a quick tutorial?'), [{
+            'label': 'Yes',
+            'action': () => this.proceed(new MovementStep())
+        }, {
+            'label': 'No',
+            'action': () => this.proceed(new InstructionsStep())
+        }]);
+    }
+
+}
+
 class MovementStep extends MissionStep {
 
     attach() {
@@ -58,13 +72,17 @@ class TutorialFinishedStep extends MissionStep {
     attach() {
         G.showPrompt(nomangle('Communications are ONLINE. Good job'));
 
-        setTimeout(() => {
-            U.generateUniverse();
+        setTimeout(() => this.proceed(new InstructionsStep()), 5000);
+    }
+}
 
-            G.showPrompt(nomangle('Bring PEACE to the galaxy, or WAR... your call'), [{
-                'label': nomangle('Dismiss'),
-                'action': () => this.proceed()
-            }]);
-        }, 5000);
+class InstructionsStep extends MissionStep {
+    attach() {
+        U.generateUniverse();
+
+        G.showPrompt(nomangle('Bring PEACE to the galaxy, or WAR... your call'), [{
+            'label': nomangle('Dismiss'),
+            'action': () => this.proceed()
+        }]);
     }
 }
