@@ -76,6 +76,36 @@ class Game {
                 fr(-1, -5, 3, 10);
                 fr(3, -5, 3, 10);
             });
+
+            let targets = [];
+
+            targets = U.stars.sort((a, b) => {
+                return dist(a, U.playerShip) - dist(b, U.playerShip);
+            }).slice(0, 3);
+
+            // If we are in a system, no need to show nearby systems
+            if (dist(targets[0], U.playerShip) < targets[0].reachRadius) {
+                targets = [];
+            }
+            
+            targets.forEach(target => {
+                const angle = atan2(target.y - U.playerShip.y, target.x - U.playerShip.x);
+
+                wrap(() => {
+                    const distanceOnCircle = limit(0, (dist(target, U.playerShip) - target.reachRadius) / 2000, 1) * 200 + 50;
+
+                    translate(CANVAS_WIDTH / 2 + cos(angle) * distanceOnCircle, CANVAS_HEIGHT / 2 + sin(angle) * distanceOnCircle);
+                    rotate(angle);
+
+                    R.fillStyle = '#fff';
+                    beginPath();
+                    moveTo(0, 0);
+                    lineTo(-7, 5);
+                    lineTo(-2, 0);
+                    lineTo(-7, -5);
+                    fill();
+                });
+            });
         });
     }
 

@@ -5,6 +5,7 @@ class Star extends Body {
     constructor(radius) {
         super();
         this.radius = radius || 100;
+        // this.reachRadius = 0; // for reference only
     }
 
     render() {

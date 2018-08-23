@@ -3,6 +3,7 @@ class Universe {
     constructor() {
         this.ships = [];
         this.bodies = [];
+        this.stars = [];
         this.particles = [];
         this.projectiles = [];
         this.items = [];
@@ -135,18 +136,23 @@ class Universe {
             const circumference = 2 * PI * radius;
             const phase = rnd(0, PI * 2);
 
-            const maxSystems = ~~(circumference / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
+            const maxSystems = max(1, ~~(circumference / maxSystemRadius)); // using the circumference leads to slightly incorrect margins, but whatever
 
-            for (let angle = 0 ; angle < PI * 2 ; angle += PI * 2 / maxSystems) {
+            for (let i = 0 ; i < maxSystems ; i++) {
+                const angle = (i / maxSystems) * PI * 2;
+
                 // Generate a system there
                 const star = new Star(rnd(UNIVERSE_GENERATE_STAR_MIN_RADIUS, UNIVERSE_GENERATE_STAR_MAX_RADIUS));
                 star.x = cos(angle + phase) * radius;
                 star.y = sin(angle + phase) * radius;
                 this.bodies.push(star);
+                this.stars.push(star);
 
                 const planets = rnd(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
                 let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
                 for (let j = 0 ; j < planets ; j++) {
+                    star.reachRadius = orbitRadius;
+
                     const planet = new Planet(star, orbitRadius, rnd(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS));
                     this.bodies.push(planet);
 
