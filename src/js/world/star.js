@@ -9,7 +9,7 @@ class Star extends Body {
     }
 
     render() {
-        if (!V.isVisible(this.x, this.y, this.radius)) {
+        if (!V.isVisible(this.x, this.y, this.radius + 100)) {
             return;
         }
 
