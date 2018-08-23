@@ -9,6 +9,28 @@ class Game {
         V = new Camera();
 
         this.clock = 0;
+        // this.promptText = null; // for reference
+        // this.promptClock = 0; // for reference
+
+        setTimeout(() => {
+            this.showPrompt(nomangle('Use arrow keys to control your ship'));
+        }, 5000);
+
+        setTimeout(() => {
+            this.showPrompt(nomangle('Press [SPACE] to use your blasters'));
+        }, 10000);
+
+        // this.showPrompt('Communications offline', [{
+        //     'label': 'Help',
+        //     'action': () => {
+        //         this.showPrompt('Find resources to repair communications', [{
+        //             'label': 'Help',
+        //             'action': () => {
+        //                 // TODO
+        //             }
+        //         }]);
+        //     }
+        // }]);
     }
 
     renderGauge(x, y, ratio, color, renderIcon) {
@@ -69,6 +91,7 @@ class Game {
                 fr(3, -5, 3, 10);
             });
 
+            // Rendering targets
             let targets = [];
 
             targets = U.stars.sort((a, b) => {
@@ -98,6 +121,46 @@ class Game {
                     fill();
                 });
             });
+
+            // Prompt
+            if (this.promptText) {
+                R.fillStyle = 'rgba(0,0,0,0.5)';
+                R.font = '20pt Courier';
+                fr(0, CANVAS_HEIGHT - 200, CANVAS_WIDTH, 200);
+
+                const textWidth = measureText(this.promptText + '_').width;
+
+                const length = ~~min((this.clock - this.promptClock) * 20, this.promptText.length);
+                const actualText = this.promptText.slice(0, length) + (length < this.promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
+
+                R.fillStyle = '#fff';
+                R.textAlign = 'left';
+                fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, CANVAS_HEIGHT - 200 + 50);
+
+                if (length >= this.promptText.length) {
+                    R.textAlign = 'center';
+
+                    this.promptOptions.forEach((option, i) => {
+                        const step = CANVAS_WIDTH / (this.promptOptions.length + 1);
+                        const x = (i + 1) * step;
+                        fillText('[' + option.label.slice(0, 1) + ']' + option.label.slice(1), x, CANVAS_HEIGHT - 200 + 100);
+                    });
+                }
+            }
+        });
+    }
+
+    showPrompt(promptText, options) {
+        this.promptText = promptText;
+        this.promptClock = this.clock;
+        this.promptOptions = options || [];
+    }
+
+    selectPromptOption(character) {
+        this.promptOptions.forEach(option => {
+            if (option.label.slice(0, 1).toLowerCase() === character.toLowerCase()) {
+                option.action();
+            }
         });
     }
 

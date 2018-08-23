@@ -30,9 +30,7 @@ class Body {
     // }
 
     damage() {
-        if (DEBUG) {
-            console.log('damage, body');
-        }
+        
     }
 
     pointsAround(radiuses) {
