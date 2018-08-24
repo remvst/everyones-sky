@@ -161,7 +161,7 @@ const characterSettings = {
         bottomSegment,
         leftSegment,
         rightSegment,
-        [1, 1, 1, 1.1]
+        [1, 1, 1, 1.3]
     ],
     'r': [
         leftSegment,

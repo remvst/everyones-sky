@@ -38,6 +38,7 @@
 
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
+    "src/js/util/random-name.js",
 
     "src/js/event-hub.js",
     "src/js/keyboard.js",
