@@ -40,22 +40,21 @@ function stickString(characters, charSpacing) {
 
 const r = rnd();
 
-function renderStickString(stickStringSettings, charWidth, charHeight, offset, segmentInterval, appearanceTime) {
+function renderStickString(stickStringSettings, charWidth, charHeight, progress, segmentInterval, appearanceTime) {
     stickStringSettings.segments.forEach((segment, index) => {
-        const appearanceOffset = stickStringSettings.appearanceOffsets[index];
-
-        const delay = appearanceOffset * segmentInterval + offset;
-        
-        R.globalAlpha = limit(0, (G.clock - delay) / appearanceTime, 1);
-
         wrap(() => {
-            const direction = sign(((index + appearanceOffset) % 2) - 0.5);
+            const appearanceOffset = stickStringSettings.appearanceOffsets[index];
+            const delay = appearanceOffset * segmentInterval;
+            const factor = limit(0, (progress - delay) / appearanceTime, 1);
             
+            const direction = sign(((index + appearanceOffset) % 2) - 0.5);
             if (((index % 2) - 0.5) > 0) {
-                translate(direction * (1 - R.globalAlpha) * 50, 0);
+                translate(direction * (1 - factor) * 50, 0);
             } else {
-                translate(0, direction * (1 - R.globalAlpha) * 50);
+                translate(0, direction * (1 - factor) * 50);
             }
+        
+            R.globalAlpha *= factor;
 
             beginPath();
             moveTo(segment[0] * charWidth, segment[1] * charHeight);
@@ -318,11 +317,12 @@ class Game {
 
         this.eventHub = new EventHub();
 
+        this.titleYOffset = 0;
+        this.started = false;
+
         this.clock = 0;
         // this.promptText = null; // for reference
         // this.promptClock = 0; // for reference
-
-        setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 0);
     }
 
     proceedToMissionStep(missionStep) {
@@ -360,6 +360,10 @@ class Game {
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
 
         this.eventHub.emit('cycle', e);
+
+        if (w.down[13]) {
+            this.start();
+        }
 
         U.render();
 
@@ -452,40 +456,43 @@ class Game {
                 }
             }
 
+            // Game title
             const charWidth = 50;
             const charHeight = 100;
-
-            R.fillStyle = '#000';
-            fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-            R.strokeStyle = '#fff';
-            R.lineCap = 'round';
-
-            R.lineWidth = 8;
-
-            const everyonesY = (CANVAS_HEIGHT - charHeight * (everyones.height + 2 / 5 + sky.height)) / 2;
-
             wrap(() => {
-                translate((CANVAS_WIDTH - everyones.width * charWidth) / 2, everyonesY);
-                renderStickString(everyones, charWidth, charHeight, 0.5, 0.1, 1);
-            });
+                translate(0, this.titleYOffset);
 
-            wrap(() => {
-                translate((CANVAS_WIDTH - sky.width * charWidth) / 2, everyonesY + charHeight * sky.height * 7 / 5);
-                renderStickString(sky, charWidth, charHeight, 0.5, 0.1, 1);
-            });
+                R.fillStyle = '#000';
+                fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-            R.lineWidth = 4;
+                R.strokeStyle = '#fff';
+                R.lineCap = 'round';
 
-            const instructionCharWidth = 20;
-            const instructionCharHeight = 30;
-            wrap(() => {
-                if (G.clock % 1 > 0.5 && G.clock > 6) {
-                    return;
-                }
+                R.lineWidth = 8;
 
-                translate((CANVAS_WIDTH - pressEnterToStart.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
-                renderStickString(pressEnterToStart, instructionCharWidth, instructionCharHeight, 5, 0.01, 0.2);
+                const everyonesY = (CANVAS_HEIGHT - charHeight * (everyones.height + 2 / 5 + sky.height)) / 2;
+                wrap(() => {
+                    translate((CANVAS_WIDTH - everyones.width * charWidth) / 2, everyonesY);
+                    renderStickString(everyones, charWidth, charHeight, G.clock - 0.5, 0.1, 1);
+                });
+
+                wrap(() => {
+                    translate((CANVAS_WIDTH - sky.width * charWidth) / 2, everyonesY + charHeight * sky.height * 7 / 5);
+                    renderStickString(sky, charWidth, charHeight, G.clock - 0.5, 0.1, 1);
+                });
+
+                R.lineWidth = 4;
+
+                const instructionCharWidth = 20;
+                const instructionCharHeight = 30;
+                wrap(() => {
+                    if (G.clock % 1 > 0.5 && G.clock > 6 || this.titleYOffset) {
+                        return;
+                    }
+
+                    translate((CANVAS_WIDTH - pressEnterToStart.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
+                    renderStickString(pressEnterToStart, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
+                });
             });
         });
     }
@@ -502,6 +509,19 @@ class Game {
                 option.action();
             }
         });
+    }
+
+    start() {
+        if (this.started) {
+            return;
+        }
+
+        this.started = true;
+
+        interp(this, 'titleYOffset', 0, -CANVAS_HEIGHT, 0.3);
+
+        V.scale = V.targetScaleOverride = 1;
+        setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 3000);
     }
 
 }
