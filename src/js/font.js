@@ -3,7 +3,7 @@ function stickString(string, charSpacing) {
 
     let characterX = 0;
     let width;
-    string.split('').forEach(character => {
+    string.toLowerCase().split('').forEach(character => {
         const charSegments = characterSettings[character] || [];
 
         let nextX = characterX;
@@ -212,5 +212,8 @@ const characterSettings = {
     ],
     '\'': [
         [0, 1 / 4, 1 / 4, 0]
+    ],
+    '-': [
+        [0, 1 / 2, 1, 1 / 2]
     ]
 };

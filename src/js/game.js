@@ -102,13 +102,17 @@ class Game {
             // Rendering targets
             let targets = [];
 
-            targets = U.stars.sort((a, b) => {
+            const closestStars = U.stars.sort((a, b) => {
                 return dist(a, U.playerShip) - dist(b, U.playerShip);
             }).slice(0, 3);
 
-            // If we are in a system, no need to show nearby systems
-            if (targets[0] && dist(targets[0], U.playerShip) < targets[0].reachRadius) {
-                targets = [];
+            if (closestStars[0]) {
+                if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
+                    targets = closestStars;
+                } else if (!closestStars[0].systemDiscovered) {
+                    closestStars[0].systemDiscovered = true;
+                    this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                }
             }
             
             targets.forEach(target => {
@@ -165,7 +169,7 @@ class Game {
                     R.lineWidth = 4;
 
                     const messageWidth = this.message.width * 20;
-                    translate((CANVAS_WIDTH - messageWidth) / 2, (CANVAS_HEIGHT - 100) / 2);
+                    translate((CANVAS_WIDTH - messageWidth) / 2, (CANVAS_HEIGHT - 100) / 2 - 200);
                     renderStickString(this.message, 20, 30, this.messageProgress, 0.1, 1);
                 });
             }

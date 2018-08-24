@@ -7,6 +7,7 @@ class Star extends Body {
         this.radius = radius || 100;
         this.name = name;
         // this.reachRadius = 0; // for reference only
+        // this.systemDiscovered = false; // for reference only
     }
 
     render() {
