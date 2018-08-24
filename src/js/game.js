@@ -20,6 +20,9 @@ class Game {
         this.clock = 0;
         // this.promptText = null; // for reference
         // this.promptClock = 0; // for reference
+
+        // this.message = null; // for reference
+        // this.messageProgress = 0; // for reference
     }
 
     proceedToMissionStep(missionStep) {
@@ -153,6 +156,20 @@ class Game {
                 }
             }
 
+            R.strokeStyle = '#fff';
+            R.lineCap = 'round';
+
+            // Message
+            if (this.message && this.messageProgress) {
+                wrap(() => {
+                    R.lineWidth = 4;
+
+                    const messageWidth = this.message.width * 20;
+                    translate((CANVAS_WIDTH - messageWidth) / 2, (CANVAS_HEIGHT - 100) / 2);
+                    renderStickString(this.message, 20, 30, this.messageProgress, 0.1, 1);
+                });
+            }
+
             // Game title
             const charWidth = 50;
             const charHeight = 100;
@@ -161,9 +178,6 @@ class Game {
 
                 R.fillStyle = '#000';
                 fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-
-                R.strokeStyle = '#fff';
-                R.lineCap = 'round';
 
                 R.lineWidth = 8;
 
@@ -206,6 +220,12 @@ class Game {
                 option.action();
             }
         });
+    }
+
+    showMessage(message) {
+        this.message = stickString(message, 2 / 5);
+        interp(this, 'messageProgress', 10, 0, 0.5, 3);
+        interp(this, 'messageProgress', 0, 10, 0.5);
     }
 
     start() {
