@@ -1,5 +1,5 @@
-const everyones = stickString('everyone\'s', 2 / 5);
-const sky = stickString('sky', 2 / 5);
+const everyones = stickString(nomangle('everyone\'s'), 2 / 5);
+const sky = stickString(nomangle('sky'), 2 / 5);
 const pressEnterToStart = stickString(nomangle('press enter to start'), 2 / 5);
 
 class Game {
