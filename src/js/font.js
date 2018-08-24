@@ -64,107 +64,127 @@ function renderStickString(stickStringSettings, charWidth, charHeight, progress,
     });
 }
 
+const leftSegment = [0, 0, 0, 1];
+const rightSegment = [1, 0, 1, 1];
+const topSegment = [0, 0, 1, 0];
+const bottomSegment = [0, 1, 1, 1];
+const middleHorizontalSegment = [0, 1 / 2, 1, 1 / 2];
+const rightBottomSegment = [1, 1 / 2, 1, 1];
+
 const characterSettings = {
     'a': [
         [0, 1, 1 / 2, 0],
         [1, 1, 1 / 2, 0]
     ],
     'b': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 1 / 4],
-        [1, 1 / 4, 0, 1 / 2],
-        [0, 1 / 2, 1, 3 / 4],
-        [1, 3 / 4, 0, 1]
+        leftSegment,
+        bottomSegment, 
+        middleHorizontalSegment,
+        rightBottomSegment,
+        [0, 0, 3 / 4, 0],
+        [3 / 4, 0, 3 / 4, 1 / 2]
     ],
     'c': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
-        [0, 1, 1, 1]
+        leftSegment,
+        topSegment,
+        bottomSegment
     ],
     'd': [
-        [0, 0, 0, 1],
+        leftSegment,
         [0, 0, 1, 1 / 2],
         [1, 1 / 2, 0, 1]
     ],
     'e': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
+        leftSegment,
+        topSegment,
         [0, 1 / 2, 1 * 2 / 3, 1 / 2],
-        [0, 1, 1, 1]
+        bottomSegment
     ],
     'f': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
+        leftSegment,
+        topSegment,
         [0, 1 / 2, 1 * 2 / 3, 1 / 2]
     ],
     'g': [
-        [0, 0, 1, 0],
-        [0, 0, 0, 1],
-        [0, 1, 1, 1],
-        [1, 1, 1, 1 / 2]
+        topSegment,
+        leftSegment,
+        bottomSegment,
+        rightBottomSegment
     ],
     'h': [
-        [0, 0, 0, 1],
-        [1, 0, 1, 1],
-        [0, 1 / 2, 1, 1 / 2]
+        leftSegment,
+        rightSegment,
+        middleHorizontalSegment
     ],
     'i': [
-        [0, 0, 0, 1]
+        leftSegment
+    ],
+    'j': [
+        rightSegment,
+        bottomSegment,
+        [0, 1 / 2, 0, 1]
     ],
     'k': [
-        [0, 0, 0, 1],
+        leftSegment,
         [1, 0, 0, 1 / 2],
         [1, 1, 0, 1 / 2],
     ],
     'l': [
-        [0, 0, 0, 1],
-        [0, 1, 1, 1]
+        leftSegment,
+        bottomSegment
     ],
     'm': [
-        [0, 0, 0, 1],
+        leftSegment,
         [0, 0, 1 / 2, 1 / 2],
         [1, 0, 1 / 2, 1 / 2],
-        [1, 0, 1, 1]
+        rightSegment
     ],
     'n': [
-        [0, 0, 0, 1],
+        leftSegment,
         [0, 0, 1, 1],
-        [1, 0, 1, 1]
+        rightSegment
     ],
     'o': [
-        [0, 0, 1, 0],
-        [0, 1, 1, 1],
-        [0, 0, 0, 1],
-        [1, 0, 1, 1],
+        topSegment,
+        bottomSegment,
+        leftSegment,
+        rightSegment
     ],
     'p': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
+        leftSegment,
+        topSegment,
         [1, 0, 1, 1 / 2],
-        [0, 1 / 2, 1, 1 / 2],
+        middleHorizontalSegment,
+    ],
+    'q': [
+        topSegment,
+        bottomSegment,
+        leftSegment,
+        rightSegment,
+        [1, 1, 1, 1.1]
     ],
     'r': [
-        [0, 0, 0, 1],
-        [0, 0, 1, 0],
+        leftSegment,
+        topSegment,
         [1, 0, 1, 1 / 2],
-        [0, 1 / 2, 1, 1 / 2],
+        middleHorizontalSegment,
         [0, 1 / 2, 1, 1]
     ],
     's': [
-        [0, 0, 1, 0],
+        topSegment,
         [0, 0, 0, 1 / 2],
-        [0, 1 / 2, 1, 1 / 2],
-        [1, 1 / 2, 1, 1],
-        [0, 1, 1, 1],
+        middleHorizontalSegment,
+        rightBottomSegment,
+        bottomSegment,
     ],
     't': [
-        [0, 0, 1, 0],
+        topSegment,
         [1 / 2, 0, 1 / 2, 1]
     ],
     'u': [
-        [0, 0, 0, 1],
-        [0, 1, 1, 1],
-        [1, 0, 1, 1]
+        leftSegment,
+        bottomSegment,
+        rightSegment
     ],
     'v': [
         [0, 0, 1 / 2, 1],
@@ -176,10 +196,19 @@ const characterSettings = {
         [3 / 4, 1, 1 / 2, 1 / 2],
         [1, 0, 3 / 4, 1],
     ],
+    'x': [
+        [0, 0, 1, 1],
+        [1, 0, 0, 1]
+    ],
     'y': [
         [0, 0, 1 / 2, 1 / 2],
         [1 / 2, 1 / 2, 1, 0],
         [1 / 2, 1 / 2, 1 / 2, 1]
+    ],
+    'z': [
+        topSegment,
+        bottomSegment,
+        [1, 0, 0, 1]
     ],
     '\'': [
         [0, 1 / 4, 1 / 4, 0]

@@ -224,8 +224,8 @@ class Game {
 
     showMessage(message) {
         this.message = stickString(message, 2 / 5);
-        interp(this, 'messageProgress', 10, 0, 0.5, 3);
-        interp(this, 'messageProgress', 0, 10, 0.5);
+        interp(this, 'messageProgress', this.message.segments.length, 0, this.message.segments.length * 0.1, 3);
+        interp(this, 'messageProgress', 0, this.message.segments.length, this.message.segments.length * 0.1);
     }
 
     start() {
