@@ -21,7 +21,6 @@ compiler.run((tasks) => {
             tasks.loadFiles(JS_FILES),
             tasks.concat(),
             tasks.constants(constants),
-            tasks.macro('matrix'),
             tasks.macro('evaluate'),
             tasks.macro('nomangle')
         ];
