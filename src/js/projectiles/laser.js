@@ -8,13 +8,14 @@ class Laser {
         // this.speed = 800;
         // this.radius = 10;
         this.guideRadius = 0;
+        this.age = 0;
     }
 
     cycle(e) {
         this.x += cos(this.angle) * this.speed * e;
         this.y += sin(this.angle) * this.speed * e;
 
-        if (!V.isVisible(this.x, this.y)) {
+        if (!V.isVisible(this.x, this.y) || (this.age += e) >= 5) {
             U.remove(U.projectiles, this);
         }
 
