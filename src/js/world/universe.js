@@ -111,6 +111,33 @@ class Universe {
                 //     stroke();
                 // });
             }
+
+            R.shadowColor = '#000';
+            R.shadowOffsetY = 4;
+
+            const closeBodies = this.bodies.filter(body => body.name && dist(body, U.playerShip) < CANVAS_WIDTH / 2);
+            closeBodies.forEach(body => {
+                let x1 = cos(-PI / 4) * (body.radius + 20);
+                let y1 = sin(-PI / 4) * (body.radius + 20);
+
+                let x2 = cos(-PI / 4) * (body.radius + 50);
+                let y2 = sin(-PI / 4) * (body.radius + 50);
+
+                let x3 = x2 + 30;
+                let y3 = y2;
+
+                R.strokeStyle = R.fillStyle = '#fff';
+                R.lineWith = 2;
+                beginPath();
+                moveTo(body.x + x1, body.y + y1);
+                lineTo(body.x + x2, body.y + y2);
+                lineTo(body.x + x3, body.y + y3);
+                stroke();
+
+                R.font = '20pt Courier';
+                R.textBaseline = 'middle';
+                fillText(body.name.toUpperCase(), body.x + x3 + 10, body.y + y3);
+            });
         });
     }
 
