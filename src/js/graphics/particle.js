@@ -15,7 +15,10 @@ function particle(size, color, interpolations) {
             wrap(() => {
                 R.globalAlpha = p.alpha;
                 R.fillStyle = p.color;
-                fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+                beginPath();
+                arc(p.x, p.y, p.size / 2, 0, PI * 2);
+                fill();
+                // fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
             });
         }
     });
