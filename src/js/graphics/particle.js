@@ -12,6 +12,8 @@ function particle(size, color, interpolations) {
             //     return;
             // }
 
+            G.renderedParticles++;
+
             wrap(() => {
                 R.globalAlpha = p.alpha;
                 R.fillStyle = p.color;

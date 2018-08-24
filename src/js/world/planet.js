@@ -85,21 +85,21 @@ class Planet extends Body {
         if (DEBUG) {
             G.renderedOrbits++;
 
-            const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
+            // const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
 
-            R.lineWidth = 2;
-            pts.forEach(pt => {
-                R.fillStyle = '#0f0';
-                fillRect(pt.x - 2, pt.y - 2, 4, 4);
+            // R.lineWidth = 2;
+            // pts.forEach(pt => {
+            //     R.fillStyle = '#0f0';
+            //     fillRect(pt.x - 2, pt.y - 2, 4, 4);
 
-                pt.neighbors.forEach(neighbor => {
-                    beginPath();
-                    R.strokeStyle = '#0f0';
-                    moveTo(pt.x, pt.y);
-                    lineTo(neighbor.x, neighbor.y);
-                    stroke();
-                });
-            });
+            //     pt.neighbors.forEach(neighbor => {
+            //         beginPath();
+            //         R.strokeStyle = '#0f0';
+            //         moveTo(pt.x, pt.y);
+            //         lineTo(neighbor.x, neighbor.y);
+            //         stroke();
+            //     });
+            // });
         }
 
         if (!V.isVisible(this.x, this.y, this.radius + 50)) {

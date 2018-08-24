@@ -71,6 +71,7 @@ class Game {
             G.renderedStars = 0;
             G.renderedAsteroids = 0;
             G.renderedShips = 0;
+            G.renderedParticles = 0;
         }
 
         U.render();
@@ -229,7 +230,8 @@ class Game {
                     'stars: ' + G.renderedStars,
                     'orbits: ' + G.renderedOrbits,
                     'asteroids: ' + G.renderedAsteroids,
-                    'ships: ' + G.renderedShips
+                    'ships: ' + G.renderedShips,
+                    'particles: ' + G.renderedParticles
                 ];
                 let y = 20; 
                 info.forEach(info => {
