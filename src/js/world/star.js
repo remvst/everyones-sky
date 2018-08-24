@@ -27,6 +27,27 @@ class Star extends Body {
             R[i ? 'lineTo' : 'moveTo'](this.x + cos(a) * d, this.y + sin(a) * d);
         }
         fill();
+
+        let x1 = cos(-PI / 4) * (this.radius + 20);
+        let y1 = sin(-PI / 4) * (this.radius + 20);
+
+        let x2 = cos(-PI / 4) * (this.radius + 50);
+        let y2 = sin(-PI / 4) * (this.radius + 50);
+
+        let x3 = x2 + 30;
+        let y3 = y2;
+
+        R.strokeStyle = R.fillStyle = '#fff';
+        R.lineWith = 2;
+        beginPath();
+        moveTo(this.x + x1, this.y + y1);
+        lineTo(this.x + x2, this.y + y2);
+        lineTo(this.x + x3, this.y + y3);
+        stroke();
+
+        R.font = '20pt Courier';
+        R.textBaseline = 'middle';
+        fillText(this.name.toUpperCase(), this.x + x3 + 10, this.y + y3);
     }
 
     damage(projectile) {
