@@ -14,7 +14,7 @@ class Game {
         // this.promptText = null; // for reference
         // this.promptClock = 0; // for reference
 
-        setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 5000);
+        setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 0);
     }
 
     proceedToMissionStep(missionStep) {

@@ -1,6 +1,8 @@
 class PromptTutorialStep extends MissionStep {
 
     attach() {
+        V.targetScaleOverride = 1;
+
         G.showPrompt(nomangle('Follow a quick tutorial?'), [{
             'label': 'Yes',
             'action': () => this.proceed(new MovementStep())
@@ -78,6 +80,8 @@ class TutorialFinishedStep extends MissionStep {
 
 class InstructionsStep extends MissionStep {
     attach() {
+        V.targetScaleOverride = null;
+
         U.generateUniverse();
 
         G.showPrompt(nomangle('Bring PEACE to the galaxy, or WAR... your call'), [{

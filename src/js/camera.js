@@ -5,6 +5,7 @@ class Camera {
         this.shakeX = this.shakeY = 0;
 
         this.scale = this.targetScale = 1;
+        // this.targetScaleOverride = null; // for reference only
     }
 
     cycle(e) {
@@ -19,7 +20,9 @@ class Camera {
             this.targetScale = 1;
         }
 
-        this.scale += limit(-0.5 * e, this.targetScale - this.scale, 0.5 * e);
+        const targetScale = this.targetScaleOverride || this.targetScale;
+
+        this.scale += limit(-0.5 * e, targetScale - this.scale, 0.5 * e);
 
         this.width = (CANVAS_WIDTH / this.scale);
         this.height = (CANVAS_HEIGHT / this.scale);
