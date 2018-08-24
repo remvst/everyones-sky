@@ -52,6 +52,16 @@ class Ship {
         }
     }
 
+    shape() {
+        rotate(this.angle);
+        beginPath();
+        moveTo(-5, 0);
+        lineTo(-10, 10);
+        lineTo(20, 0);
+        lineTo(-10, -10);
+        fill();
+    }
+
     render() {
         if (!V.isVisible(this.x, this.y, this.radius)) {
             return;
@@ -65,26 +75,14 @@ class Ship {
             R.fillStyle = '#000';
             R.globalAlpha = 0.5;
             translate(this.x + 2, this.y + 2);
-            rotate(this.angle);
-            beginPath();
-            moveTo(-5, 0);
-            lineTo(-10, 10);
-            lineTo(20, 0);
-            lineTo(-10, -10);
-            fill();
+            this.shape();
         });
 
         const damageFactor = 1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1;
         wrap(() => {
             R.fillStyle = damageFactor > 0 ? '#f00' : '#fff';
             translate(this.x, this.y);
-            rotate(this.angle);
-            beginPath();
-            moveTo(-5, 0);
-            lineTo(-10, 10);
-            lineTo(20, 0);
-            lineTo(-10, -10);
-            fill();
+            this.shape();
         });
     }
 
