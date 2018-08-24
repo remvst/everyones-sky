@@ -53,6 +53,14 @@ class Ship {
     }
 
     render() {
+        if (!V.isVisible(this.x, this.y, this.radius)) {
+            return;
+        }
+
+        if (DEBUG) {
+            G.renderedShips++;
+        }
+
         wrap(() => {
             R.fillStyle = '#000';
             R.globalAlpha = 0.5;

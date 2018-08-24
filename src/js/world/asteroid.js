@@ -88,6 +88,10 @@ class Asteroid extends Body {
             return;
         }
 
+        if (DEBUG) {
+            G.renderedAsteroids++;
+        }
+
         wrap(() => {
             translate(this.x, this.y);
             rotate(this.rotation);

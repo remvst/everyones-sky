@@ -75,12 +75,6 @@ class Planet extends Body {
             return;
         }
 
-        this.stations.forEach(station => wrap(() => {
-            translate(station.x, station.y);
-            rotate(station.angleOnPlanet + this.angle);
-            station.render();
-        }));
-
         // Draw the orbit
         R.lineWidth = 10;
         R.strokeStyle = 'rgba(255,255,255,0.1)';
@@ -89,6 +83,8 @@ class Planet extends Body {
         stroke();
 
         if (DEBUG) {
+            G.renderedOrbits++;
+
             const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
 
             R.lineWidth = 2;
@@ -109,6 +105,16 @@ class Planet extends Body {
         if (!V.isVisible(this.x, this.y, this.radius + 50)) {
             return;
         }
+
+        if (DEBUG) {
+            G.renderedPlanets++;
+        }
+
+        this.stations.forEach(station => wrap(() => {
+            translate(station.x, station.y);
+            rotate(station.angleOnPlanet + this.angle);
+            station.render();
+        }));
 
         translate(this.x, this.y);
         rotate(this.angle);

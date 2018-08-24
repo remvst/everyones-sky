@@ -65,6 +65,14 @@ class Game {
             this.start();
         }
 
+        if (DEBUG) {
+            G.renderedPlanets = 0;
+            G.renderedOrbits = 0;
+            G.renderedStars = 0;
+            G.renderedAsteroids = 0;
+            G.renderedShips = 0;
+        }
+
         U.render();
 
         // Render HUD
@@ -210,6 +218,26 @@ class Game {
                 });
             });
         });
+
+        if (DEBUG) {
+            wrap(() => {
+                R.font = '10pt Courier';
+                R.fillStyle = '#fff';
+
+                const info = [
+                    'planets: ' + G.renderedPlanets,
+                    'stars: ' + G.renderedStars,
+                    'orbits: ' + G.renderedOrbits,
+                    'asteroids: ' + G.renderedAsteroids,
+                    'ships: ' + G.renderedShips
+                ];
+                let y = 20; 
+                info.forEach(info => {
+                    fillText(info, CANVAS_WIDTH - 200, y);
+                    y += 20;
+                });
+            });
+        }
     }
 
     showPrompt(promptText, options) {
