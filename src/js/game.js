@@ -1,3 +1,311 @@
+function stickString(characters, charSpacing) {
+    const absoluteSegments = [];
+
+    let characterX = 0;
+    let width;
+    characters.forEach(charSegments => {
+        let nextX = characterX;
+        charSegments.forEach(segment => {
+            absoluteSegments.push([
+                characterX + segment[0], 
+                segment[1], 
+                characterX + segment[2], 
+                segment[3]
+            ]);
+            nextX = max(nextX, characterX + segment[0] + charSpacing, characterX + segment[2] + charSpacing);
+        });
+
+        if (!charSegments.length) {
+            nextX += 1;
+        }
+
+        characterX = nextX;
+        width = characterX - charSpacing;
+    });
+
+    const appearanceOffsets = [];
+    let offset = 0;
+    for (let i = 0 ; i < absoluteSegments.length ; i++) {
+        appearanceOffsets.splice(~~(random() * appearanceOffsets.length), 0, offset);
+        offset += 1;
+    }
+
+    return {
+        'segments': absoluteSegments,
+        'appearanceOffsets': appearanceOffsets,
+        'width': width,
+        'height': 1
+    };
+}
+
+const r = rnd();
+
+function renderStickString(stickStringSettings, charWidth, charHeight, offset, segmentInterval, appearanceTime) {
+    stickStringSettings.segments.forEach((segment, index) => {
+        const appearanceOffset = stickStringSettings.appearanceOffsets[index];
+
+        const delay = appearanceOffset * segmentInterval + offset;
+        
+        R.globalAlpha = limit(0, (G.clock - delay) / appearanceTime, 1);
+
+        wrap(() => {
+            const direction = sign(((index + appearanceOffset) % 2) - 0.5);
+            
+            if (((index % 2) - 0.5) > 0) {
+                translate(direction * (1 - R.globalAlpha) * 50, 0);
+            } else {
+                translate(0, direction * (1 - R.globalAlpha) * 50);
+            }
+
+            beginPath();
+            moveTo(segment[0] * charWidth, segment[1] * charHeight);
+            lineTo(segment[2] * charWidth, segment[3] * charHeight);
+            stroke();
+        });
+    });
+}
+
+const everyones = stickString([
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // V
+    [
+        [0, 0, 1 / 2, 1],
+        [1, 0, 1 / 2, 1]
+    ],
+
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // R
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [1, 0, 1, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [0, 1 / 2, 1, 1]
+    ],
+
+    // Y
+    [
+        [0, 0, 1 / 2, 1 / 2],
+        [1 / 2, 1 / 2, 1, 0],
+        [1 / 2, 1 / 2, 1 / 2, 1]
+    ],
+
+    // O
+    [
+        [0, 0, 1, 0],
+        [0, 1, 1, 1],
+        [0, 0, 0, 1],
+        [1, 0, 1, 1],
+    ],
+
+    // N
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 1],
+        [1, 0, 1, 1]
+    ],
+
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // '
+    [
+        [0, 1 / 4, 1 / 4, 0]
+    ],
+
+    // S
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [1, 1 / 2, 1, 1],
+        [0, 1, 1, 1],
+    ]
+], 2 / 5);
+
+const sky = stickString([
+    // S
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [1, 1 / 2, 1, 1],
+        [0, 1, 1, 1],
+    ],
+
+    // K
+    [
+        [0, 0, 0, 1],
+        [1, 0, 0, 1 / 2],
+        [1, 1, 0, 1 / 2],
+    ],
+
+    // Y
+    [
+        [0, 0, 1 / 2, 1 / 2],
+        [1 / 2, 1 / 2, 1, 0],
+        [1 / 2, 1 / 2, 1 / 2, 1]
+    ]
+], 2 / 5);
+
+const pressEnterToStart = stickString([
+    // P
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [1, 0, 1, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+    ],
+
+    // R
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [1, 0, 1, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [0, 1 / 2, 1, 1]
+    ],
+
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // S
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [1, 1 / 2, 1, 1],
+        [0, 1, 1, 1],
+    ],
+
+    // S
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [1, 1 / 2, 1, 1],
+        [0, 1, 1, 1],
+    ],
+
+    [],
+
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // N
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 1],
+        [1, 0, 1, 1]
+    ],
+
+    // T
+    [
+        [0, 0, 1, 0],
+        [1 / 2, 0, 1 / 2, 1]
+    ],
+
+    // E
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [0, 1 / 2, 1 * 2 / 3, 1 / 2],
+        [0, 1, 1, 1]
+    ],
+
+    // R
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [1, 0, 1, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [0, 1 / 2, 1, 1]
+    ],
+
+    [],
+
+    // T
+    [
+        [0, 0, 1, 0],
+        [1 / 2, 0, 1 / 2, 1]
+    ],
+
+    // O
+    [
+        [0, 0, 1, 0],
+        [0, 1, 1, 1],
+        [0, 0, 0, 1],
+        [1, 0, 1, 1],
+    ],
+
+    [],
+
+    // S
+    [
+        [0, 0, 1, 0],
+        [0, 0, 0, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [1, 1 / 2, 1, 1],
+        [0, 1, 1, 1],
+    ],
+
+    // T
+    [
+        [0, 0, 1, 0],
+        [1 / 2, 0, 1 / 2, 1]
+    ],
+
+    // A
+    [
+        [0, 1, 1 / 2, 0],
+        [1, 1, 1 / 2, 0]
+    ],
+
+    // R
+    [
+        [0, 0, 0, 1],
+        [0, 0, 1, 0],
+        [1, 0, 1, 1 / 2],
+        [0, 1 / 2, 1, 1 / 2],
+        [0, 1 / 2, 1, 1]
+    ],
+
+    // T
+    [
+        [0, 0, 1, 0],
+        [1 / 2, 0, 1 / 2, 1]
+    ]
+], 2 / 5);
+
 class Game {
 
     constructor() {
@@ -143,6 +451,42 @@ class Game {
                     });
                 }
             }
+
+            const charWidth = 50;
+            const charHeight = 100;
+
+            R.fillStyle = '#000';
+            fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+            R.strokeStyle = '#fff';
+            R.lineCap = 'round';
+
+            R.lineWidth = 8;
+
+            const everyonesY = (CANVAS_HEIGHT - charHeight * (everyones.height + 2 / 5 + sky.height)) / 2;
+
+            wrap(() => {
+                translate((CANVAS_WIDTH - everyones.width * charWidth) / 2, everyonesY);
+                renderStickString(everyones, charWidth, charHeight, 0.5, 0.1, 1);
+            });
+
+            wrap(() => {
+                translate((CANVAS_WIDTH - sky.width * charWidth) / 2, everyonesY + charHeight * sky.height * 7 / 5);
+                renderStickString(sky, charWidth, charHeight, 0.5, 0.1, 1);
+            });
+
+            R.lineWidth = 4;
+
+            const instructionCharWidth = 20;
+            const instructionCharHeight = 30;
+            wrap(() => {
+                if (G.clock % 1 > 0.5 && G.clock > 6) {
+                    return;
+                }
+
+                translate((CANVAS_WIDTH - pressEnterToStart.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
+                renderStickString(pressEnterToStart, instructionCharWidth, instructionCharHeight, 5, 0.01, 0.2);
+            });
         });
     }
 
