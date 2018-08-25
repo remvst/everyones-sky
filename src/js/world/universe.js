@@ -45,8 +45,8 @@ class Universe {
         this.renderBackground(starsPattern1, 0.1);
 
         wrap(() => {
-            R.scale(V.scale, V.scale);
-            R.translate(-V.x, -V.y);
+            scale(V.scale, V.scale);
+            translate(-V.x, -V.y);
     
             this.projectiles.forEach(projectile => projectile.render());
             this.ships.forEach(ship => ship.render());
