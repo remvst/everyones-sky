@@ -60,10 +60,7 @@ class OfflineStep extends MissionStep {
 
         this.listen('cycle', e => {
             if (U.bodies.length < 10) {
-                const asteroid = new Asteroid();
-                asteroid.x = U.playerShip.x + pick([-1, 1]) * V.width / 2;
-                asteroid.y = U.playerShip.y + pick([-1, 1]) * V.height / 2;
-                U.bodies.push(asteroid);
+                U.randomAsteroid();
             }
         });
     }

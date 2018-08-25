@@ -17,14 +17,27 @@ class Universe {
         this.ships.push(this.playerShip);
 
         // setTimeout(() => this.generateUniverse(), 0);
+        this.nextAsteroid = 0;
     }
 
     cycle(e) {
+        if ((this.nextAsteroid -= e) <= 0) {
+            this.nextAsteroid = 5;
+            this.randomAsteroid();
+        }
+
         this.bodies.forEach(b => b.cycle(e));
         this.ships.forEach(ship => ship.cycle(e));
         this.items.forEach(item => item.cycle(e));
         this.projectiles.forEach(projectile => projectile.cycle(e));
         V.cycle(e);
+    }
+    
+    randomAsteroid() {
+        const asteroid = new Asteroid();
+        asteroid.x = U.playerShip.x + pick([-1, 1]) * V.width / 2;
+        asteroid.y = U.playerShip.y + pick([-1, 1]) * V.height / 2;
+        U.bodies.push(asteroid);
     }
 
     renderBackground(pattern, factor) {

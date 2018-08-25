@@ -7,7 +7,7 @@ function particle(size, color, interpolations) {
         color: color,
         alpha: 1,
         render: () => {
-            if (!V.contains(this.x, this.y, this.size)) {
+            if (!V.isVisible(p.x, p.y, p.size)) {
                 return;
             }
 
