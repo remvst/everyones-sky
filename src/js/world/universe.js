@@ -24,7 +24,7 @@ class Universe {
         // this.bodies.push(new Planet(star, 400));
         // this.bodies.push(new Planet(star, 800));
 
-        // this.generateUniverse();
+        // setTimeout(() => this.generateUniverse(), 0);
 
         // const p = new Planet(star, 1200);
         // this.bodies.push(p);
@@ -97,11 +97,11 @@ class Universe {
                 // strokeRect(V.x + 10, V.y + 10, V.width - 20, V.height - 20);
             }
     
+            this.projectiles.forEach(projectile => projectile.render());
+            this.ships.forEach(ship => ship.render());
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
-            this.projectiles.forEach(projectile => projectile.render());
             this.items.forEach(item => item.render());
-            this.ships.forEach(ship => ship.render());
 
             if (DEBUG) {
                 // this.forEachTarget(t => {

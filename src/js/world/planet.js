@@ -39,6 +39,28 @@ class Planet extends Body {
             }
         });
 
+        this.shadowAsset = createCanvas(this.radius * 4, this.radius * 2, (r, c) => {
+            const gradient = r.createLinearGradient(0, 0, c.width, 0);
+            gradient.addColorStop(0, '#000');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+            r.fillStyle = gradient;
+            r.globalAlpha = 0.4;
+
+            r.beginPath();
+
+            r.wrap(() => {
+                r.translate(0, this.radius);
+                r.scale(0.7, 1);
+                r.arc(0, 0, this.radius, -PI / 2, PI / 2);
+            });
+
+            r.lineTo(c.width, c.height);
+            r.lineTo(c.width, 0);
+
+            r.fill();
+        });
+
         this.stations = [];
 
         const city = new City(this, 0);
@@ -117,13 +139,22 @@ class Planet extends Body {
             station.render();
         }));
 
-        translate(this.x, this.y);
-        rotate(this.angle);
+        wrap(() => {
+            translate(this.x, this.y);
+            rotate(this.angle);
+    
+            R.shadowBlur = 100;
+            R.shadowColor = 'rgba(255,255,255,0.5)';
+    
+            drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
+        });
 
-        R.shadowBlur = 100;
-        R.shadowColor = 'rgba(255,255,255,0.5)';
-
-        drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
+        wrap(() => {
+            translate(this.x, this.y);
+            rotate(this.orbitPhase); // TODO
+    
+            drawImage(this.shadowAsset, 0, -this.shadowAsset.height / 2);
+        });
     }
 
     damage(projectile) {
