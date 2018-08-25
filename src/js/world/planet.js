@@ -24,7 +24,7 @@ class Planet extends Body {
         this.asset = haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
             r.fillStyle = '#fff';
-            r.arc(this.radius, this.radius, this.radius, 0 , Math.PI * 2);
+            r.arc(this.radius, this.radius, this.radius, 0 , PI * 2);
             r.fill();
             r.globalCompositeOperation = 'source-atop';
 

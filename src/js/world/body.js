@@ -11,7 +11,7 @@ class Body {
             const overlap = minDist - dist(ship, this);
             if (overlap > 0) {
                 // Push the ship away
-                const angle = atan2(ship.y - this.y, ship.x - this.x);
+                const angle = angleBetween(this, ship);
                 ship.x = this.x + cos(angle) * (minDist + 5);
                 ship.y = this.y + sin(angle) * (minDist + 5);
                 ship.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
@@ -42,10 +42,10 @@ class Body {
             circles.push(circle);
 
             for (let i = 0 ; i < 6 ; i++) {
-                const angle = Math.PI * 2 * (i / 6);
+                const angle = PI * 2 * (i / 6);
                 const pt = {
-                    'x': Math.cos(angle) * radius + this.x,
-                    'y': Math.sin(angle) * radius + this.y,
+                    'x': cos(angle) * radius + this.x,
+                    'y': sin(angle) * radius + this.y,
                     'neighbors': []
                 };
                 pts.push(pt);

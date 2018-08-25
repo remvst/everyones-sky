@@ -125,7 +125,7 @@ class Game {
             }
             
             targets.forEach(target => {
-                const angle = atan2(target.y - U.playerShip.y, target.x - U.playerShip.x);
+                const angle = angleBetween(U.playerShip, target);
 
                 wrap(() => {
                     const distanceOnCircle = limit(0, (dist(target, U.playerShip) - target.reachRadius) / 4000, 1) * 200 + 50;

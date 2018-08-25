@@ -35,8 +35,8 @@ class Ship {
             ]);
         }
 
-        const angle = Math.atan2(this.vY, this.vX);
-        const velocity = Math.min(Math.max(0, distP(0, 0, this.vX, this.vY) - SHIP_DECELERATION * e), SHIP_MAX_SPEED);
+        const angle = atan2(this.vY, this.vX);
+        const velocity = min(max(0, distP(0, 0, this.vX, this.vY) - SHIP_DECELERATION * e), SHIP_MAX_SPEED);
 
         this.vX = velocity * cos(angle);
         this.vY = velocity * sin(angle);

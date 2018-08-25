@@ -18,7 +18,7 @@ class Mortar extends PlanetaryStation {
         super.cycle(e);
 
         // Smooth angle transition
-        const angleToPlayer = normalize(atan2(U.playerShip.y - this.y, U.playerShip.x - this.x) - this.globalAngle);
+        const angleToPlayer = normalize(angleBetween(this, U.playerShip) - this.globalAngle);
         const targetAngle = limit(-PI / 4, angleToPlayer, PI / 4);
         const maxRotation = e * PI / 4;
         this.shootAngle += limit(-maxRotation, targetAngle - this.shootAngle, maxRotation);

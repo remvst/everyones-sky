@@ -36,7 +36,7 @@ class AIShip extends Ship {
         const velocity = distP(0, 0, this.vX, this.vY);
 
         // Logic to reach the current target
-        const angleToTarget = atan2(target.y - this.y, target.x - this.x);
+        const angleToTarget = angleBetween(this, target);
         const angleDiff = normalize(angleToTarget - this.angle);
 
         if (abs(angleDiff) > PI / 64) {

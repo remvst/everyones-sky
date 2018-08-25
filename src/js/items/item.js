@@ -19,7 +19,7 @@ class Item {
 
         const distance = dist(this, U.playerShip);
         if (distance < ITEM_MAGNETIZED_RADIUS) {
-            const angle = atan2(U.playerShip.y - this.y, U.playerShip.x - this.x);
+            const angle = angleBetween(this, U.playerShip);
             this.x += cos(angle) * min(distance, ITEM_MAGNETIZED_SPEED * e);
             this.y += sin(angle) * min(distance, ITEM_MAGNETIZED_SPEED * e);
         }

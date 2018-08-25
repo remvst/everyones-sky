@@ -32,7 +32,11 @@ const normalize = x => {
     while (x < -PI) x += PI * 2;
     while (x > PI) x -= PI * 2;
     return x;
-}
+};
+
+const angleBetween = (a, b) => {
+    return atan2(b.y - a.y, b.x - a.x);
+};
 
 // Make Math global
 const m = Math;

@@ -65,7 +65,7 @@ class Asteroid extends Body {
             const overlap = minDist - dist(body, this);
             if (overlap > 0) {
                 // Push the other body away
-                const angle = atan2(this.y - body.y, this.x - body.x);
+                const angle = angleBetween(body, this);
                 this.x = body.x + cos(angle) * (minDist);
                 this.y = body.y + sin(angle) * (minDist);
 

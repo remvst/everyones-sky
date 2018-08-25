@@ -31,7 +31,7 @@ class Laser {
             }
 
             if (dist(target, this) < this.guideRadius) {
-                const angleToTarget = atan2(target.y - this.y, target.x - this.x);
+                const angleToTarget = angleBetween(this, target);
                 const angleDiff = normalize(angleToTarget - this.angle);
                 if (abs(angleDiff) < PI / 4) {
                     const appliedDiff = limit(-e * PI / 2, angleDiff, e * PI / 2);

@@ -11,7 +11,7 @@ class Camera {
     cycle(e) {
         let minDistance = 999;
         U.bodies.forEach(body => {
-            minDistance = Math.min(minDistance, dist(body, U.playerShip));
+            minDistance = min(minDistance, dist(body, U.playerShip));
         });
 
         if (minDistance > BODY_UNZOOM_THRESHOLD) {
