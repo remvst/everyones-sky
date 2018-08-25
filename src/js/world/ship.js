@@ -1,7 +1,7 @@
 class Ship {
 
-    constructor(planet) {
-        this.planet = planet;
+    constructor(civilization) {
+        this.civilization = civilization;
 
         this.x = this.y = 0;
         this.vX = this.vY = 0;

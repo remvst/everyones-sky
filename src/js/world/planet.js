@@ -1,14 +1,18 @@
 class Planet extends Body {
 
-    constructor(star, orbitRadius, radius = 100) {
+    constructor(orbitsAround, orbitRadius, radius = 100) {
         super();
+
         this.radius = radius;
+
+        this.civilization = new Civilization(this);
+
         this.name = randomName();
         this.stickString = stickString(this.name, 2 / 5);
 
         this.rotationSpeed = rnd(PI / 8, PI / 12)
 
-        this.orbitsAround = star;
+        this.orbitsAround = orbitsAround;
         this.orbitPhase = rnd(0, PI * 2);
         this.orbitRadius = orbitRadius;
 
@@ -20,7 +24,7 @@ class Planet extends Body {
         this.stations = [];
         this.angle = 0;
 
-        const initialResources = this.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
+        const initialResources = this.civilization.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
         for (let i = 0 ; i < initialResources / PLANET_EVOLUTION_REQUIRED_RESOURCES ; i++) {
             this.evolve();
         }
@@ -88,11 +92,11 @@ class Planet extends Body {
     }
 
     evolve() {
-        if (this.resources < PLANET_EVOLUTION_REQUIRED_RESOURCES) {
+        if (this.civilization.resources < PLANET_EVOLUTION_REQUIRED_RESOURCES) {
             return;
         }
 
-        this.resources -= PLANET_EVOLUTION_REQUIRED_RESOURCES;
+        this.civilization.resources -= PLANET_EVOLUTION_REQUIRED_RESOURCES;
 
         pick([
             () => this.spawnStation(City),
@@ -112,13 +116,13 @@ class Planet extends Body {
         const minAngleDifference = PI * 2 / (2 * PI * this.radius / 30);
         do {
             angle = random() * PI * 2;
-        } while(++attempts < 5 && this.stations.filter(otherStation => abs(normalize(angle, otherStation.angle)) < minAngleDifference));
+        } while(++attempts < 5 && this.stations.filter(otherStation => abs(normalize(angle, otherStation.angle)) < minAngleDifference).length);
 
         this.stations.push(new type(this, angle));
     }
 
     spawnShip() {
-        const ai = new AIShip(this);
+        const ai = new AIShip(this.civilization);
         const angle = rnd(0, PI * 2);
         ai.x = this.x + cos(angle) * this.radius + ai.radius * 2;
         ai.y = this.y + sin(angle) * this.radius + ai.radius * 2;

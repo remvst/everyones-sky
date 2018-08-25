@@ -8,7 +8,7 @@ class ResourceItem extends Item {
     }
 
     pickUp(ship) {
-        ship.planet.resources = min(MAX_PLANET_RESOURCES, ship.planet.resources + 1);
+        ship.civilization.resources = min(MAX_PLANET_RESOURCES, ship.civilization.resources + 1);
     }
 
 }

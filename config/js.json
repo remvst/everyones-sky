@@ -27,6 +27,7 @@
     "src/js/world/mortar.js",
     "src/js/world/mountain.js",
     "src/js/world/factory.js",
+    "src/js/world/civilization.js",
 
     "src/js/items/item.js",
     "src/js/items/health-item.js",

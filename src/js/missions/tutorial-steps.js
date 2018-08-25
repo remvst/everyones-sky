@@ -53,7 +53,7 @@ class OfflineStep extends MissionStep {
         }]);
 
         this.listen('cycle', () => {
-            if (U.playerShip.planet.resources >= 20) {
+            if (U.playerShip.civilization.resources >= 20) {
                 this.proceed(new TutorialFinishedStep());
             }
         });
