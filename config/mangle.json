@@ -84,6 +84,7 @@
         "duration",
         "ratio",
         "info",
-        "message"
+        "message",
+        "size"
     ]
 }
