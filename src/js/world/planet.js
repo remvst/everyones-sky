@@ -113,7 +113,7 @@ class Planet extends Body {
         let attempts = 0;
         let angle;
 
-        const minAngleDifference = PI * 2 / (2 * PI * this.radius / 30);
+        const minAngleDifference = PI * 2 / (2 * PI * this.radius / 40);
         do {
             angle = random() * PI * 2;
         } while(++attempts < 5 && this.stations.filter(otherStation => abs(normalize(angle, otherStation.angle)) < minAngleDifference).length);
