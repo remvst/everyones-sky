@@ -1,11 +1,11 @@
 onload = () => {
     onresize(); // trigger initial sizing pass
 
-    C = document.querySelector('canvas');
-    C.width = CANVAS_WIDTH;
-    C.height = CANVAS_HEIGHT;
+    const can = document.querySelector('canvas');
+    can.width = CANVAS_WIDTH;
+    can.height = CANVAS_HEIGHT;
 
-    R = C.getContext('2d');
+    R = can.getContext('2d');
 
     // Shortcut for all canvas methods to the main canvas
     Object.getOwnPropertyNames(p).forEach(n => {

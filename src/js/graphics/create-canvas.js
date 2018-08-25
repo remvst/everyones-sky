@@ -1,11 +1,11 @@
 const createCanvas = (w, h, instructions) => {
-    const canvas = document.createElement('canvas');
-    canvas.width = w;
-    canvas.height = h;
+    const can = document.createElement('canvas');
+    can.width = w;
+    can.height = h;
 
-    const context = canvas.getContext('2d');
+    const context = can.getContext('2d');
 
-    instructions(context, canvas);
+    instructions(context, can);
 
-    return canvas;
+    return can;
 };
