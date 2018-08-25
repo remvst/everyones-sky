@@ -2,7 +2,8 @@ class Item {
 
     constructor() {
         this.x = this.y = 0;
-        this.scaleRandom = random()
+        this.scaleRandom = random();
+        this.timeLeft = 10;
     }
 
     cycle(e) {
@@ -29,11 +30,13 @@ class Item {
             this.pickUp(U.playerShip);
         }
 
-        // TODO remove after a while
+        if ((this.timeLeft -= e) <= 0) {
+            U.remove(U.items, this);
+        }
     }
 
     render() {
-        if (!V.isVisible(this.x, this.y)) {
+        if (!V.isVisible(this.x, this.y) || this.timeLeft < 3 && (this.timeLeft % 0.25) < 0.125) {
             return;
         }
 
