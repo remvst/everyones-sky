@@ -77,6 +77,8 @@ class AIShip extends Ship {
     }
 
     cycle(e) {
+        this.enemy = this.civilization.relationshipType() === RELATIONSHIP_ENEMY ? U.playerShip : null;
+
         if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.civilization.planet, this.target) < this.civilization.planet.radius || (this.nextDecisionChange -= e) <= 0) {
             this.pickNewTarget();
         }

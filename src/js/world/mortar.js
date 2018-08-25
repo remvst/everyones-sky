@@ -23,8 +23,8 @@ class Mortar extends PlanetaryStation {
         const maxRotation = e * PI / 4;
         this.shootAngle += limit(-maxRotation, targetAngle - this.shootAngle, maxRotation);
 
-        if (abs(normalize(this.shootAngle - angleToPlayer)) < PI / 64) {
-            // this.shoot();
+        if (abs(normalize(this.shootAngle - angleToPlayer)) < PI / 64 && this.planet.civilization.relationshipType() === RELATIONSHIP_ENEMY) {
+            this.shoot();
         }
     }
 
