@@ -7,10 +7,9 @@ function particle(size, color, interpolations) {
         color: color,
         alpha: 1,
         render: () => {
-            // TODO bring back
-            // if (!V.contains(this.x, this.y, this.size)) {
-            //     return;
-            // }
+            if (!V.contains(this.x, this.y, this.size)) {
+                return;
+            }
 
             G.renderedParticles++;
 
