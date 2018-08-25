@@ -59,14 +59,14 @@ class Universe {
 
             const closeBodies = this.bodies.filter(body => body.name && dist(body, U.playerShip) < CANVAS_WIDTH / 2);
             closeBodies.forEach(body => wrap(() => {
-                let x1 = cos(-PI / 4) * (body.radius + 20);
-                let y1 = sin(-PI / 4) * (body.radius + 20);
+                const x1 = cos(-PI / 4) * (body.radius + 20);
+                const y1 = sin(-PI / 4) * (body.radius + 20);
 
-                let x2 = cos(-PI / 4) * (body.radius + 50);
-                let y2 = sin(-PI / 4) * (body.radius + 50);
+                const x2 = cos(-PI / 4) * (body.radius + 50);
+                const y2 = sin(-PI / 4) * (body.radius + 50);
 
-                let x3 = x2 + 30;
-                let y3 = y2;
+                const x3 = x2 + 30;
+                const y3 = y2;
 
                 R.strokeStyle = R.fillStyle = '#fff';
                 R.lineWith = 2;
@@ -118,7 +118,7 @@ class Universe {
                 this.stars.push(star);
 
                 const planets = rnd(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
-                let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
+                let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN) * 2;
                 for (let j = 0 ; j < planets ; j++) {
                     const planet = new Planet(star, orbitRadius, rnd(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS));
                     this.bodies.push(planet);
