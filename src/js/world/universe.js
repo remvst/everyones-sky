@@ -16,47 +16,7 @@ class Universe {
         this.playerShip.y = CANVAS_HEIGHT / 2;
         this.ships.push(this.playerShip);
 
-        // const star = new Star();
-        // star.x = CANVAS_WIDTH / 2 + 200;
-        // star.y = CANVAS_HEIGHT / 2 + 200;
-        // this.bodies.push(star);
-
-        // this.bodies.push(new Planet(star, 400));
-        // this.bodies.push(new Planet(star, 800));
-
         // setTimeout(() => this.generateUniverse(), 0);
-
-        // const p = new Planet(star, 1200);
-        // this.bodies.push(p);
-
-        // const ai = new AIShip(p);
-        // // ai.enemy = this.playerShip;
-        // this.ships.push(ai);
-        // this.ai = ai;
-
-        // const asteroid = new Asteroid();
-        // asteroid.x = star.x + 100;
-        // asteroid.y = star.y + 100;
-        // this.bodies.push(asteroid);
-
-        // const blackHole = new BlackHole();
-        // blackHole.x = this.playerShip.x + 400;
-        // blackHole.y = this.playerShip.y + 400;
-        // this.bodies.push(blackHole);
-
-        // for (let i = 0 ; i < 10 ; i++) {
-        //     const item = new ResourceItem();
-        //     item.x = this.playerShip.x + 200 + rnd(-50, 50);
-        //     item.y = this.playerShip.y + rnd(-50, 50);
-        //     this.items.push(item);
-        // }
-
-        // for (let i = 0 ; i < 10 ; i++) {
-        //     const asteroid = new Asteroid();
-        //     asteroid.x = this.playerShip.x + 500 + rnd(-200, 200);
-        //     asteroid.y = this.playerShip.y + rnd(-200, 200);
-        //     this.bodies.push(asteroid);
-        // }
     }
 
     cycle(e) {
@@ -85,32 +45,14 @@ class Universe {
         this.renderBackground(starsPattern1, 0.1);
 
         wrap(() => {
-            // translate(this.playerShip.x, this.playerShip.y);
-            // scale(V.scale, V.scale);
-            // translate(-this.playerShip.x, -this.playerShip.y);
-
             R.scale(V.scale, V.scale);
             R.translate(-V.x, -V.y);
-
-            if (DEBUG) {
-                // R.strokeStyle = '#f00';
-                // strokeRect(V.x + 10, V.y + 10, V.width - 20, V.height - 20);
-            }
     
             this.projectiles.forEach(projectile => projectile.render());
             this.ships.forEach(ship => ship.render());
             this.bodies.forEach(b => wrap(() => b.render()));
             this.particles.forEach(particles => particles.render());
             this.items.forEach(item => item.render());
-
-            if (DEBUG) {
-                // this.forEachTarget(t => {
-                //     R.fillStyle = '#f00';
-                //     beginPath();
-                //     arc(t.x, t.y, t.radius, 0, PI * 2);
-                //     stroke();
-                // });
-            }
 
             R.shadowColor = '#000';
             R.shadowOffsetY = 4;
