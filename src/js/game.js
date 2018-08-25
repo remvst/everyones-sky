@@ -128,7 +128,7 @@ class Game {
                 const angle = atan2(target.y - U.playerShip.y, target.x - U.playerShip.x);
 
                 wrap(() => {
-                    const distanceOnCircle = limit(0, (dist(target, U.playerShip) - target.reachRadius) / 2000, 1) * 200 + 50;
+                    const distanceOnCircle = limit(0, (dist(target, U.playerShip) - target.reachRadius) / 4000, 1) * 200 + 50;
 
                     translate(CANVAS_WIDTH / 2 + cos(angle) * distanceOnCircle, CANVAS_HEIGHT / 2 + sin(angle) * distanceOnCircle);
                     rotate(angle);
