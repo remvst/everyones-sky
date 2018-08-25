@@ -9,6 +9,7 @@ class Star extends Body {
         this.stickString = stickString(this.name, 2 / 5);
         // this.reachRadius = 0; // for reference only
         // this.systemDiscovered = false; // for reference only
+        this.halo = haloAround(createCanvas(this.radius * 2, this.radius * 2, () => 0), 100, 'rgba(255,0,0,0.3)', 'rgba(255,0,0,0)');
     }
 
     render() {
@@ -20,11 +21,10 @@ class Star extends Body {
             G.renderedStars++;
         }
 
+        drawImage(this.halo, this.x - this.halo.width / 2, this.y - this.halo.height / 2);
+
         R.fillStyle = '#ff0';
         beginPath();
-
-        R.shadowBlur = 100;
-        R.shadowColor = '#f00';
 
         for (let i = 0 ; i < 40 ; i++) {
             const a = (i / 40) * PI * 2;
