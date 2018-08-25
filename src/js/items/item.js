@@ -28,9 +28,15 @@ class Item {
             U.remove(U.items, this);
             this.pickUp(U.playerShip);
         }
+
+        // TODO remove after a while
     }
 
     render() {
+        if (!V.isVisible(this.x, this.y)) {
+            return;
+        }
+
         wrap(() => {
             translate(this.x, this.y);
             scale(sin(this.scaleRandom + PI * 2 * G.clock), 1); // Give the item a nice flip animation
