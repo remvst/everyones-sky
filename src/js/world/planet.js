@@ -17,9 +17,13 @@ class Planet extends Body {
             this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
         }
 
-        this.resources = 0;
-
+        this.stations = [];
         this.angle = 0;
+
+        const initialResources = this.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
+        for (let i = 0 ; i < initialResources / PLANET_EVOLUTION_REQUIRED_RESOURCES ; i++) {
+            this.evolve();
+        }
 
         this.asset = haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
@@ -60,20 +64,6 @@ class Planet extends Body {
 
             r.fill();
         });
-
-        this.stations = [];
-
-        const city = new City(this, 0);
-        this.stations.push(city);
-
-        const mortar = new Mortar(this, PI / 2);
-        this.stations.push(mortar);
-
-        const mountain = new Mountain(this, PI);
-        this.stations.push(mountain);
-
-        const factory = new Factory(this, -PI / 2);
-        this.stations.push(factory);
     }
 
     cycle(e) {
@@ -91,6 +81,49 @@ class Planet extends Body {
         this.angle += this.rotationSpeed * e;
 
         this.stations.forEach(station => station.cycle(e));
+
+        if ((this.nextEvolution -= e) < 0) {
+            this.evolve();
+        }
+    }
+
+    evolve() {
+        if (this.resources < PLANET_EVOLUTION_REQUIRED_RESOURCES) {
+            return;
+        }
+
+        this.resources -= PLANET_EVOLUTION_REQUIRED_RESOURCES;
+
+        pick([
+            () => this.spawnStation(City),
+            () => this.spawnStation(Mortar),
+            () => this.spawnStation(Mountain),
+            () => this.spawnStation(Factory),
+            () => this.spawnShip()
+        ])();
+
+        this.nextEvolution = PLANET_EVOLUTION_INTERVAL;
+    }
+
+    spawnStation(type) {
+        let attempts = 0;
+        let angle;
+
+        const minAngleDifference = PI * 2 / (2 * PI * this.radius / 30);
+        do {
+            angle = random() * PI * 2;
+        } while(++attempts < 5 && this.stations.filter(otherStation => abs(normalize(angle, otherStation.angle)) < minAngleDifference));
+
+        this.stations.push(new type(this, angle));
+    }
+
+    spawnShip() {
+        const ai = new AIShip(this);
+        const angle = rnd(0, PI * 2);
+        ai.x = this.x + cos(angle) * this.radius + ai.radius * 2;
+        ai.y = this.y + sin(angle) * this.radius + ai.radius * 2;
+        // ai.enemy = this.playerShip;
+        U.ships.push(ai);
     }
 
     render() {

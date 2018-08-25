@@ -62,9 +62,9 @@ class Universe {
             translate(-V.x, -V.y);
     
             this.projectiles.forEach(projectile => projectile.render());
+            this.particles.forEach(particles => particles.render());
             this.ships.forEach(ship => ship.render());
             this.bodies.forEach(b => wrap(() => b.render()));
-            this.particles.forEach(particles => particles.render());
             this.items.forEach(item => item.render());
 
             R.shadowColor = '#000';
@@ -131,7 +131,7 @@ class Universe {
                 this.stars.push(star);
 
                 const planets = rnd(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
-                let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN) * 2;
+                let orbitRadius = rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
                 for (let j = 0 ; j < planets ; j++) {
                     const planet = new Planet(star, orbitRadius, rnd(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS));
                     this.bodies.push(planet);
@@ -139,12 +139,6 @@ class Universe {
                     star.reachRadius = orbitRadius + planet.radius;
 
                     orbitRadius += rnd(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
-
-                    const ai = new AIShip(planet);
-                    ai.x = planet.x + planet.radius * 2;
-                    ai.y = planet.y;
-                    // ai.enemy = this.playerShip;
-                    this.ships.push(ai);
                 }
             }
         }

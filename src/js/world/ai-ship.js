@@ -1,5 +1,10 @@
 class AIShip extends Ship {
 
+    constructor(planet) {
+        super(planet);
+        this.nextDecisionChange = 0;
+    }
+
     canShootEnemy() {
         if (!this.enemy) {
             return false;
@@ -68,7 +73,7 @@ class AIShip extends Ship {
     }
 
     cycle(e) {
-        if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.planet, this.target) < this.planet.radius) {
+        if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.planet, this.target) < this.planet.radius || (this.nextDecisionChange -= e) <= 0) {
             this.pickNewTarget();
         }
 
@@ -113,7 +118,7 @@ class AIShip extends Ship {
         //     return;
         // }
 
-        const pts = this.planet.pointsAround([this.planet.radius + 100, this.planet.radius + 200]);
+        const pts = this.planet.pointsAround([this.planet.radius + 150, this.planet.radius + 250]);
 
         const pathFinder = new PathFinder({
             'hash': node => {
@@ -152,7 +157,7 @@ class AIShip extends Ship {
 
         this.shootTarget = false;
 
-        // console.log(path);
+        this.nextDecisionChange = 3;
     }
 
 }
