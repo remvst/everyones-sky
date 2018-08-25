@@ -5,6 +5,10 @@ class AIShip extends Ship {
         this.nextDecisionChange = 0;
     }
 
+    shipColor() {
+        return this.civilization.relationshipColor();
+    }
+
     canShootEnemy() {
         if (!this.enemy) {
             return false;

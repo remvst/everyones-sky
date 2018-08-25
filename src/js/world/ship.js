@@ -62,6 +62,11 @@ class Ship {
         fill();
     }
 
+    // For reference only
+    // shipColor() {
+
+    // }
+
     render() {
         if (!V.isVisible(this.x, this.y, this.radius)) {
             return;
@@ -80,7 +85,7 @@ class Ship {
 
         const damageFactor = 1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1;
         wrap(() => {
-            R.fillStyle = damageFactor > 0 ? '#f00' : '#fff';
+            R.fillStyle = damageFactor > 0 ? '#f00' : this.shipColor();
             translate(this.x, this.y);
             this.shape();
         });

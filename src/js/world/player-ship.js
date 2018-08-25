@@ -26,4 +26,8 @@ class PlayerShip extends Ship {
         }
     }
 
+    shipColor() {
+        return '#fff';
+    }
+
 }

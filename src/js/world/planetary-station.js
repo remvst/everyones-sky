@@ -25,7 +25,7 @@ class PlanetaryStation {
 
         scale(1 + damageFactor * 0.2, 1 + damageFactor * 0.2);
         
-        R.fillStyle = damageFactor > 0 ? '#fff' : '#f00';
+        R.fillStyle = damageFactor > 0 ? '#fff' : this.planet.civilization.relationshipColor();
         this.renderGraphic();
     }
     
