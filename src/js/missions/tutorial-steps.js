@@ -52,7 +52,7 @@ class OfflineStep extends MissionStep {
             'action': () => G.showPrompt(nomangle('Resources can be collected by shooting asteroids'))
         }]);
 
-        this.listen('cycle', projectile => {
+        this.listen('cycle', () => {
             if (U.playerShip.planet.resources >= 20) {
                 this.proceed(new TutorialFinishedStep());
             }
