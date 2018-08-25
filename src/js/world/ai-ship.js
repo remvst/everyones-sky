@@ -94,7 +94,7 @@ class AIShip extends Ship {
             R.fillStyle = '#f00';
             fr(positionAtFullStop.x, positionAtFullStop.y, 10, 10);
 
-            R.fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
+            fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
 
             if (this.target) {
                 R.strokeStyle = '#f00';
@@ -143,7 +143,7 @@ class AIShip extends Ship {
         const nodeStart = closestNode(this);
         const nodeEnd = U.enemy ? closestNode(U.enemy) : pick(pts);
 
-        const path = pathFinder.findPath([nodeStart], nodeEnd).steps;
+        const path = pathFinder.findPath([nodeStart], nodeEnd);
         this.targetRadius = AI_MOVE_TARGET_RADIUS;
 
         do {

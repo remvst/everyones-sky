@@ -68,6 +68,22 @@
         "initialize",
         "units",
         "unit",
-        "labels"
+        "labels",
+        "removeNode",
+        "attach",
+        "detach",
+        "start",
+        "event",
+        "listener",
+        "label",
+        "action",
+        "currentTarget",
+        "normalize",
+        "sign",
+        "name",
+        "duration",
+        "ratio",
+        "info",
+        "message"
     ]
 }

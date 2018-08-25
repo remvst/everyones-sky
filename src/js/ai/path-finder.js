@@ -1,34 +1,30 @@
 class PathNodeSet {
 
     constructor() {
-        this.map = {};
-        this.list = [];
+        this.nodeMap = {};
+        this.nodeList = [];
     }
 
-    add(key, node) {
-        if (!this.has(key)) {
-            this.list.push(node);
-            this.map[key] = node;
+    addNode(nodeKey, node) {
+        if (!this.fetchNode(nodeKey)) {
+            this.nodeList.push(node);
+            this.nodeMap[nodeKey] = node;
         }
     }
 
-    fetch(key) {
-        return this.map[key];
+    fetchNode(nodeKey) {
+        return this.nodeMap[nodeKey];
     }
 
-    has(key) {
-        return !!this.fetch(key);
-    }
-
-    remove(key) {
-        const node = this.fetch(key);
+    removeNode(nodeKey) {
+        const node = this.fetchNode(nodeKey);
         if (node) {
-            const index = this.list.indexOf(node);
-            if (index >= 0) {
-                this.list.splice(index, 1);
+            const nodeIndex = this.nodeList.indexOf(node);
+            if (nodeIndex >= 0) {
+                this.nodeList.splice(nodeIndex, 1);
             }
 
-            delete this.map[key];
+            delete this.nodeMap[nodeKey];
         }
     }
 
@@ -80,8 +76,8 @@ class PathFinder {
         const expanded = new PathNodeSet();
 
         // Add the initial node
-        sources.forEach(source => {
-            expandable.add(this.hashFor(source), new PathNode(source));
+        sources.forEach(sourceNode => {
+            expandable.addNode(this.hashFor(sourceNode), new PathNode(sourceNode));
         });
 
         let finalPathNode;
@@ -110,34 +106,30 @@ class PathFinder {
             pathNode = pathNode.parent;
         }
 
-        return {
-            'found': !!finalPathNode,
-            'expandedOrder': expandedOrder,
-            'steps': steps
-        };
+        return steps;
     }
 
     closestExpandable(expandableSet, target) {
-        let closest = null;
+        let closestNode = null;
         let closestHeuristic;
 
-        expandableSet.list.forEach(pathElement => {
+        expandableSet.nodeList.forEach(pathElement => {
             const heuristic = this.heuristicFor(pathElement.node, target) + pathElement.distance;
-            if (!closest || heuristic < closestHeuristic) {
-                closest = pathElement;
+            if (!closestNode || heuristic < closestHeuristic) {
+                closestNode = pathElement;
                 closestHeuristic = heuristic;
             }
         });
 
-        return closest;
+        return closestNode;
     }
 
     expand(pathElement, expandableSet, expandedSet) {
         // Mask as expanded
         const nodeHash = this.hashFor(pathElement.node);
 
-        expandedSet.add(nodeHash, pathElement);
-        expandableSet.remove(nodeHash);
+        expandedSet.addNode(nodeHash, pathElement);
+        expandableSet.removeNode(nodeHash);
 
         // Actually expand
         const neighbors = this.neighborsFor(pathElement.node);
@@ -145,23 +137,21 @@ class PathFinder {
             const neighborHash = this.hashFor(neighborNode);
             const neighborDistance = pathElement.distance + this.distanceBetween(pathElement.node, neighborNode);
 
-            const alreadyExpanded = expandedSet.fetch(neighborHash);
+            const alreadyExpanded = expandedSet.fetchNode(neighborHash);
             if (alreadyExpanded) {
                 if (alreadyExpanded.distance > neighborDistance) {
                     // Update properties
                     alreadyExpanded.distance = neighborDistance;
                     alreadyExpanded.parent = pathElement;
 
-                    console.log('shortcut');
-
                     // Allow it to be expanded again since we found a shortcut
-                    expandableSet.add(neighborHash, alreadyExpanded);
-                    expandedSet.remove(alreadyExpanded);
+                    expandableSet.addNode(neighborHash, alreadyExpanded);
+                    expandedSet.removeNode(alreadyExpanded);
                 }
                 return;
             }
 
-            expandableSet.add(neighborHash, new PathNode(neighborNode, pathElement, neighborDistance));
+            expandableSet.addNode(neighborHash, new PathNode(neighborNode, pathElement, neighborDistance));
         });
     }
 
