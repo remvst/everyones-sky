@@ -128,6 +128,19 @@ class Game {
 
             if (this.missionStep) {
                 targets = this.missionStep.targets || [];
+                // (this.missionStep.targets || []).forEach(target => wrap(() => {
+                //     U.transformToCamera();
+
+                //     R.lineWidth = 4;
+                //     R.strokeStyle = '#fff';
+                //     R.globalAlpha = 0.1;
+
+                //     setLineDash([20, 20]);
+                //     beginPath();
+                //     moveTo(U.playerShip.x, U.playerShip.y);
+                //     lineTo(target.x, target.y);
+                //     stroke();
+                // }));
             } else {
                 const closestStars = U.stars.sort((a, b) => {
                     return dist(a, U.playerShip) - dist(b, U.playerShip);
