@@ -9,6 +9,8 @@
     "src/js/graphics/assets.js",
     "src/js/graphics/particle.js",
 
+    "src/js/sound/jsfxr.js",
+
     "src/js/ai/path-finder.js",
 
     "src/js/missions/mission-step.js",
