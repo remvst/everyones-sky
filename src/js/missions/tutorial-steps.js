@@ -20,7 +20,7 @@ class MovementStep extends MissionStep {
         G.showPrompt(nomangle('Use arrow keys to control your ship'));
 
         const start = {'x': U.playerShip.x, 'y': U.playerShip.y};
-        this.listen('cycle', () => {
+        this.listen(EVENT_CYCLE, () => {
             if (dist(start, U.playerShip) > 500) {
                 this.proceed(new ShootingStep());
             }
@@ -35,7 +35,7 @@ class ShootingStep extends MissionStep {
         G.showPrompt(nomangle('Press [SPACE] to use your blasters'));
 
         let shots = 10;
-        this.listen('shot', projectile => {
+        this.listen(EVENT_SHOT, projectile => {
             if (projectile.owner === U.playerShip && !--shots) {
                 this.proceed(new OfflineStep());
             }
@@ -52,13 +52,13 @@ class OfflineStep extends MissionStep {
             'action': () => G.showPrompt(nomangle('Resources can be collected by shooting asteroids'))
         }]);
 
-        this.listen('cycle', () => {
+        this.listen(EVENT_CYCLE, () => {
             if (U.playerShip.civilization.resources >= 20) {
                 this.proceed(new TutorialFinishedStep());
             }
         });
 
-        this.listen('cycle', e => {
+        this.listen(EVENT_CYCLE, e => {
             if (U.bodies.length < 10) {
                 U.randomAsteroid();
             }

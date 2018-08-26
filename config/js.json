@@ -16,6 +16,7 @@
     "src/js/missions/mission-step.js",
     "src/js/missions/tutorial-steps.js",
     "src/js/missions/prompt-mission.js",
+    "src/js/missions/timed-mission-step.js",
     "src/js/missions/attack-planet.js",
 
     "src/js/world/universe.js",
@@ -44,6 +45,7 @@
     "src/js/util/resizer.js",
     "src/js/util/interp.js",
     "src/js/util/random-name.js",
+    "src/js/util/format-time.js",
 
     "src/js/event-hub.js",
     "src/js/keyboard.js",

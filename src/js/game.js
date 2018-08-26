@@ -18,7 +18,7 @@ class Game {
         this.started = false;
 
         this.clock = 0;
-        // this.promptText = null; // for reference
+        this.promptText = () => 0;
         // this.promptClock = 0; // for reference
 
         // this.message = null; // for reference
@@ -74,7 +74,7 @@ class Game {
         U.cycle(e);
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
 
-        this.eventHub.emit('cycle', e);
+        this.eventHub.emit(EVENT_CYCLE, e);
 
         if (w.down[13]) {
             this.start();
@@ -163,21 +163,22 @@ class Game {
             });
 
             // Prompt
-            if (this.promptText) {
+            const promptText = this.promptText();
+            if (promptText) {
                 R.fillStyle = 'rgba(0,0,0,0.5)';
                 R.font = '20pt Courier';
                 fr(0, CANVAS_HEIGHT - 200, CANVAS_WIDTH, 200);
 
-                const textWidth = measureText(this.promptText + '_').width;
+                const textWidth = measureText(promptText + '_').width;
 
-                const length = ~~min((this.clock - this.promptClock) * 20, this.promptText.length);
-                const actualText = this.promptText.slice(0, length) + (length < this.promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
+                const length = ~~min((this.clock - this.promptClock) * 20, promptText.length);
+                const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
 
                 R.fillStyle = '#fff';
                 R.textAlign = 'left';
                 fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, CANVAS_HEIGHT - 200 + 50);
 
-                if (length >= this.promptText.length) {
+                if (length >= promptText.length) {
                     R.textAlign = 'center';
 
                     this.promptOptions.forEach((option, i) => {
@@ -262,7 +263,7 @@ class Game {
     }
 
     showPrompt(promptText, options) {
-        this.promptText = promptText;
+        this.promptText = promptText && promptText.call ? promptText : () => promptText;
         this.promptClock = this.clock;
         this.promptOptions = options || [];
     }
@@ -303,11 +304,11 @@ class Game {
             this.missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
         }
 
-        this.proceed();
+        this.proceedToMissionStep();
 
         this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')), [{
             'label': nomangle('Dismiss'),
-            'action': () => this.proceed()
+            'action': () => this.showPrompt()
         }]);
     }
 
