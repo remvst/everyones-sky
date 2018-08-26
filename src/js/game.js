@@ -300,15 +300,15 @@ class Game {
     }
 
     promptRandomMission() {
-        const planet = pick(U.bodies
+        // Missions only come from the closest planet
+        const planet = U.bodies
             .filter(body => body.orbitsAround)
-            .sort((a, b) => dist(U.playerShip, a.orbitsAround) - dist(U.playerShip, b.orbitsAround))
-            .slice(0, 3));
+            .reduce((closest, body) => dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest);
 
         if (planet && !this.missionStep) {
             const missionStep = pick([
-                // new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
-                // new StudyBody(pick(U.bodies.filter(body => ((body.orbitsAround || body) === planet.orbitsAround) && body !== planet))),
+                new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
+                new StudyBody(pick(U.bodies.filter(body => ((body.orbitsAround || body) === planet.orbitsAround) && body !== planet))),
                 new CollectResources()
             ]);
             missionStep.civilization = planet.civilization;
