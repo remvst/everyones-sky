@@ -25,7 +25,7 @@ class PlanetaryStation {
 
         scale(1 + damageFactor * 0.2, 1 + damageFactor * 0.2);
         
-        R.fillStyle = damageFactor > 0 ? '#fff' : this.planet.civilization.relationshipColor();
+        R.fillStyle = damageFactor > 0 ? '#fff' : this.planet.civilization.relationshipType();
         this.renderGraphic();
     }
     
@@ -49,6 +49,8 @@ class PlanetaryStation {
         interp(item, 'x', this.x, this.x + cos(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
         interp(item, 'y', this.y, this.y + sin(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
 
+        this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
+
         if ((this.health -= 0.1) <= 0) {
             this.explode();
         }
@@ -68,6 +70,8 @@ class PlanetaryStation {
         }
 
         U.remove(this.planet.stations, this);
+
+        this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DESTROY_STATION);
     }
 
 }

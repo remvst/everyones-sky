@@ -111,7 +111,7 @@ class Ship {
         return p;
     }
 
-    damage() {
+    damage(projectile) {
         particle(10, '#ff0', [
             ['alpha', 1, 0, 1],
             ['size', rnd(2, 4), rnd(5, 10), 1],
@@ -122,7 +122,7 @@ class Ship {
         this.lastDamage = G.clock;
 
         if ((this.health -= 0.1) <= 0) {
-            this.explode();
+            this.explode(projectile);
         }
     }
 

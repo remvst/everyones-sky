@@ -19,7 +19,7 @@ class Body {
                 
                 interp(ship, 'uncontrolledRotation', pick([-6, 6]), 0, 1);
 
-                ship.damage();
+                ship.damage(this);
             }
         });
     }

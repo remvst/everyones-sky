@@ -3,15 +3,24 @@ class Civilization {
     constructor(planet) {
         this.resources = 0;
         this.planet = planet;
-        this.relationShip = random();
-    }
-
-    relationshipColor() {
-        return ['#f00', '#0f0'][this.relationshipType()];
+        this.relationship = random();
     }
 
     relationshipType() {
-        return this.relationShip < 0.5 ? RELATIONSHIP_ENEMY : RELATIONSHIP_ALLY;
+        return this.relationship < 0.5 ? RELATIONSHIP_ENEMY : RELATIONSHIP_ALLY;
+    }
+
+    relationshipLabel() {
+        return this.relationshipType() === RELATIONSHIP_ENEMY ? nomangle('enemy') : nomangle('ally');
+    }
+
+    updateRelationship(difference) {
+        const relationshipTypeBefore = this.relationshipType();
+        this.relationship = limit(0, this.relationship + difference, 1);
+        
+        if (this.relationshipType() !== relationshipTypeBefore) {
+            G.showMessage(this.planet.name + nomangle(' is now your ') + this.relationshipLabel());
+        }
     }
 
 }

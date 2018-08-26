@@ -6,7 +6,7 @@ class AIShip extends Ship {
     }
 
     shipColor() {
-        return this.civilization.relationshipColor();
+        return this.civilization.relationshipType();
     }
 
     canShootEnemy() {
@@ -164,6 +164,22 @@ class AIShip extends Ship {
         this.shootTarget = false;
 
         this.nextDecisionChange = 3;
+    }
+
+    damage(projectile) {
+        super.damage(projectile);
+
+        if (projectile.owner === U.playerShip) {
+            this.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_SHIP);
+        }
+    }
+
+    explode(projectile) {
+        super.explode(projectile);
+
+        if (projectile.owner === U.playerShip) {
+            this.civilization.updateRelationship(RELATIONSHIP_UPDATE_DESTROY_SHIP);
+        }
     }
 
 }
