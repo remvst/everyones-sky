@@ -146,14 +146,16 @@ class Game {
                     return dist(a, U.playerShip) - dist(b, U.playerShip);
                 }).slice(0, 3);
 
-                if (closestStars[0]) {
-                    if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
-                        targets = closestStars;
-                    } else if (!closestStars[0].systemDiscovered) {
-                        closestStars[0].systemDiscovered = true;
-                        this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
-                    }
+                if (
+                    closestStars[0] && 
+                    dist(closestStars[0], U.playerShip) < closestStars[0].reachRadius && 
+                    !closestStars[0].systemDiscovered
+                ) {
+                    closestStars[0].systemDiscovered = true;
+                    this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
                 }
+
+                targets = closestStars;
             }
             
             targets.forEach(target => {
