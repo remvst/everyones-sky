@@ -4,6 +4,7 @@ class Planet extends Body {
         super();
 
         this.radius = radius;
+        this.reachRadius = this.radius * 4;
 
         this.civilization = new Civilization(this);
 

@@ -85,5 +85,7 @@ class InstructionsStep extends MissionStep {
             'label': nomangle('Dismiss'),
             'action': () => this.proceed()
         }]);
+
+        G.nextMission = 0;
     }
 }

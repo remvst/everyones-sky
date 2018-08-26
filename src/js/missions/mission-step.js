@@ -24,8 +24,6 @@ class MissionStep {
     }
 
     proceed(nextStep) {
-        this.detach();
-
         if (this.proceedListener) {
             this.proceedListener(nextStep);
         }

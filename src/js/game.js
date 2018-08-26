@@ -23,15 +23,26 @@ class Game {
 
         // this.message = null; // for reference
         // this.messageProgress = 0; // for reference
+
+        // this.missionStep = null; // for reference
+        this.nextMission = Number.MAX_VALUE;
     }
 
     proceedToMissionStep(missionStep) {
+        if (this.missionStep) {
+            this.missionStep.detach();
+        }
+
+        this.missionStep = missionStep;
+        this.nextMission = 20;
+        
+        this.showPrompt();
+
         if (!missionStep) {
-            this.showPrompt();
             return;
         }
 
-        missionStep.proceedListener = nextStep => this.proceedToMissionStep(nextStep);
+        missionStep.proceedListener = missionStep => this.proceedToMissionStep(missionStep);
         missionStep.attach();
     }
 
@@ -55,6 +66,10 @@ class Game {
 
     cycle(e) {
         this.clock += e;
+
+        if ((this.nextMission -= e) <= 0) {
+            this.promptRandomMission();
+        }
 
         U.cycle(e);
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
@@ -111,16 +126,20 @@ class Game {
             // Rendering targets
             let targets = [];
 
-            const closestStars = U.stars.sort((a, b) => {
-                return dist(a, U.playerShip) - dist(b, U.playerShip);
-            }).slice(0, 3);
+            if (this.missionStep) {
+                targets = this.missionStep.targets || [];
+            } else {
+                const closestStars = U.stars.sort((a, b) => {
+                    return dist(a, U.playerShip) - dist(b, U.playerShip);
+                }).slice(0, 3);
 
-            if (closestStars[0]) {
-                if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
-                    targets = closestStars;
-                } else if (!closestStars[0].systemDiscovered) {
-                    closestStars[0].systemDiscovered = true;
-                    this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                if (closestStars[0]) {
+                    if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
+                        targets = closestStars;
+                    } else if (!closestStars[0].systemDiscovered) {
+                        closestStars[0].systemDiscovered = true;
+                        this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                    }
                 }
             }
             
@@ -260,6 +279,36 @@ class Game {
         this.message = stickString(message, 2 / 5);
         interp(this, 'messageProgress', this.message.segments.length, 0, this.message.segments.length * 0.1, 3);
         interp(this, 'messageProgress', 0, this.message.segments.length, this.message.segments.length * 0.1);
+    }
+
+    promptRandomMission() {
+        const planet = pick(U.bodies
+            .filter(body => body.orbitsAround)
+            .sort((a, b) => dist(U.playerShip, a.orbitsAround) - dist(U.playerShip, b.orbitsAround))
+            .slice(0, 3));
+
+        if (planet && !this.missionStep) {
+            const missionStep = pick([
+                new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet)))
+            ]);
+            missionStep.civilization = planet.civilization;
+
+            this.proceedToMissionStep(new PromptMission(missionStep));
+        }
+
+    }
+
+    missionDone(success) {
+        if (this.missionStep.civilization) {
+            this.missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
+        }
+
+        this.proceed();
+
+        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')), [{
+            'label': nomangle('Dismiss'),
+            'action': () => this.proceed()
+        }]);
     }
 
     start() {

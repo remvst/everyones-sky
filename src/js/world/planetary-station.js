@@ -72,6 +72,8 @@ class PlanetaryStation {
         U.remove(this.planet.stations, this);
 
         this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DESTROY_STATION);
+
+        G.eventHub.emit(EVENT_STATION_DESTROYED, this);
     }
 
 }
