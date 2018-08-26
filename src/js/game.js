@@ -157,6 +157,10 @@ class Game {
             }
             
             targets.forEach(target => {
+                if (dist(target, U.playerShip) < (target.reachRadius || 0)) {
+                    return;
+                }
+
                 const angle = angleBetween(U.playerShip, target);
 
                 wrap(() => {
