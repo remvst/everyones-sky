@@ -202,7 +202,7 @@ class Game {
 
                 wrap(() => {
                     translate((CANVAS_WIDTH - sky.width * charWidth) / 2, everyonesY + charHeight * sky.height * 7 / 5);
-                    renderStickString(sky, charWidth, charHeight, G.clock - 0.5, 0.1, 1);
+                    renderStickString(sky, charWidth, charHeight, G.clock - 0.5, 0.1 * (everyones.segments.length / sky.segments.length), 1);
                 });
 
                 R.lineWidth = 4;
