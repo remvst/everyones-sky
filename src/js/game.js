@@ -146,16 +146,14 @@ class Game {
                     return dist(a, U.playerShip) - dist(b, U.playerShip);
                 }).slice(0, 3);
 
-                if (
-                    closestStars[0] && 
-                    dist(closestStars[0], U.playerShip) < closestStars[0].reachRadius && 
-                    !closestStars[0].systemDiscovered
-                ) {
-                    closestStars[0].systemDiscovered = true;
-                    this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                if (closestStars[0]) {
+                    if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
+                        targets = closestStars;
+                    } else if (!closestStars[0].systemDiscovered) {
+                        closestStars[0].systemDiscovered = true;
+                        this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                    }
                 }
-
-                targets = closestStars;
             }
             
             targets.forEach(target => {
@@ -309,7 +307,8 @@ class Game {
 
         if (planet && !this.missionStep) {
             const missionStep = pick([
-                new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet)))
+                // new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
+                new StudyBody(pick(U.bodies.filter(body => ((body.orbitsAround || body) === planet.orbitsAround) && body !== planet)))
             ]);
             missionStep.civilization = planet.civilization;
 
@@ -319,13 +318,12 @@ class Game {
     }
 
     missionDone(success) {
-        if (this.missionStep.civilization) {
-            this.missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
-        }
-
+        const missionStep = this.missionStep;
         this.proceedToMissionStep();
 
-        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')), [{
+        missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
+
+        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.planet.name.toUpperCase() + nomangle(' will remember that.'), [{
             'label': nomangle('Dismiss'),
             'action': () => this.showPrompt()
         }]);

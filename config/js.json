@@ -18,6 +18,7 @@
     "src/js/missions/prompt-mission.js",
     "src/js/missions/timed-mission-step.js",
     "src/js/missions/attack-planet.js",
+    "src/js/missions/study-body.js",
 
     "src/js/world/universe.js",
     "src/js/world/ship.js",
