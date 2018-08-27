@@ -201,6 +201,21 @@ class Game {
                 }
             }
 
+            const currentWarning = U.playerShip.currentWarning();
+            if (currentWarning) {
+                R.fillStyle = 'rgba(255,0,0,0.5)';
+                fr(0, 200, CANVAS_WIDTH, 125);
+
+                R.font = '36pt Mono';
+                R.textBaseline = 'middle';
+                R.textAlign = 'center';
+                R.fillStyle = '#fff';
+                fillText(nomangle('/!\\ WARNING /!\\'), CANVAS_WIDTH / 2, 250);
+
+                R.font = '18pt Mono';
+                fillText(currentWarning, CANVAS_WIDTH / 2, 300);
+            }
+
             R.strokeStyle = '#fff';
             R.lineCap = 'round';
 

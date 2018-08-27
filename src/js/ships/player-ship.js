@@ -10,13 +10,20 @@ class PlayerShip extends Ship {
         if (w.down[32]) this.shoot(SimpleLaser);
         if (w.down[90]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 
+        const star = this.nearStar();
+        if (star) {
+            this.damage(star, e * 0.05);
+        }
+
         super.cycle(e);
     }
 
-    damage(source) {
-        super.damage(source);
+    damage(source, amount) {
+        super.damage(source, amount);
 
-        V.shake(0.5);
+        if (amount > 0.1) {
+            V.shake(amount / 0.1);
+        }
     }
 
     shoot(type, interval) {
@@ -33,6 +40,18 @@ class PlayerShip extends Ship {
     explode(projectile) {
         super.explode(projectile);
         setTimeout(() => G.gameOver(), 2000);
+    }
+
+    currentWarning() {
+        if (this.health <= 0.3) {
+            return nomangle('SHIELDS LOW');
+        } else if (this.nearStar()) {
+            return nomangle('HEAT DAMAGING SHIELDS');
+        }
+    }
+
+    nearStar() {
+        return U.stars.filter(star => dist(this, star) < star.radius * 2)[0];
     }
 
 }
