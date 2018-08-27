@@ -370,11 +370,11 @@ class Game {
 
     gameOver() {
         const civilizations = U.bodies
-            .filter(body => body.civilization)
+            .filter(body => body.civilization && body.civilization.relationshipType() != body.civilization.initialRelationship)
             .map(body => body.civilization);
 
-        const enemiesMade = civilizations.filter(civilization => civilization.initialRelationship == RELATIONSHIP_ALLY && civilization.relationshipType == RELATIONSHIP_ENEMY).length;
-        const alliesMade = civilizations.filter(civilization => civilization.initialRelationship == RELATIONSHIP_ENEMY && civilization.relationshipType == RELATIONSHIP_ALLY).length;
+        const enemiesMade = civilizations.filter(civilization => civilization.relationshipType() == RELATIONSHIP_ENEMY).length;
+        const alliesMade = civilizations.filter(civilization => civilization.relationshipType() == RELATIONSHIP_ALLY).length;
 
         let subtitle;
         if (enemiesMade + alliesMade < GAME_RECAP_MIN_RELATIONSHIP_CHANGES) {

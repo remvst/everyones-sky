@@ -30,9 +30,9 @@ class PlayerShip extends Ship {
         return '#fff';
     }
 
-    destroy(projectile) {
-        super.destroy(projectile);
-        G.gameOver();
+    explode(projectile) {
+        super.explode(projectile);
+        setTimeout(() => G.gameOver(), 2000);
     }
 
 }

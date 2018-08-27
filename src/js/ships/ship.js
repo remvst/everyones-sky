@@ -142,7 +142,7 @@ class Ship {
 
         this.lastDamage = G.clock;
 
-        if ((this.health -= 0.1) <= 0) {
+        if ((this.health -= 0.1) <= 0.05) {
             this.explode(projectile);
         }
     }
