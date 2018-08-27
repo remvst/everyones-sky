@@ -303,7 +303,7 @@ class Game {
         // Missions only come from the closest planet
         const planet = U.bodies
             .filter(body => body.orbitsAround)
-            .reduce((closest, body) => dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest, null);
+            .reduce((closest, body) => !closest || dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest, null);
 
         if (planet && !this.missionStep) {
             const missionStep = pick([

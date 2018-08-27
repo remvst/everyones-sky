@@ -89,6 +89,27 @@ class Ship {
             translate(this.x, this.y);
             this.shape();
         });
+
+        const closestStar = U.stars
+            .reduce((closest, star) => !closest || dist(closest, this) > dist(star, this) ? star : closest, null);
+
+        if (closestStar) {
+            const angleToClosestStar = normalize(this.angle - angleBetween(this, closestStar));
+            const alpha = 1 - abs(abs(angleToClosestStar) / PI - 1 / 2) * 2;
+
+            wrap(() => {
+                R.fillStyle = '#000';
+                R.globalAlpha = alpha * limit(0, (1 - dist(closestStar, this) / 5000), 1);
+                translate(this.x, this.y);
+                rotate(this.angle);
+
+                beginPath();
+                moveTo(-5, 0);
+                lineTo(-10, sign(angleToClosestStar) * 10);
+                lineTo(20, 0);
+                fill();
+            });
+        }
     }
 
     shoot(type, interval = SHIP_SHOT_INTERVAL) {
