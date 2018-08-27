@@ -112,7 +112,7 @@ class Game {
                 fill();
             });
 
-            this.renderGauge(100, 80, U.playerShip.civilization.resources / MAX_PLANET_RESOURCES, '#fff', () => {
+            this.renderGauge(100, 80, U.playerShip.civilization.resources / PLANET_MAX_RESOURCES, '#fff', () => {
                 scale(0.3, 0.3);
                 renderResourcesIcon();
             });

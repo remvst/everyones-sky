@@ -89,6 +89,8 @@ class Planet extends Body {
 
         this.stations.forEach(station => station.cycle(e));
 
+        this.civilization.resources = min(PLANET_MAX_RESOURCES, this.civilization.resources + e * PLANET_RESOURCES_PER_SECOND);
+
         if ((this.nextEvolution -= e) < 0) {
             this.evolve();
         }
