@@ -15,8 +15,8 @@ class Game {
         this.subtitleStickString = stickString(nomangle('sky'), 2 / 5);
         this.instructionsStickString = stickString(nomangle('press enter to start'), 2 / 5);
 
-        this.titleCharWidth = 50;
-        this.titleCharHeight = 100;
+        this.titleCharWidth = this.subtitleCharWidth = 50;
+        this.titleCharHeight = this.subtitleCharHeight = 100;
     }
 
     proceedToMissionStep(missionStep) {
@@ -229,8 +229,9 @@ class Game {
                 });
 
                 wrap(() => {
-                    translate((CANVAS_WIDTH - this.subtitleStickString.width * this.titleCharWidth) / 2, everyonesY + this.titleCharHeight * this.subtitleStickString.height * 7 / 5);
-                    renderStickString(this.subtitleStickString, this.titleCharWidth, this.titleCharHeight, G.clock - 0.5, 0.1 * (this.titleStickString.segments.length / this.subtitleStickString.segments.length), 1);
+                    R.lineWidth = this.subtitleCharThickness;
+                    translate((CANVAS_WIDTH - this.subtitleStickString.width * this.subtitleCharWidth) / 2, everyonesY + this.titleCharHeight * this.subtitleStickString.height * 7 / 5);
+                    renderStickString(this.subtitleStickString, this.subtitleCharWidth, this.subtitleCharHeight, G.clock - 0.5, 0.1 * (this.titleStickString.segments.length / this.subtitleStickString.segments.length), 1);
                 });
 
                 R.lineWidth = 4;
@@ -366,12 +367,31 @@ class Game {
     }
 
     gameOver() {
+        const civilizations = U.bodies
+            .filter(body => body.civilization)
+            .map(body => body.civilization);
+
+        const enemiesMade = civilizations.filter(civilization => civilization.initialRelationship == RELATIONSHIP_ALLY && civilization.relationshipType == RELATIONSHIP_ENEMY).length;
+        const alliesMade = civilizations.filter(civilization => civilization.initialRelationship == RELATIONSHIP_ENEMY && civilization.relationshipType == RELATIONSHIP_ALLY).length;
+
+        let subtitle;
+        if (enemiesMade + alliesMade < GAME_RECAP_MIN_RELATIONSHIP_CHANGES) {
+            subtitle = nomangle('you were barely noticed');
+        } else if (abs(enemiesMade - alliesMade) < GAME_RECAP_RELATIONSHIP_CHANGES_NEUTRAL_THRESHOLD) {
+            subtitle = nomangle('little has changed');
+        } else if (enemiesMade > alliesMade) {
+            subtitle = nomangle('you brought war');
+        } else {
+            subtitle = nomangle('you brought peace');
+        }
+
         this.titleStickString = stickString(nomangle('game over'), 2 / 5);
-        this.subtitleStickString = stickString(nomangle('you brought peace'), 2 / 5);
+        this.subtitleStickString = stickString(subtitle, 2 / 5);
         this.instructionsStickString = stickString(nomangle('press enter to try again'), 2 / 5);
 
-        this.titleCharWidth = 40;
-        this.titleCharHeight = 80;
+        this.subtitleCharWidth = 25;
+        this.subtitleCharHeight = 50;
+        this.subtitleCharThickness = 6
 
         this.started = false;
 
@@ -379,8 +399,8 @@ class Game {
             this.setupNewGame();
 
             this.gameRecap = [
-                '20 new species have declared war against us.',
-                '10 new species are now your allies.'
+                enemiesMade + nomangle(' planets have declared war against you.'),
+                alliesMade + nomangle(' species are now your allies.')
             ];
         });
     }

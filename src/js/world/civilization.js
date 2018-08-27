@@ -4,6 +4,7 @@ class Civilization {
         this.resources = 0;
         this.planet = planet;
         this.relationship = random();
+        this.initialRelationship = this.relationshipType();
     }
 
     relationshipType() {
