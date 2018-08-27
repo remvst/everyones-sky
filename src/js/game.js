@@ -327,7 +327,7 @@ class Game {
         if (planet && !this.missionStep) {
             const missionStep = pick([
                 new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
-                new StudyBody(pick(U.bodies.filter(body => ((body.orbitsAround || body) === planet.orbitsAround) && body !== planet))),
+                new StudyBody(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
                 new CollectResources()
             ]);
             missionStep.civilization = planet.civilization;
