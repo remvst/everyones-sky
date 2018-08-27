@@ -17,6 +17,8 @@ class Planet extends Body {
         this.orbitPhase = rnd(0, PI * 2);
         this.orbitRadius = orbitRadius;
 
+        this.ring = random() < 0.3;
+
         if (this.orbitsAround) {
             this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
             this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
@@ -132,7 +134,7 @@ class Planet extends Body {
     }
 
     render() {
-        if (!V.isVisible(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius + this.radius + 50)) {
+        if (!V.isVisible(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius + this.radius * 2)) { // * 2 for the halo
             return;
         }
 
@@ -171,6 +173,21 @@ class Planet extends Body {
             G.renderedPlanets++;
         }
 
+        R.strokeStyle = '#fff';
+        R.lineWidth = 60;
+
+        if (this.ring) {
+            wrap(() => {
+                R.globalAlpha = 0.5;
+                translate(this.x, this.y);
+                rotate(PI / 4);
+                scale(1, 0.2);
+                beginPath();
+                arc(0, 0, this.radius * 1.5, 0, PI);
+                stroke();
+            });
+        }
+
         this.stations.forEach(station => wrap(() => {
             translate(station.x, station.y);
             rotate(station.angleOnPlanet + this.angle);
@@ -188,6 +205,17 @@ class Planet extends Body {
             rotate(this.orbitPhase);
             drawImage(this.shadowAsset, 0, -this.shadowAsset.height / 2);
         });
+
+        if (this.ring) {
+            wrap(() => {
+                R.globalAlpha = 0.5;
+                rotate(PI / 4);
+                scale(1, 0.2);
+                beginPath();
+                arc(0, 0, this.radius * 1.5, -PI, 0);
+                stroke();
+            });
+        }
     }
 
     damage(projectile) {
