@@ -1,31 +1,22 @@
-const everyones = stickString(nomangle('everyone\'s'), 2 / 5);
-const sky = stickString(nomangle('sky'), 2 / 5);
-const pressEnterToStart = stickString(nomangle('press enter to start'), 2 / 5);
-
 class Game {
 
     constructor() {
-        if (DEBUG) {
-            console.log('Game starting woohoo');
-        }
-
-        U = new Universe();
-        V = new Camera();
-
-        this.eventHub = new EventHub();
-
-        this.titleYOffset = 0;
-        this.started = false;
+        this.setupNewGame();
 
         this.clock = 0;
-        this.promptText = () => 0;
         // this.promptClock = 0; // for reference
 
         // this.message = null; // for reference
         // this.messageProgress = 0; // for reference
 
         // this.missionStep = null; // for reference
-        this.nextMission = Number.MAX_VALUE;
+
+        this.titleStickString = stickString(nomangle('everyone\'s'), 2 / 5);
+        this.subtitleStickString = stickString(nomangle('sky'), 2 / 5);
+        this.instructionsStickString = stickString(nomangle('press enter to start'), 2 / 5);
+
+        this.titleCharWidth = 50;
+        this.titleCharHeight = 100;
     }
 
     proceedToMissionStep(missionStep) {
@@ -67,14 +58,16 @@ class Game {
     cycle(e) {
         this.clock += e;
 
-        if ((this.nextMission -= e) <= 0) {
-            this.promptRandomMission();
+        if (this.started) {
+            if ((this.nextMission -= e) <= 0) {
+                this.promptRandomMission();
+            }
+
+            U.cycle(e);
+            this.eventHub.emit(EVENT_CYCLE, e);
         }
 
-        U.cycle(e);
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
-
-        this.eventHub.emit(EVENT_CYCLE, e);
 
         if (w.down[13]) {
             this.start();
@@ -221,8 +214,6 @@ class Game {
             }
 
             // Game title
-            const charWidth = 50;
-            const charHeight = 100;
             wrap(() => {
                 translate(0, this.titleYOffset);
 
@@ -231,15 +222,15 @@ class Game {
 
                 R.lineWidth = 8;
 
-                const everyonesY = (CANVAS_HEIGHT - charHeight * (everyones.height + 2 / 5 + sky.height)) / 2;
+                const everyonesY = (CANVAS_HEIGHT - this.titleCharHeight * (this.titleStickString.height + 2 / 5 + this.subtitleStickString.height)) / 2;
                 wrap(() => {
-                    translate((CANVAS_WIDTH - everyones.width * charWidth) / 2, everyonesY);
-                    renderStickString(everyones, charWidth, charHeight, G.clock - 0.5, 0.1, 1);
+                    translate((CANVAS_WIDTH - this.titleStickString.width * this.titleCharWidth) / 2, everyonesY);
+                    renderStickString(this.titleStickString, this.titleCharWidth, this.titleCharHeight, G.clock - 0.5, 0.1, 1);
                 });
 
                 wrap(() => {
-                    translate((CANVAS_WIDTH - sky.width * charWidth) / 2, everyonesY + charHeight * sky.height * 7 / 5);
-                    renderStickString(sky, charWidth, charHeight, G.clock - 0.5, 0.1 * (everyones.segments.length / sky.segments.length), 1);
+                    translate((CANVAS_WIDTH - this.subtitleStickString.width * this.titleCharWidth) / 2, everyonesY + this.titleCharHeight * this.subtitleStickString.height * 7 / 5);
+                    renderStickString(this.subtitleStickString, this.titleCharWidth, this.titleCharHeight, G.clock - 0.5, 0.1 * (this.titleStickString.segments.length / this.subtitleStickString.segments.length), 1);
                 });
 
                 R.lineWidth = 4;
@@ -251,8 +242,16 @@ class Game {
                         return;
                     }
 
-                    translate((CANVAS_WIDTH - pressEnterToStart.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
-                    renderStickString(pressEnterToStart, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
+                    translate((CANVAS_WIDTH - this.instructionsStickString.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
+                    renderStickString(this.instructionsStickString, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
+                });
+
+                R.font = '20pt Mono';
+                R.fillStyle = '#fff';
+                R.textAlign = 'center';
+
+                this.gameRecap.forEach((line, i) => {
+                    fillText(line, CANVAS_WIDTH / 2, CANVAS_HEIGHT * 3 / 4 - 50 + i * 30);    
                 });
             });
         });
@@ -364,6 +363,43 @@ class Game {
 
         V.scale = V.targetScaleOverride = 1;
         setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 3000);
+    }
+
+    gameOver() {
+        this.titleStickString = stickString(nomangle('game over'), 2 / 5);
+        this.subtitleStickString = stickString(nomangle('you brought peace'), 2 / 5);
+        this.instructionsStickString = stickString(nomangle('press enter to try again'), 2 / 5);
+
+        this.titleCharWidth = 40;
+        this.titleCharHeight = 80;
+
+        this.started = false;
+
+        interp(this, 'titleYOffset', -CANVAS_HEIGHT, 0, 0.3, 0, 0, () => {
+            this.setupNewGame();
+
+            this.gameRecap = [
+                '20 new species have declared war against us.',
+                '10 new species are now your allies.'
+            ];
+        });
+    }
+
+    setupNewGame() {
+        U = new Universe();
+        V = new Camera();
+
+        this.eventHub = new EventHub();
+
+        this.promptText = () => 0;
+        
+        this.started = false;
+
+        this.titleYOffset = 0;
+
+        this.nextMission = Number.MAX_VALUE;
+        
+        this.gameRecap = [];
     }
 
 }
