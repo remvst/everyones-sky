@@ -17,6 +17,8 @@ class Game {
 
         this.titleCharWidth = this.subtitleCharWidth = 50;
         this.titleCharHeight = this.subtitleCharHeight = 100;
+
+        this.startable = true;
     }
 
     proceedToMissionStep(missionStep) {
@@ -69,7 +71,7 @@ class Game {
 
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
 
-        if (w.down[13]) {
+        if (w.down[13] && this.startable) {
             this.start();
         }
 
@@ -393,16 +395,19 @@ class Game {
         this.subtitleCharHeight = 50;
         this.subtitleCharThickness = 6
 
-        this.started = false;
+        this.startable = this.started = false;
 
-        interp(this, 'titleYOffset', -CANVAS_HEIGHT, 0, 0.3, 0, 0, () => {
-            this.setupNewGame();
+        this.clock = 0;
 
+        interp(this, 'titleYOffset', -CANVAS_HEIGHT, 0, 0.3, 0, 0, () => this.setupNewGame());
+
+        setTimeout(() => {
             this.gameRecap = [
-                enemiesMade + nomangle(' planets have declared war against you.'),
-                alliesMade + nomangle(' species are now your allies.')
+                enemiesMade + nomangle(' planets have declared war against us.'),
+                alliesMade + nomangle(' species are now our allies.')
             ];
-        });
+            this.startable = true;
+        }, 4000);
     }
 
     setupNewGame() {
