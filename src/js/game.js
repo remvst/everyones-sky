@@ -214,6 +214,8 @@ class Game {
 
                 R.font = '18pt Mono';
                 fillText(currentWarning, CANVAS_WIDTH / 2, 300);
+
+                this.message = null; // don't want to have a warning and a message at the same time
             }
 
             R.strokeStyle = '#fff';
