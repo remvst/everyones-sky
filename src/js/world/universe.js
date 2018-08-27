@@ -70,7 +70,7 @@ class Universe {
             R.shadowColor = '#000';
             R.shadowOffsetY = 4;
 
-            const closeBodies = this.bodies.filter(body => body.name && dist(body, U.playerShip) < CANVAS_WIDTH / 2);
+            const closeBodies = this.bodies.filter(body => body.name && dist(body, U.playerShip) < V.width / 2);
             closeBodies.forEach(body => wrap(() => {
                 const x1 = cos(-PI / 4) * (body.radius + 20);
                 const y1 = sin(-PI / 4) * (body.radius + 20);
