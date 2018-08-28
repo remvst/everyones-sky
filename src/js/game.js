@@ -19,6 +19,13 @@ class Game {
         this.titleCharHeight = this.subtitleCharHeight = 100;
 
         this.startable = true;
+
+        this.resourceIconOffsetY = 0;
+        this.resourceIconScale = 1;
+        this.resourceIconAlpha = 1;
+        this.healthIconScale = 1;
+
+        this.healthGaugeColor = '#fff';
     }
 
     proceedToMissionStep(missionStep) {
@@ -54,6 +61,30 @@ class Game {
 
             translate(-25, 0);
             renderIcon();
+        });
+    }
+
+    healAnimation() {
+        interp(this, 'resourceIconOffsetY', 0, -30, 0.3, 0, 0, () => {
+            this.resourceIconOffsetY = 0;
+        });
+
+        interp(this, 'healthIconScale', 1, 2, 0.3, 0.2, 0, () => {
+            interp(this, 'healthIconScale', 2, 1, 0.3, 0, 0, () => {
+                this.healthGaugeColor = '#fff';
+            });
+        });
+
+        setTimeout(() => {
+            this.healthGaugeColor = '#0f0';
+        }, 200);
+
+        interp(this, 'resourceIconScale', 1, 0, 0.3, 0, 0, () => {
+            this.resourceIconScale = 1;
+        });
+
+        interp(this, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
+            interp(this, 'resourceIconAlpha', 0, 1, 0.3, 0.3);
         });
     }
 
@@ -95,8 +126,8 @@ class Game {
             fr(50, 30, 270, 100);
             strokeRect(50.5, 30.5, 270, 100);
 
-            this.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : '#fff', () => {
-                scale(0.5, 0.5);
+            this.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : this.healthGaugeColor, () => {
+                scale(0.5 * this.healthIconScale, 0.5 * this.healthIconScale);
                 beginPath();
                 moveTo(0, -15)
                 lineTo(14, -10);
@@ -108,7 +139,10 @@ class Game {
             });
 
             this.renderGauge(100, 80, U.playerShip.civilization.resources / PLANET_MAX_RESOURCES, '#fff', () => {
-                scale(0.3, 0.3);
+                R.globalAlpha = this.resourceIconAlpha;
+
+                translate(0, this.resourceIconOffsetY);
+                scale(0.3 * this.resourceIconScale, 0.3 * this.resourceIconScale);
                 renderResourcesIcon();
             });
 
