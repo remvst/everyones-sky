@@ -6,7 +6,7 @@ class PromptMission extends MissionStep {
     }
 
     attach() {
-        G.showPrompt(nomangle('Incoming communication from ') + this.missionStep.civilization.planet.name.toUpperCase(), [{
+        G.showPrompt(nomangle('Incoming communication from ') + this.missionStep.civilization.center.nameWithRelationship(), [{
             'label': 'Respond',
             'action': () => {
                 G.showPrompt(this.missionStep.prompt, [{

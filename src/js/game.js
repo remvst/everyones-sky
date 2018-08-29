@@ -400,7 +400,7 @@ class Game {
 
         missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
 
-        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.planet.name.toUpperCase() + nomangle(' will remember that.'), [{
+        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name.toUpperCase() + nomangle(' will remember that.'), [{
             'label': nomangle('Dismiss'),
             'action': () => this.showPrompt()
         }]);

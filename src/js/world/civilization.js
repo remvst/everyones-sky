@@ -1,8 +1,8 @@
 class Civilization {
 
-    constructor(planet) {
+    constructor(center) {
         this.resources = 0;
-        this.planet = planet;
+        this.center = center;
         this.relationship = random();
         this.initialRelationship = this.relationshipType();
     }
@@ -20,7 +20,7 @@ class Civilization {
         this.relationship = limit(0, this.relationship + difference, 1);
         
         if (this.relationshipType() !== relationshipTypeBefore) {
-            G.showMessage(this.planet.name + nomangle(' is now your ') + this.relationshipLabel());
+            G.showMessage(this.center.name + nomangle(' is now your ') + this.relationshipLabel());
         }
     }
 

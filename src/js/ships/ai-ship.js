@@ -14,11 +14,11 @@ class AIShip extends Ship {
             return false;
         }
 
-        if (dist(this, this.enemy) > 400 && dist(this.civilization.planet, this.enemy) > this.civilization.planet.radius * 2) {
+        if (dist(this, this.enemy) > 400 && dist(this.civilization.center, this.enemy) > this.civilization.center.radius * 2) {
             return false;
         }
 
-        if (dist(this.civilization.planet, this.enemy) < this.civilization.planet.radius) {
+        if (dist(this.civilization.center, this.enemy) < this.civilization.center.radius) {
             return false;
         }
 
@@ -79,7 +79,7 @@ class AIShip extends Ship {
     cycle(e) {
         this.enemy = this.civilization.relationshipType() === RELATIONSHIP_ENEMY ? U.playerShip : null;
 
-        if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.civilization.planet, this.target) < this.civilization.planet.radius || (this.nextDecisionChange -= e) <= 0) {
+        if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.civilization.center, this.target) < this.civilization.center.radius || (this.nextDecisionChange -= e) <= 0) {
             this.pickNewTarget();
         }
 
@@ -124,7 +124,7 @@ class AIShip extends Ship {
         //     return;
         // }
 
-        const pts = this.civilization.planet.pointsAround([this.civilization.planet.radius + 150, this.civilization.planet.radius + 250]);
+        const pts = pointsAround(this.civilization.center, [this.civilization.center.radius + 150, this.civilization.center.radius + 250]);
 
         const pathFinder = new PathFinder({
             'hash': node => {
