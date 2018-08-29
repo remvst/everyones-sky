@@ -4,6 +4,8 @@ class Asteroid extends Body {
         super();
         this.radius = radius;
 
+        this.reachRadius = radius * 10;
+
         this.health = 1;
 
         this.rotation = 0;
@@ -78,7 +80,7 @@ class Asteroid extends Body {
             }
         });
 
-        if (!V.isVisible(this.x, this.y, V.width)) {
+        if (!V.isVisible(this.x, this.y, V.width) && !this.preventAutomaticRemoval) {
             U.remove(U.bodies, this);
         }
     }

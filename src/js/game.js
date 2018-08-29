@@ -361,7 +361,8 @@ class Game {
             const missionStep = pick([
                 new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
                 new StudyBody(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
-                new CollectResources()
+                new CollectResources(),
+                new Asteroids(planet)
             ]);
             missionStep.civilization = planet.civilization;
 
@@ -472,7 +473,7 @@ class Game {
 
         this.titleYOffset = 0;
 
-        this.missionStep = null;
+        this.missionStep = 0;
         this.nextMission = Number.MAX_VALUE;
         
         this.gameRecap = [];

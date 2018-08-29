@@ -92,7 +92,7 @@ compiler.run((tasks) => {
                 ]),
 
                 // Injecting the debug file
-                'js': tasks.inject(['debug.js']),
+                'js': tasks.inject(['debug' + suffix + '.js']),
 
                 'css': buildCSS(false),
                 'html': buildHTML(false)

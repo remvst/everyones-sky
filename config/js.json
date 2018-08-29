@@ -20,6 +20,7 @@
     "src/js/missions/attack-planet.js",
     "src/js/missions/study-body.js",
     "src/js/missions/collect-resources.js",
+    "src/js/missions/asteroids.js",
 
     "src/js/world/universe.js",
     "src/js/world/body.js",

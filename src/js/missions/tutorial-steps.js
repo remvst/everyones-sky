@@ -77,7 +77,7 @@ class TutorialFinishedStep extends MissionStep {
 
 class InstructionsStep extends MissionStep {
     attach() {
-        V.targetScaleOverride = null;
+        V.targetScaleOverride = 0;
 
         U.generateUniverse();
 

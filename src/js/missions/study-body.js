@@ -3,8 +3,7 @@ class StudyBody extends TimedMissionStep {
     constructor(body) {
         super();
         this.body = body;
-        this.prompt = nomangle('We need to study ') + body.name.toUpperCase() + nomangle(', collect some data for us');
-        this.maxTime = 120;
+        this.prompt = nomangle('We need to study ') + body.nameWithRelationship() + nomangle(', collect some data for us');
         this.targets = [body];
 
         this.studied = 0;
@@ -32,7 +31,7 @@ class StudyBody extends TimedMissionStep {
     }
 
     isClose() {
-        return dist(U.playerShip, this.body) < this.body.radius * 3;
+        return dist(U.playerShip, this.body) < this.body.radius * 4;
     }
 
 }

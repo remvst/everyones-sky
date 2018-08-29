@@ -7,7 +7,7 @@ class Item {
     }
 
     cycle(e) {
-        let closestShip = null;
+        let closestShip;
         U.ships.forEach(ship => {
             if (!closestShip || dist(ship, this) < dist(closestShip, this)) {
                 closestShip = ship;
