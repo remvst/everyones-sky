@@ -159,9 +159,19 @@ class Universe {
         });
         pirateCivilization.relationship = 0; // make sure we're enemies
 
+        const ships = [];
         for (let i = 0 ; i < 5 ; i++) {
-            this.ships.push(new AIShip(pirateCivilization));
+            ships.push(new AIShip(pirateCivilization));
         }
+
+        ships.forEach(ship => { 
+            ship.x = x + rnd(-300, 300);
+            ship.y = y + rnd(-300, 300);
+        })
+
+        this.ships = this.ships.concat(ships);
+
+        return ships;
     }
 
 }

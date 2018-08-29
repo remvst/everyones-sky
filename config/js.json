@@ -21,6 +21,7 @@
     "src/js/missions/study-body.js",
     "src/js/missions/collect-resources.js",
     "src/js/missions/asteroids.js",
+    "src/js/missions/pirates.js",
 
     "src/js/world/universe.js",
     "src/js/world/body.js",

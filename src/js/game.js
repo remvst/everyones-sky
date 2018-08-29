@@ -362,7 +362,8 @@ class Game {
                 new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
                 new StudyBody(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
                 new CollectResources(),
-                new Asteroids(planet)
+                new Asteroids(),
+                new Pirates()
             ]);
             missionStep.civilization = planet.civilization;
 

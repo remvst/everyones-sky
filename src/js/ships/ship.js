@@ -13,6 +13,7 @@ class Ship {
         this.angle = 0;
 
         this.radius = 20;
+        this.reachRadius = 200;
 
         this.health = 1;
 
@@ -148,6 +149,8 @@ class Ship {
     }
 
     explode() {
+        this.health = 0;
+
         for (let i = 0 ; i < 100 ; i++) {
             const angle = random() * PI * 2;
             const distance = rnd(5, 50);
