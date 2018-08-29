@@ -1,4 +1,4 @@
-const createStarsPattern = (stars, alpha) => createPattern(STAR_PATTERN_SIZE, STAR_PATTERN_SIZE, r => {
+const createStarsPattern = (stars, alpha) => createCanvasPattern(STAR_PATTERN_SIZE, STAR_PATTERN_SIZE, r => {
     r.fillStyle = '#fff';
     for (let i = stars ; --i ; ) {
         r.globalAlpha = alpha();

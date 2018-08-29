@@ -3,9 +3,9 @@ const createCanvas = (w, h, instructions) => {
     can.width = w;
     can.height = h;
 
-    const context = can.getContext('2d');
+    const ctx = can.getContext('2d');
 
-    instructions(context, can);
+    instructions(ctx, can);
 
     return can;
 };
