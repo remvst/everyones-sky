@@ -92,28 +92,28 @@ class AIShip extends Ship {
     render() {
         super.render();
 
-        if (DEBUG) {
-            const velocity = distP(0, 0, this.vX, this.vY);
-            const moveAngle = atan2(this.vY, this.vX);
-            const fullStopIn = velocity / SHIP_DECELERATION;
-            const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn
-            const positionAtFullStop = {
-                'x': this.x + distAtFullStop * cos(moveAngle),
-                'y': this.y + distAtFullStop * sin(moveAngle)
-            };
+        // if (DEBUG) {
+        //     const velocity = distP(0, 0, this.vX, this.vY);
+        //     const moveAngle = atan2(this.vY, this.vX);
+        //     const fullStopIn = velocity / SHIP_DECELERATION;
+        //     const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn
+        //     const positionAtFullStop = {
+        //         'x': this.x + distAtFullStop * cos(moveAngle),
+        //         'y': this.y + distAtFullStop * sin(moveAngle)
+        //     };
 
-            R.fillStyle = '#f00';
-            fr(positionAtFullStop.x, positionAtFullStop.y, 10, 10);
+        //     R.fillStyle = '#f00';
+        //     fr(positionAtFullStop.x, positionAtFullStop.y, 10, 10);
 
-            fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
+        //     fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
 
-            if (this.target) {
-                R.strokeStyle = '#f00';
-                beginPath();
-                arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, PI * 2);
-                stroke();
-            }
-        }
+        //     if (this.target) {
+        //         R.strokeStyle = '#f00';
+        //         beginPath();
+        //         arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, PI * 2);
+        //         stroke();
+        //     }
+        // }
     }
 
     pickNewTarget() {
@@ -166,8 +166,8 @@ class AIShip extends Ship {
         this.nextDecisionChange = 3;
     }
 
-    damage(projectile) {
-        super.damage(projectile);
+    damage(projectile, amount) {
+        super.damage(projectile, amount);
 
         if (projectile.owner === U.playerShip) {
             this.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_SHIP);

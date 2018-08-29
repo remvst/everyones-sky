@@ -73,8 +73,8 @@ class Asteroid extends Body {
                 this.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
                 this.vY += sin(angle) * (overlap + SHIP_DECELERATION * 2);
 
-                this.damage(body);
-                body.damage(this);
+                this.damage(body, 0.2);
+                body.damage(this, 0.2);
             }
         });
 

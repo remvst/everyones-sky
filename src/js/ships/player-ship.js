@@ -18,7 +18,7 @@ class PlayerShip extends Ship {
 
         const star = this.nearStar();
         if (star) {
-            this.damage(star, e * 0.05);
+            this.damage(this, e * 0.05);
         }
 
         if ((this.nextHealing -= e) < 0) {
@@ -42,9 +42,11 @@ class PlayerShip extends Ship {
     }
 
     damage(source, amount) {
+        amount *= PLAYER_SHIP_DAMAGE_FACTOR; // Less damage for the player
+
         super.damage(source, amount);
 
-        if (amount > 0.1) {
+        if (source != this) {
             V.shake(amount / 0.1);
         }
 
