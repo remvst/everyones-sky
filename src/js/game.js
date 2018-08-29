@@ -1,48 +1,50 @@
 class Game {
 
     constructor() {
-        this.setupNewGame();
+        G = this;
 
-        this.clock = 0;
-        // this.promptClock = 0; // for reference
+        G.setupNewGame();
 
-        // this.message = null; // for reference
-        // this.messageProgress = 0; // for reference
+        G.clock = 0;
+        // G.promptClock = 0; // for reference
 
-        // this.missionStep = null; // for reference
+        // G.message = null; // for reference
+        // G.messageProgress = 0; // for reference
 
-        this.titleStickString = stickString(nomangle('everyone\'s'), 2 / 5);
-        this.subtitleStickString = stickString(nomangle('sky'), 2 / 5);
-        this.instructionsStickString = stickString(nomangle('press enter to start'), 2 / 5);
+        // G.missionStep = null; // for reference
 
-        this.titleCharWidth = this.subtitleCharWidth = 50;
-        this.titleCharHeight = this.subtitleCharHeight = 100;
+        G.titleStickString = stickString(nomangle('everyone\'s'), 2 / 5);
+        G.subtitleStickString = stickString(nomangle('sky'), 2 / 5);
+        G.instructionsStickString = stickString(nomangle('press enter to start'), 2 / 5);
 
-        this.startable = true;
+        G.titleCharWidth = G.subtitleCharWidth = 50;
+        G.titleCharHeight = G.subtitleCharHeight = 100;
 
-        this.resourceIconOffsetY = 0;
-        this.resourceIconScale = 1;
-        this.resourceIconAlpha = 1;
-        this.healthIconScale = 1;
+        G.startable = true;
 
-        this.healthGaugeColor = '#fff';
+        G.resourceIconOffsetY = 0;
+        G.resourceIconScale = 1;
+        G.resourceIconAlpha = 1;
+        G.healthIconScale = 1;
+
+        G.healthGaugeColor = '#fff';
     }
 
     proceedToMissionStep(missionStep) {
-        if (this.missionStep) {
-            this.missionStep.detach();
+        if (G.missionStep) {
+            G.missionStep.detach();
         }
 
-        this.missionStep = missionStep;
-        this.nextMission = 20;
+        G.missionStep = missionStep;
+        G.nextMission = 20;
         
-        this.showPrompt();
+        G.showPrompt();
 
         if (!missionStep) {
             return;
         }
 
-        missionStep.proceedListener = missionStep => this.proceedToMissionStep(missionStep);
+        missionStep.proceedListener = missionStep => G.proceedToMissionStep(missionStep);
         missionStep.attach();
     }
 
@@ -65,44 +67,44 @@ class Game {
     }
 
     healAnimation(callback) {
-        interp(this, 'resourceIconOffsetY', 0, -30, 0.3, 0, 0, () => {
-            this.resourceIconOffsetY = 0;
+        interp(G, 'resourceIconOffsetY', 0, -30, 0.3, 0, 0, () => {
+            G.resourceIconOffsetY = 0;
         });
 
-        interp(this, 'healthIconScale', 1, 2, 0.3, 0.2, 0, () => {
-            interp(this, 'healthIconScale', 2, 1, 0.3, 0, 0, () => {
-                this.healthGaugeColor = '#fff';
+        interp(G, 'healthIconScale', 1, 2, 0.3, 0.2, 0, () => {
+            interp(G, 'healthIconScale', 2, 1, 0.3, 0, 0, () => {
+                G.healthGaugeColor = '#fff';
             });
         });
 
-        setTimeout(() => this.healthGaugeColor = '#0f0', 200);
+        setTimeout(() => G.healthGaugeColor = '#0f0', 200);
 
-        interp(this, 'resourceIconScale', 1, 0, 0.3, 0, 0, () => {
-            this.resourceIconScale = 1;
+        interp(G, 'resourceIconScale', 1, 0, 0.3, 0, 0, () => {
+            G.resourceIconScale = 1;
             callback();
         });
 
-        interp(this, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
-            interp(this, 'resourceIconAlpha', 0, 1, 0.3, 0.3);
+        interp(G, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
+            interp(G, 'resourceIconAlpha', 0, 1, 0.3, 0.3);
         });
     }
 
     cycle(e) {
-        this.clock += e;
+        G.clock += e;
 
-        if (this.started) {
-            if ((this.nextMission -= e) <= 0) {
-                this.promptRandomMission();
+        if (G.started) {
+            if ((G.nextMission -= e) <= 0) {
+                G.promptRandomMission();
             }
 
             U.cycle(e);
-            this.eventHub.emit(EVENT_CYCLE, e);
+            G.eventHub.emit(EVENT_CYCLE, e);
         }
 
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
 
-        if (w.down[13] && this.startable) {
-            this.start();
+        if (w.down[13] && G.startable) {
+            G.start();
         }
 
         if (DEBUG) {
@@ -125,8 +127,8 @@ class Game {
             fr(50, 30, 270, 100);
             strokeRect(50.5, 30.5, 270, 100);
 
-            this.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : this.healthGaugeColor, () => {
-                scale(0.5 * this.healthIconScale, 0.5 * this.healthIconScale);
+            G.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : G.healthGaugeColor, () => {
+                scale(0.5 * G.healthIconScale, 0.5 * G.healthIconScale);
                 beginPath();
                 moveTo(0, -15)
                 lineTo(14, -10);
@@ -137,15 +139,15 @@ class Game {
                 fill();
             });
 
-            this.renderGauge(100, 80, U.playerShip.civilization.resources / PLANET_MAX_RESOURCES, '#fff', () => {
-                R.globalAlpha = this.resourceIconAlpha;
+            G.renderGauge(100, 80, U.playerShip.civilization.resources / PLANET_MAX_RESOURCES, '#fff', () => {
+                R.globalAlpha = G.resourceIconAlpha;
 
-                translate(0, this.resourceIconOffsetY);
-                scale(0.3 * this.resourceIconScale, 0.3 * this.resourceIconScale);
+                translate(0, G.resourceIconOffsetY);
+                scale(0.3 * G.resourceIconScale, 0.3 * G.resourceIconScale);
                 renderResourcesIcon();
             });
 
-            this.renderGauge(100, 110, U.playerShip.heat, U.playerShip.coolingDown ? '#f00' : '#fff', () => {
+            G.renderGauge(100, 110, U.playerShip.heat, U.playerShip.coolingDown ? '#f00' : '#fff', () => {
                 fr(-5, -5, 3, 10);
                 fr(-1, -5, 3, 10);
                 fr(3, -5, 3, 10);
@@ -154,9 +156,9 @@ class Game {
             // Rendering targets
             let targets = [];
 
-            if (this.missionStep) {
-                targets = this.missionStep.targets || [];
-                // (this.missionStep.targets || []).forEach(target => wrap(() => {
+            if (G.missionStep) {
+                targets = G.missionStep.targets || [];
+                // (G.missionStep.targets || []).forEach(target => wrap(() => {
                 //     U.transformToCamera();
 
                 //     R.lineWidth = 4;
@@ -179,7 +181,7 @@ class Game {
                         targets = closestStars;
                     } else if (!closestStars[0].systemDiscovered) {
                         closestStars[0].systemDiscovered = true;
-                        this.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                        G.showMessage(nomangle('system discovered - ') + closestStars[0].name);
                     }
                 }
             }
@@ -208,7 +210,7 @@ class Game {
             });
 
             // Prompt
-            const promptText = this.promptText();
+            const promptText = G.promptText();
             if (promptText) {
                 R.fillStyle = 'rgba(0,0,0,0.5)';
                 R.font = '20pt ' + monoFont;
@@ -216,7 +218,7 @@ class Game {
 
                 const textWidth = measureText(promptText + '_').width;
 
-                const length = ~~min((this.clock - this.promptClock) * 20, promptText.length);
+                const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
                 const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
 
                 R.fillStyle = '#fff';
@@ -226,8 +228,8 @@ class Game {
                 if (length >= promptText.length) {
                     R.textAlign = 'center';
 
-                    this.promptOptions.forEach((option, i) => {
-                        const step = CANVAS_WIDTH / (this.promptOptions.length + 1);
+                    G.promptOptions.forEach((option, i) => {
+                        const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
                         const x = (i + 1) * step;
                         fillText('[' + option.label.slice(0, 1) + ']' + option.label.slice(1), x, CANVAS_HEIGHT - 200 + 100);
                     });
@@ -248,42 +250,42 @@ class Game {
                 R.font = '18pt Mono';
                 fillText(currentWarning, CANVAS_WIDTH / 2, 300);
 
-                this.message = null; // don't want to have a warning and a message at the same time
+                G.message = null; // don't want to have a warning and a message at the same time
             }
 
             R.strokeStyle = '#fff';
             R.lineCap = 'round';
 
             // Message
-            if (this.message && this.messageProgress) {
+            if (G.message && G.messageProgress) {
                 wrap(() => {
                     R.lineWidth = 4;
 
-                    const messageWidth = this.message.width * 20;
+                    const messageWidth = G.message.width * 20;
                     translate((CANVAS_WIDTH - messageWidth) / 2, (CANVAS_HEIGHT - 100) / 2 - 200);
-                    renderStickString(this.message, 20, 30, this.messageProgress, 0.1, 1);
+                    renderStickString(G.message, 20, 30, G.messageProgress, 0.1, 1);
                 });
             }
 
             // Game title
             wrap(() => {
-                translate(0, this.titleYOffset);
+                translate(0, G.titleYOffset);
 
                 R.fillStyle = '#000';
                 fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
                 R.lineWidth = 8;
 
-                const everyonesY = (CANVAS_HEIGHT - this.titleCharHeight * (this.titleStickString.height + 2 / 5 + this.subtitleStickString.height)) / 2;
+                const everyonesY = (CANVAS_HEIGHT - G.titleCharHeight * (G.titleStickString.height + 2 / 5 + G.subtitleStickString.height)) / 2;
                 wrap(() => {
-                    translate((CANVAS_WIDTH - this.titleStickString.width * this.titleCharWidth) / 2, everyonesY);
-                    renderStickString(this.titleStickString, this.titleCharWidth, this.titleCharHeight, G.clock - 0.5, 0.1, 1);
+                    translate((CANVAS_WIDTH - G.titleStickString.width * G.titleCharWidth) / 2, everyonesY);
+                    renderStickString(G.titleStickString, G.titleCharWidth, G.titleCharHeight, G.clock - 0.5, 0.1, 1);
                 });
 
                 wrap(() => {
-                    R.lineWidth = this.subtitleCharThickness;
-                    translate((CANVAS_WIDTH - this.subtitleStickString.width * this.subtitleCharWidth) / 2, everyonesY + this.titleCharHeight * this.subtitleStickString.height * 7 / 5);
-                    renderStickString(this.subtitleStickString, this.subtitleCharWidth, this.subtitleCharHeight, G.clock - 0.5, 0.1 * (this.titleStickString.segments.length / this.subtitleStickString.segments.length), 1);
+                    R.lineWidth = G.subtitleCharThickness;
+                    translate((CANVAS_WIDTH - G.subtitleStickString.width * G.subtitleCharWidth) / 2, everyonesY + G.titleCharHeight * G.subtitleStickString.height * 7 / 5);
+                    renderStickString(G.subtitleStickString, G.subtitleCharWidth, G.subtitleCharHeight, G.clock - 0.5, 0.1 * (G.titleStickString.segments.length / G.subtitleStickString.segments.length), 1);
                 });
 
                 R.lineWidth = 4;
@@ -291,19 +293,19 @@ class Game {
                 const instructionCharWidth = 20;
                 const instructionCharHeight = 30;
                 wrap(() => {
-                    if (G.clock % 1 > 0.5 && G.clock > 6 || this.titleYOffset) {
+                    if (G.clock % 1 > 0.5 && G.clock > 6 || G.titleYOffset) {
                         return;
                     }
 
-                    translate((CANVAS_WIDTH - this.instructionsStickString.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
-                    renderStickString(this.instructionsStickString, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
+                    translate((CANVAS_WIDTH - G.instructionsStickString.width * instructionCharWidth) / 2, CANVAS_HEIGHT - instructionCharHeight - 100);
+                    renderStickString(G.instructionsStickString, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
                 });
 
                 R.font = '20pt Mono';
                 R.fillStyle = '#fff';
                 R.textAlign = 'center';
 
-                this.gameRecap.forEach((line, i) => {
+                G.gameRecap.forEach((line, i) => {
                     fillText(line, CANVAS_WIDTH / 2, CANVAS_HEIGHT * 3 / 4 - 50 + i * 30);    
                 });
             });
@@ -332,13 +334,13 @@ class Game {
     }
 
     showPrompt(promptText, options) {
-        this.promptText = promptText && promptText.call ? promptText : () => promptText;
-        this.promptClock = this.clock;
-        this.promptOptions = options || [];
+        G.promptText = promptText && promptText.call ? promptText : () => promptText;
+        G.promptClock = G.clock;
+        G.promptOptions = options || [];
     }
 
     selectPromptOption(character) {
-        (this.promptOptions || []).forEach(option => {
+        (G.promptOptions || []).forEach(option => {
             if (option.label.slice(0, 1).toLowerCase() === character.toLowerCase()) {
                 option.action();
             }
@@ -346,9 +348,9 @@ class Game {
     }
 
     showMessage(message) {
-        this.message = stickString(message, 2 / 5);
-        interp(this, 'messageProgress', this.message.segments.length, 0, this.message.segments.length * 0.1, 3);
-        interp(this, 'messageProgress', 0, this.message.segments.length, this.message.segments.length * 0.1);
+        G.message = stickString(message, 2 / 5);
+        interp(G, 'messageProgress', G.message.segments.length, 0, G.message.segments.length * 0.1, 3);
+        interp(G, 'messageProgress', 0, G.message.segments.length, G.message.segments.length * 0.1);
     }
 
     promptRandomMission() {
@@ -357,7 +359,7 @@ class Game {
             .filter(body => body.orbitsAround)
             .reduce((closest, body) => !closest || dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest, null);
 
-        if (planet && !this.missionStep) {
+        if (planet && !G.missionStep) {
             const missionStep = pick([
                 new AttackPlanet(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
                 new StudyBody(pick(U.bodies.filter(body => body.orbitsAround === planet.orbitsAround && body !== planet))),
@@ -367,7 +369,7 @@ class Game {
             ]);
             missionStep.civilization = planet.civilization;
 
-            this.proceedToMissionStep(new PromptMission(missionStep));
+            G.proceedToMissionStep(new PromptMission(missionStep));
 
             for (let i = 0, d = max(planet.radius, dist(U.playerShip, planet) - V.width) ; d < dist(U.playerShip, planet) ; i++, d += 50) {
                 const angle = angleBetween(planet, U.playerShip);
@@ -396,28 +398,28 @@ class Game {
     }
 
     missionDone(success) {
-        const missionStep = this.missionStep;
-        this.proceedToMissionStep();
+        const missionStep = G.missionStep;
+        G.proceedToMissionStep();
 
         missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
 
-        this.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name.toUpperCase() + nomangle(' will remember that.'), [{
+        G.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name.toUpperCase() + nomangle(' will remember that.'), [{
             'label': nomangle('Dismiss'),
-            'action': () => this.showPrompt()
+            'action': () => G.showPrompt()
         }]);
     }
 
     start() {
-        if (this.started) {
+        if (G.started) {
             return;
         }
 
-        this.started = true;
+        G.started = true;
 
-        interp(this, 'titleYOffset', 0, -CANVAS_HEIGHT, 0.3);
+        interp(G, 'titleYOffset', 0, -CANVAS_HEIGHT, 0.3);
 
         V.scale = V.targetScaleOverride = 1;
-        setTimeout(() => this.proceedToMissionStep(new PromptTutorialStep()), 3000);
+        setTimeout(() => G.proceedToMissionStep(new PromptTutorialStep()), 3000);
     }
 
     gameOver() {
@@ -439,26 +441,26 @@ class Game {
             subtitle = nomangle('you brought peace');
         }
 
-        this.titleStickString = stickString(nomangle('game over'), 2 / 5);
-        this.subtitleStickString = stickString(subtitle, 2 / 5);
-        this.instructionsStickString = stickString(nomangle('press enter to try again'), 2 / 5);
+        G.titleStickString = stickString(nomangle('game over'), 2 / 5);
+        G.subtitleStickString = stickString(subtitle, 2 / 5);
+        G.instructionsStickString = stickString(nomangle('press enter to try again'), 2 / 5);
 
-        this.subtitleCharWidth = 25;
-        this.subtitleCharHeight = 50;
-        this.subtitleCharThickness = 6
+        G.subtitleCharWidth = 25;
+        G.subtitleCharHeight = 50;
+        G.subtitleCharThickness = 6
 
-        this.startable = this.started = false;
+        G.startable = G.started = false;
 
-        this.clock = 0;
+        G.clock = 0;
 
-        interp(this, 'titleYOffset', -CANVAS_HEIGHT, 0, 0.3, 0, 0, () => this.setupNewGame());
+        interp(G, 'titleYOffset', -CANVAS_HEIGHT, 0, 0.3, 0, 0, () => G.setupNewGame());
 
         setTimeout(() => {
-            this.gameRecap = [
+            G.gameRecap = [
                 enemiesMade + nomangle(' planets have declared war against us.'),
                 alliesMade + nomangle(' species are now our allies.')
             ];
-            this.startable = true;
+            G.startable = true;
         }, 4000);
     }
 
@@ -466,18 +468,18 @@ class Game {
         U = new Universe();
         V = new Camera();
 
-        this.eventHub = new EventHub();
+        G.eventHub = new EventHub();
 
-        this.promptText = () => 0;
+        G.promptText = () => 0;
         
-        this.started = false;
+        G.started = false;
 
-        this.titleYOffset = 0;
+        G.titleYOffset = 0;
 
-        this.missionStep = 0;
-        this.nextMission = Number.MAX_VALUE;
+        G.missionStep = 0;
+        G.nextMission = 999;
         
-        this.gameRecap = [];
+        G.gameRecap = [];
     }
 
 }
