@@ -211,7 +211,7 @@ class Game {
             const promptText = this.promptText();
             if (promptText) {
                 R.fillStyle = 'rgba(0,0,0,0.5)';
-                R.font = '20pt Courier';
+                R.font = '20pt ' + monoFont;
                 fr(0, CANVAS_HEIGHT - 200, CANVAS_WIDTH, 200);
 
                 const textWidth = measureText(promptText + '_').width;
@@ -311,7 +311,7 @@ class Game {
 
         if (DEBUG) {
             wrap(() => {
-                R.font = '10pt Courier';
+                R.font = '10pt ' + monoFont;
                 R.fillStyle = '#fff';
 
                 const info = [
