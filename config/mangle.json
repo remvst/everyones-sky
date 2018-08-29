@@ -85,6 +85,11 @@
         "ratio",
         "info",
         "message",
-        "size"
+        "size",
+        "interval",
+        "source",
+        "frame",
+        "offset",
+        "index"
     ]
 }
