@@ -1,16 +1,3 @@
-*{
-    margin: 0;
-}
-
-body, html{
-    height: 100%;
-}
-
-body{
-    background-color: #000;
-    width: 100%;
-}
-
 #t{
     display: table;
 }
@@ -25,9 +12,11 @@ body{
     outline: 1px solid white;
 }
 
-#t, canvas{
+body, html, #t, canvas{
     width: 100%;
     height: 100%;
+    background-color: #000;
+    margin: 0;
 }
 
 canvas{
