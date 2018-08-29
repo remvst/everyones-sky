@@ -64,7 +64,7 @@ class Game {
         });
     }
 
-    healAnimation() {
+    healAnimation(callback) {
         interp(this, 'resourceIconOffsetY', 0, -30, 0.3, 0, 0, () => {
             this.resourceIconOffsetY = 0;
         });
@@ -75,12 +75,11 @@ class Game {
             });
         });
 
-        setTimeout(() => {
-            this.healthGaugeColor = '#0f0';
-        }, 200);
+        setTimeout(() => this.healthGaugeColor = '#0f0', 200);
 
         interp(this, 'resourceIconScale', 1, 0, 0.3, 0, 0, () => {
             this.resourceIconScale = 1;
+            callback();
         });
 
         interp(this, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
@@ -473,6 +472,7 @@ class Game {
 
         this.titleYOffset = 0;
 
+        this.missionStep = null;
         this.nextMission = Number.MAX_VALUE;
         
         this.gameRecap = [];

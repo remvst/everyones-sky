@@ -1,5 +1,11 @@
 class PlayerShip extends Ship {
 
+    constructor(civilization) {
+        super(civilization);
+
+        this.nextHealing = 0;
+    }
+
     cycle(e) {
         this.thrust = w.down[38];
 
@@ -15,7 +21,24 @@ class PlayerShip extends Ship {
             this.damage(star, e * 0.05);
         }
 
+        if ((this.nextHealing -= e) < 0) {
+            this.heal();
+        }
+
         super.cycle(e);
+    }
+
+    heal() {
+        const healingAmount = min(1 - this.health, SHIP_HEALING_AMOUNT);
+        const requiredResources = ~~(SHIP_HEALING_REQUIRED_RESOURCES * healingAmount / SHIP_HEALING_AMOUNT);
+        if (this.civilization.resources >= requiredResources && healingAmount > 0) {
+            G.healAnimation(() => {
+                this.health += healingAmount;
+                this.civilization.resources -= requiredResources;
+            });
+        }
+
+        this.nextHealing = SHIP_HEALING_INTERVAL;
     }
 
     damage(source, amount) {
@@ -24,6 +47,8 @@ class PlayerShip extends Ship {
         if (amount > 0.1) {
             V.shake(amount / 0.1);
         }
+
+        this.nextHealing = SHIP_HEALING_DAMAGE_TIMEOUT;
     }
 
     shoot(type, interval) {
