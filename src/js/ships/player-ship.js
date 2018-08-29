@@ -69,7 +69,11 @@ class PlayerShip extends Ship {
 
     currentWarning() {
         if (this.health <= 0.3) {
-            return nomangle('SHIELDS LOW');
+            let warning = nomangle('SHIELDS LOW');
+            if (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES) {
+                warning += nomangle('. FIND RESOURCES TO REPAIR');
+            }
+            return warning;
         } else if (this.nearStar()) {
             return nomangle('HEAT DAMAGING SHIELDS');
         }
