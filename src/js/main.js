@@ -7,11 +7,11 @@ onload = () => {
 
     R = can.getContext('2d');
     
-    R.font = nomangle('100pt f'); // Setting a font that obviously doesn't exist
+    R.font = nomangle('99pt f'); // Setting a font that obviously doesn't exist
     const reference = R.measureText(w.title);
 
     for (let fontName of [nomangle('Mono'), nomangle('Courier')]) {
-        R.font = '100pt ' + fontName;
+        R.font = '99pt ' + fontName;
         const measurement = R.measureText(w.title);
         if (measurement.width != reference.width || measurement.height != reference.height) {
             monoFont = fontName;
@@ -26,7 +26,7 @@ onload = () => {
         }
     });
 
-    G = new Game();
+    new Game();
 
     // Start cycle()
     let lf = Date.now();
