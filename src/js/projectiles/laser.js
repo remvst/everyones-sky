@@ -27,7 +27,7 @@ class Laser {
 
             if (dist(target, this) < target.radius + this.radius) {
                 U.remove(U.projectiles, this);
-                target.damage(this, 0.1);
+                target.damage(this, this.damage);
             }
 
             if (dist(target, this) < this.guideRadius) {

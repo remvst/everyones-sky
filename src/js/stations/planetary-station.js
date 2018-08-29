@@ -34,7 +34,7 @@ class PlanetaryStation {
 
     // }
 
-    damage() {
+    damage(source, amount) {
         particle(10, '#ff0', [
             ['alpha', 1, 0, 1],
             ['size', rnd(2, 4), rnd(5, 10), 1],
@@ -49,14 +49,16 @@ class PlanetaryStation {
         interp(item, 'x', this.x, this.x + cos(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
         interp(item, 'y', this.y, this.y + sin(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
 
-        this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
+        if (source == U.playerShip) {
+            this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
+        }
 
-        if ((this.health -= 0.1) <= 0) {
-            this.explode();
+        if ((this.health -= amount) <= 0) {
+            this.explode(source);
         }
     }
 
-    explode() {
+    explode(source) {
         for (let i = 0 ; i < 50 ; i++) {
             const angle = this.globalAngle + rnd(-PI / 2, PI / 2);
             const distance = rnd(30, 50);
@@ -71,7 +73,9 @@ class PlanetaryStation {
 
         U.remove(this.planet.stations, this);
 
-        this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DESTROY_STATION);
+        if (source == U.playerShip) {
+            this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DESTROY_STATION);
+        }
 
         G.eventHub.emit(EVENT_STATION_DESTROYED, this);
     }

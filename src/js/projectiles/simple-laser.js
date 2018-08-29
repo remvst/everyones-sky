@@ -4,6 +4,7 @@ class SimpleLaser extends Laser {
         super(owner, x, y, angle);
         this.speed = 400;
         this.radius = 4;
+        this.damage = 0.1;
     }
 
     cycle(e) {

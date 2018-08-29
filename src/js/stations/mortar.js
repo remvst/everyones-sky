@@ -29,7 +29,7 @@ class Mortar extends PlanetaryStation {
     }
 
     shoot() {
-        if (G.clock - (this.lastShot || 0) < 1) {
+        if (G.clock - (this.lastShot || 0) < 2) {
             return;
         }
 

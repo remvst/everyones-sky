@@ -5,6 +5,7 @@ class SuperLaser extends Laser {
         this.speed = 800;
         this.clock = 0;
         this.radius = 15;
+        this.damage = 0.5;
     }
 
     cycle(e) {

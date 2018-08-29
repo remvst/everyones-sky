@@ -100,7 +100,7 @@ class Asteroid extends Body {
         });
     }
     
-    damage(projectile) {
+    damage(projectile, amount) {
         particle(10, pick(['#aaa', '#fff', '#ccc']), [
             ['alpha', 1, 0, 1],
             ['size', rnd(2, 4), rnd(5, 10), 1],
@@ -115,7 +115,7 @@ class Asteroid extends Body {
         interp(item, 'x', this.x, this.x + cos(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
         interp(item, 'y', this.y, this.y + sin(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
 
-        if ((this.health -= 0.1) <= 0) {
+        if ((this.health -= amount) <= 0) {
             this.explode();
         }
     }
