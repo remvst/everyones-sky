@@ -1,10 +1,6 @@
 const consonants = 'bcdfghjklmnpqrstvwz'.split('');
 const vowels = 'aeiouy'.split('');
 
-function randomSyllable() {
-    return pick(consonants) + pick(vowels) + pick(consonants.concat(vowels));
-};
+randomSyllable = rng => rng.pick(consonants) + rng.pick(vowels) + rng.pick(consonants.concat(vowels));
 
-function randomName() {
-    return randomSyllable() + randomSyllable() + ' ' + pick(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']);
-};
+randomName = rng => randomSyllable(rng) + randomSyllable(rng) + ' ' + rng.pick(['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X']);

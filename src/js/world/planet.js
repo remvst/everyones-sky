@@ -1,23 +1,25 @@
 class Planet extends Body {
 
-    constructor(orbitsAround, orbitRadius, radius = 100) {
+    constructor(orbitsAround, orbitRadius, seed) {
         super();
 
-        this.radius = radius;
+        this.rng = createNumberGenerator(seed);
+
+        this.radius = this.rng.between(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS);
         this.reachRadius = this.radius * 4;
 
         this.civilization = new Civilization(this);
 
-        this.name = randomName();
+        this.name = randomName(this.rng);
         this.stickString = stickString(this.name, 2 / 5);
 
-        this.rotationSpeed = rnd(PI / 8, PI / 12)
+        this.rotationSpeed = this.rng.between(PI / 8, PI / 12)
 
         this.orbitsAround = orbitsAround;
-        this.orbitPhase = rnd(0, PI * 2);
+        this.orbitPhase = this.rng.between(0, PI * 2);
         this.orbitRadius = orbitRadius;
 
-        this.ring = random() < 0.3;
+        this.ring = this.rng.floating() < 0.3;
 
         this.stations = [];
         this.angle = 0;
@@ -34,11 +36,13 @@ class Planet extends Body {
             r.fillStyle = '#fff';
             r.arc(this.radius, this.radius, this.radius, 0 , PI * 2);
             r.fill();
-            r.globalCompositeOperation = 'source-atop';
+            r.globalCompositeOperation = nomangle('source-atop');
 
-            let rgb = [rnd(32, 255), rnd(32, 255), rnd(32, 255)];
+            const rng = createNumberGenerator(seed);
 
-            for (let y = 0 ; y < this.radius * 2 ; y += rnd(PLANET_STRIPE_MIN_SIZE, PLANET_STRIPE_MAX_SIZE)) {
+            let rgb = [rng.between(32, 255), rng.between(32, 255), rng.between(32, 255)];
+
+            for (let y = 0 ; y < this.radius * 2 ; y += rng.between(PLANET_STRIPE_MIN_SIZE, PLANET_STRIPE_MAX_SIZE)) {
                 r.fillStyle = nomangle('rgb') + '(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
                 r.fillRect(0, y, this.radius * 2, this.radius * 2);
 

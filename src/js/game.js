@@ -235,11 +235,11 @@ class Game {
                 const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
 
                 R.fillStyle = '#fff';
-                R.textAlign = 'left';
+                R.textAlign = nomangle('left');
                 fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, CANVAS_HEIGHT - 200 + 50);
 
                 if (length >= promptText.length) {
-                    R.textAlign = 'center';
+                    R.textAlign = nomangle('center');
 
                     G.promptOptions.forEach((option, i) => {
                         const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
@@ -263,14 +263,14 @@ class Game {
 
                 R.font = '36pt Mono';
                 R.textBaseline = 'middle';
-                R.textAlign = 'center';
+                R.textAlign = nomangle('center');
                 R.fillStyle = '#fff';
                 fillText(nomangle('/!\\ WARNING /!\\'), CANVAS_WIDTH / 2, 250);
 
-                R.font = '18pt Mono';
+                R.font = '18pt ' + monoFont;
                 fillText(G.currentWarning, CANVAS_WIDTH / 2, 300);
 
-                G.message = null; // don't want to have a warning and a message at the same time
+                G.message = 0; // don't want to have a warning and a message at the same time
             }
 
             R.strokeStyle = '#fff';
@@ -323,7 +323,7 @@ class Game {
 
                 R.font = '20pt Mono';
                 R.fillStyle = '#fff';
-                R.textAlign = 'center';
+                R.textAlign = nomangle('center');
 
                 G.gameRecap.forEach((line, i) => {
                     fillText(line, CANVAS_WIDTH / 2, CANVAS_HEIGHT * 3 / 4 - 50 + i * 30);    
@@ -503,6 +503,7 @@ class Game {
 
         G.missionStep = 0;
         G.nextMission = 999;
+        G.currentWarning = 0;
         
         G.gameRecap = [];
     }

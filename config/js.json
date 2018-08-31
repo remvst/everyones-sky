@@ -53,6 +53,7 @@
     "src/js/util/random-name.js",
     "src/js/util/format-time.js",
     "src/js/util/points-around.js",
+    "src/js/util/rng.js",
 
     "src/js/event-hub.js",
     "src/js/keyboard.js",
