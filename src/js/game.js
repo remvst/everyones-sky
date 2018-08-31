@@ -388,9 +388,9 @@ class Game {
             .filter(body => body.orbitsAround)
             .reduce((closest, body) => !closest || dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest, null);
 
-        const otherPlanet = pick(U.bodies.filter(body => body.orbitsAround == planet.orbitsAround && body != planet));
-
         if (planet && !G.missionStep) {
+            const otherPlanet = pick(U.bodies.filter(body => body.orbitsAround == planet.orbitsAround && body != planet));
+
             const missionStep = pick([
                 new AttackPlanet(otherPlanet),
                 new StudyBody(otherPlanet),
