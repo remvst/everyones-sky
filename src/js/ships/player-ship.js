@@ -28,6 +28,7 @@ class PlayerShip extends Ship {
         if (this.thrust) {
             if (!this.thrustSound) {
                 this.thrustSound = thrustSound();
+                this.thrustSound.loop = true;
             }
         } else if (this.thrustSound) {
             this.thrustSound.pause();

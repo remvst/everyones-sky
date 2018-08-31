@@ -44,11 +44,6 @@ class PlanetaryStation {
 
         this.lastDamage = G.clock;
 
-        const item = new ResourceItem();
-        U.items.push(item);
-        interp(item, 'x', this.x, this.x + cos(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
-        interp(item, 'y', this.y, this.y + sin(this.globalAngle) * 50 + rnd(-20, 20), 0.3);
-
         if (source == U.playerShip) {
             this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
         }
@@ -78,6 +73,8 @@ class PlanetaryStation {
         }
 
         G.eventHub.emit(EVENT_STATION_DESTROYED, this);
+
+        U.dropResources(this.x, this.y, 15);
     }
 
 }

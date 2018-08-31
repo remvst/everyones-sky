@@ -165,10 +165,7 @@ class Ship {
             explosionSound();
         }
 
-        const item = new ResourceItem();
-        U.items.push(item);
-        interp(item, 'x', this.x, this.x + cos(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
-        interp(item, 'y', this.y, this.y + sin(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
+        U.dropResources(this.x, this.y, 10);
     }
 
 }

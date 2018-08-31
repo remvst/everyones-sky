@@ -112,17 +112,14 @@ class Asteroid extends Body {
 
         this.lastDamage = G.clock;
 
-        const item = new ResourceItem();
-        U.items.push(item);
-        interp(item, 'x', this.x, this.x + cos(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
-        interp(item, 'y', this.y, this.y + sin(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
-
         if ((this.health -= amount) <= 0) {
             this.explode();
         }
     }
 
     explode() {
+        U.dropResources(this.x, this.y, this.radius * 0.5)
+
         for (let i = 0 ; i < 50 ; i++) {
             const angle = random() * PI * 2;
             const distance = random() * this.radius;
