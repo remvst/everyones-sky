@@ -32,7 +32,7 @@ class MovementStep extends MissionStep {
 class ShootingStep extends MissionStep {
 
     attach() {
-        G.showPrompt(nomangle('Press [SPACE] for blasters, [Z] for torpedoes'));
+        G.showPrompt(nomangle('Press [SPACE] for blasters, [ENTER] for torpedoes'));
 
         let shots = 20;
         this.listen(EVENT_SHOT, projectile => {

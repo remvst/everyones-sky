@@ -252,6 +252,7 @@ class Game {
             const currentWarning = U.playerShip.currentWarning();
             if (currentWarning && currentWarning != G.currentWarning) {
                 G.currentWarningEnd = G.clock + 3;
+                G.currentWarning = currentWarning;
 
                 warningSound();
             }
@@ -270,8 +271,6 @@ class Game {
                 fillText(G.currentWarning, CANVAS_WIDTH / 2, 300);
 
                 G.message = null; // don't want to have a warning and a message at the same time
-            } else {
-                G.currentWarning = null;
             }
 
             R.strokeStyle = '#fff';
