@@ -7,7 +7,7 @@ class PlayerShip extends Ship {
     }
 
     cycle(e) {
-        this.thrust = w.down[38] || w.down[87] || w.down[90];
+        this.thrust = w.down[38];
 
         this.rotationDirection = 0;
         if (w.down[37]) this.rotationDirection = -1;
