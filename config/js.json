@@ -38,7 +38,6 @@
     "src/js/stations/planetary-station.js",
     "src/js/stations/city.js",
     "src/js/stations/mortar.js",
-    "src/js/stations/mountain.js",
     "src/js/stations/factory.js",
 
     "src/js/items/item.js",

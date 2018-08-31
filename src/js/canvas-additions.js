@@ -7,3 +7,4 @@ p.wrap = function(f) {
     this.restore();
 };
 p.fr = p.fillRect;
+p.fs = function(x) { this.fillStyle = fs; };

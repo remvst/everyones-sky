@@ -33,17 +33,17 @@ class Planet extends Body {
 
         this.asset = haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
-            r.fillStyle = '#fff';
+            r.fs('#fff');
             r.arc(this.radius, this.radius, this.radius, 0 , PI * 2);
             r.fill();
             r.globalCompositeOperation = nomangle('source-atop');
 
             const rng = createNumberGenerator(this.name.charCodeAt(0) + this.radius);
 
-            let rgb = [rng.between(32, 255), rng.between(32, 255), rng.between(32, 255)];
+            let rgb = [...Array(3)][rng.between(32, 255)];
 
             for (let y = 0 ; y < this.radius * 2 ; y += rng.between(PLANET_STRIPE_MIN_SIZE, PLANET_STRIPE_MAX_SIZE)) {
-                r.fillStyle = nomangle('rgb') + '(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+                r.fs(nomangle('rgb') + '(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
                 r.fillRect(0, y, this.radius * 2, this.radius * 2);
 
                 // Update colors for the next stripe
@@ -56,7 +56,7 @@ class Planet extends Body {
             gradient.addColorStop(0, '#000');
             gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
-            r.fillStyle = gradient;
+            r.fs(gradient);
             r.globalAlpha = 0.4;
 
             r.beginPath();
@@ -110,7 +110,7 @@ class Planet extends Body {
         pick([
             () => this.spawnStation(City),
             () => this.spawnStation(Mortar),
-            () => this.spawnStation(Mountain),
+            // () => this.spawnStation(Mountain),
             () => this.spawnStation(Factory),
             () => this.spawnShip()
         ])();
@@ -160,7 +160,7 @@ class Planet extends Body {
 
             // R.lineWidth = 2;
             // pts.forEach(pt => {
-            //     R.fillStyle = '#0f0';
+            //     R.fs('#0f0');
             //     fillRect(pt.x - 2, pt.y - 2, 4, 4);
 
             //     pt.neighbors.forEach(neighbor => {

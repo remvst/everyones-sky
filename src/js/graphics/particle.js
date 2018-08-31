@@ -15,7 +15,7 @@ function particle(size, color, interpolations) {
 
             wrap(() => {
                 R.globalAlpha = p.alpha;
-                R.fillStyle = p.color;
+                fs(p.color);
                 beginPath();
                 arc(p.x, p.y, p.size / 2, 0, PI * 2);
                 fill();

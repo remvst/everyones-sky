@@ -5,7 +5,7 @@ class Body {
         this.radius = 0;
     }
 
-    cycle(e) {
+    cycle() {
         U.ships.forEach(ship => {
             const minDist = this.radius + ship.radius;
             const overlap = minDist - dist(ship, this);
@@ -21,7 +21,9 @@ class Body {
 
                 ship.damage(this, 0.1);
 
-                explosionSound();
+                if (V.isVisible(ship.x, ship.y)) {
+                    explosionSound();
+                }
             }
         });
     }

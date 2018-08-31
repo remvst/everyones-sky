@@ -25,7 +25,7 @@ class SimpleLaser extends Laser {
             translate(this.x, this.y);
             rotate(this.angle);
     
-            R.fillStyle = 'cyan';
+            fs('cyan');
             fr(0, -2, 8, 4);
         });
     }

@@ -23,7 +23,7 @@ class Star extends Body {
 
         drawImage(this.halo, this.x - this.halo.width / 2, this.y - this.halo.height / 2);
 
-        R.fillStyle = '#ff0';
+        fs('#ff0');
         beginPath();
 
         for (let i = 0 ; i < 40 ; i++) {

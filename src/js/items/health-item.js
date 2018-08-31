@@ -3,7 +3,7 @@ class HealthItem extends Item {
     renderGraphic() {
         scale(0.3, 0.3);
 
-        R.fillStyle = '#fff';
+        fs('#fff');
         beginPath();
         moveTo(0, -15)
         lineTo(14, -10);

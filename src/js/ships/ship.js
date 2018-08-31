@@ -53,16 +53,6 @@ class Ship {
         }
     }
 
-    shape() {
-        rotate(this.angle);
-        beginPath();
-        moveTo(-5, 0);
-        lineTo(-10, 10);
-        lineTo(20, 0);
-        lineTo(-10, -10);
-        fill();
-    }
-
     // For reference only
     // shipColor() {
 
@@ -78,17 +68,15 @@ class Ship {
         }
 
         wrap(() => {
-            R.fillStyle = '#000';
-            R.globalAlpha = 0.5;
-            translate(this.x + 2, this.y + 2);
-            this.shape();
-        });
-
-        const damageFactor = 1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1;
-        wrap(() => {
-            R.fillStyle = damageFactor > 0 ? '#f00' : this.shipColor();
+            fs(1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1 > 0 ? '#f00' : this.shipColor());
             translate(this.x, this.y);
-            this.shape();
+            rotate(this.angle);
+            beginPath();
+            moveTo(-5, 0);
+            lineTo(-10, 10);
+            lineTo(20, 0);
+            lineTo(-10, -10);
+            fill();
         });
 
         const closestStar = U.stars
@@ -99,7 +87,7 @@ class Ship {
             const alpha = 1 - abs(abs(angleToClosestStar) / PI - 1 / 2) * 2;
 
             wrap(() => {
-                R.fillStyle = '#000';
+                fs('#000');
                 R.globalAlpha = alpha * limit(0, (1 - dist(closestStar, this) / 5000), 1);
                 translate(this.x, this.y);
                 rotate(this.angle);

@@ -20,7 +20,7 @@ class Asteroid extends Body {
 
         this.asset = createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
-            r.fillStyle = '#aaa';
+            r.fs('#aaa');
             r.translate(this.radius, this.radius);
             r.beginPath();
 
@@ -34,7 +34,7 @@ class Asteroid extends Body {
             r.fill();
 
             r.globalCompositeOperation = 'destination-out';
-            r.fillStyle = '#000';
+            r.fs('#000');
             r.lineWidth = 2;
             for (let i = 0 ; i < 10 ; i++) {
                 const a = rnd(0, PI * 2);

@@ -1,8 +1,8 @@
-function linear(t, b, c, d) {
+linear = (t, b, c, d) => {
     return (t / d) * c + b;
 }
 
-function interp(o, p, a, b, d, l, f, e) {
+interp = (o, p, a, b, d, l, f, e) => {
     var i = {
         o: o, // object
         p: p, // property
@@ -32,4 +32,4 @@ function interp(o, p, a, b, d, l, f, e) {
     INTERPOLATIONS.push(i);
 }
 
-let INTERPOLATIONS = [];
+INTERPOLATIONS = [];

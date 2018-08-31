@@ -3,7 +3,7 @@ class ResourceItem extends Item {
     renderGraphic() {
         scale(0.3, 0.3);
 
-        R.fillStyle = '#fff';
+        fs('#fff');
         renderResourcesIcon();
     }
 

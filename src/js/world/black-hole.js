@@ -14,7 +14,7 @@ class BlackHole extends Body {
         gradient.addColorStop(0.5, '#000');
         gradient.addColorStop(1, 'rgba(128,128,128,0)');
 
-        R.fillStyle = gradient;
+        fs(gradient);
         beginPath();
 
         // R.shadowBlur = 25;

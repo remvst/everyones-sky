@@ -41,13 +41,13 @@ class Universe {
             const x = (V.width / 2 + V.x) * factor;
             const y = (V.height / 2 + V.y) * factor;
             translate(-x, -y);
-            R.fillStyle = pattern;
+            fs(pattern);
             fr(x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
         });
     }
 
     render() {
-        R.fillStyle = '#000';
+        fs('#000');
         fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
         this.renderBackground(starsPattern2, 0.2);
@@ -77,7 +77,7 @@ class Universe {
                 const x3 = x2 + 30;
                 const y3 = y2;
 
-                R.strokeStyle = R.fillStyle = '#fff';
+                R.strokeStyle = fs('#fff');
                 R.lineWith = 2;
                 beginPath();
                 moveTo(body.x + x1, body.y + y1);

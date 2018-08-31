@@ -1,5 +1,5 @@
 const createStarsPattern = (stars, alpha) => createCanvasPattern(STAR_PATTERN_SIZE, STAR_PATTERN_SIZE, r => {
-    r.fillStyle = '#fff';
+    r.fs('#fff');
     for (let i = stars ; --i ; ) {
         r.globalAlpha = alpha();
         r.fr(
@@ -26,7 +26,7 @@ function haloAround(asset, haloRadius, colorStart, colorEnd) {
         gradient.addColorStop(0, colorStart);
         gradient.addColorStop(1, colorEnd);
 
-        r.fillStyle = gradient;
+        r.fs(gradient);
         r.fr(0, 0, can.width, can.height);
 
         try { r.drawImage(asset, haloRadius, haloRadius); } catch(e) {}

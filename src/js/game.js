@@ -54,10 +54,10 @@ class Game {
         wrap(() => {
             translate(x, y);
 
-            R.fillStyle = 'rgba(128,128,128,0.5)';
+            fs('rgba(128,128,128,0.5)');
             fr(0, -5, 200, 10);
 
-            R.fillStyle = color;
+            fs(color);
             fr(0, -5, -2, 10);
             fr(200, -5, 2, 10);
 
@@ -134,7 +134,7 @@ class Game {
         wrap(() => {
             translate(V.shakeX, V.shakeY);
 
-            R.fillStyle = 'rgba(0,0,0,0.5)';
+            fs('rgba(0,0,0,0.5)');
             R.strokeStyle = '#fff';
             fr(50, 30, 270, 100);
             strokeRect(50.5, 30.5, 270, 100);
@@ -212,7 +212,7 @@ class Game {
                     translate(CANVAS_WIDTH / 2 + cos(angle) * distanceOnCircle, CANVAS_HEIGHT / 2 + sin(angle) * distanceOnCircle);
                     rotate(angle);
 
-                    R.fillStyle = '#fff';
+                    fs('#fff');
                     beginPath();
                     moveTo(0, 0);
                     lineTo(-14, 10);
@@ -225,7 +225,7 @@ class Game {
             // Prompt
             const promptText = G.promptText();
             if (promptText) {
-                R.fillStyle = 'rgba(0,0,0,0.5)';
+                fs('rgba(0,0,0,0.5)');
                 R.font = '20pt ' + monoFont;
                 fr(0, CANVAS_HEIGHT - 200, CANVAS_WIDTH, 200);
 
@@ -234,7 +234,7 @@ class Game {
                 const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
                 const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
 
-                R.fillStyle = '#fff';
+                fs('#fff');
                 R.textAlign = nomangle('left');
                 fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, CANVAS_HEIGHT - 200 + 50);
 
@@ -258,13 +258,13 @@ class Game {
             }
 
             if (G.currentWarning && G.clock < G.currentWarningEnd) {
-                R.fillStyle = 'rgba(255,0,0,0.5)';
+                fs('rgba(255,0,0,0.5)');
                 fr(0, 200, CANVAS_WIDTH, 125);
 
                 R.font = '36pt Mono';
                 R.textBaseline = 'middle';
                 R.textAlign = nomangle('center');
-                R.fillStyle = '#fff';
+                fs('#fff');
                 fillText(nomangle('/!\\ WARNING /!\\'), CANVAS_WIDTH / 2, 250);
 
                 R.font = '18pt ' + monoFont;
@@ -291,7 +291,7 @@ class Game {
             wrap(() => {
                 translate(0, G.titleYOffset);
 
-                R.fillStyle = '#000';
+                fs('#000');
                 fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
                 R.lineWidth = 8;
@@ -322,7 +322,7 @@ class Game {
                 });
 
                 R.font = '20pt Mono';
-                R.fillStyle = '#fff';
+                fs('#fff');
                 R.textAlign = nomangle('center');
 
                 G.gameRecap.forEach((line, i) => {
@@ -334,7 +334,7 @@ class Game {
         if (DEBUG) {
             wrap(() => {
                 R.font = '10pt ' + monoFont;
-                R.fillStyle = '#fff';
+                fs('#fff');
 
                 const info = [
                     'planets: ' + G.renderedPlanets,
