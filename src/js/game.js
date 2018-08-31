@@ -244,7 +244,7 @@ class Game {
                     G.promptOptions.forEach((option, i) => {
                         const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
                         const x = (i + 1) * step;
-                        fillText('[' + option.label.slice(0, 1) + ']' + option.label.slice(1), x, CANVAS_HEIGHT - 200 + 100);
+                        fillText('[' + option.label[0] + ']' + option.label.slice(1), x, CANVAS_HEIGHT - 200 + 100);
                     });
                 }
             }
@@ -365,7 +365,7 @@ class Game {
 
     selectPromptOption(character) {
         (G.promptOptions || []).forEach(option => {
-            if (option.label.slice(0, 1).toLowerCase() === character.toLowerCase()) {
+            if (option.label[0].toLowerCase() === character.toLowerCase()) {
                 option.action();
                 selectSound();
             }

@@ -10,11 +10,11 @@ class PlayerShip extends Ship {
         this.thrust = w.down[38] || w.down[87] || w.down[90];
 
         this.rotationDirection = 0;
-        if (w.down[37] || w.down[65] || w.down[81]) this.rotationDirection = -1;
-        if (w.down[39] || w.down[68]) this.rotationDirection = 1;
+        if (w.down[37]) this.rotationDirection = -1;
+        if (w.down[39]) this.rotationDirection = 1;
 
         if (w.down[32]) this.shoot(SimpleLaser);
-        if (w.down[13] && G.started) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL, PI / 16, 3);
+        if (w.down[13]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL, PI / 16, 3);
 
         const star = this.nearStar();
         if (star) {
