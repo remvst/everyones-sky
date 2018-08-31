@@ -9,9 +9,6 @@
     "src/js/graphics/assets.js",
     "src/js/graphics/particle.js",
 
-    "src/js/sound/jsfxr.js",
-    "src/js/sound/sounds.js",
-
     "src/js/ai/path-finder.js",
 
     "src/js/missions/mission-step.js",
@@ -54,6 +51,9 @@
     "src/js/util/points-around.js",
     "src/js/util/rng.js",
     "src/js/util/once.js",
+
+    "src/js/sound/jsfxr.js",
+    "src/js/sound/sounds.js",
 
     "src/js/event-hub.js",
     "src/js/keyboard.js",

@@ -5,11 +5,11 @@ soundPool = (settings, repeat) => {
         sound.loop = repeat;
         return sound;
     });
-    return () => {
+    return once(() => {
         const sound = sounds[index++ % sounds.length];
         sound.play();
         return sound;
-    };
+    });
 };
 
 const explosionSound = soundPool([3,,0.3346,0.2953,0.4941,0.1205,,-0.2565,,,,,,,,,-0.1093,-0.2344,1,,,,,0.5]),
