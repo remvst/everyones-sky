@@ -113,7 +113,7 @@ class Ship {
             this.modifyProjectile(projectile);
             U.projectiles.push(projectile);
 
-            this.heat = max(this.heat + projectile.heat, 0);
+            this.heat = min(0, max(this.heat, 0) + projectile.heat);
 
             G.eventHub.emit(EVENT_SHOT, projectile);
         }

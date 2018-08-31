@@ -31,7 +31,7 @@ class Planet extends Body {
             this.evolve();
         }
 
-        this.asset = haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
+        this.asset = once(() => haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
             r.fs('#fff');
             r.arc(this.radius, this.radius, this.radius, 0 , PI * 2);
@@ -49,9 +49,9 @@ class Planet extends Body {
                 // Update colors for the next stripe
                 rgb = rgb.map(c => ~~limit(32, c + rnd(-PLANET_COLOR_CHANGE_FACTOR, PLANET_COLOR_CHANGE_FACTOR), 255));
             }
-        }), 50, 'rgba(255,255,255,0.1)', 'rgba(255,255,255,0)');
+        }), 50, 'rgba(255,255,255,0.1)', 'rgba(255,255,255,0)'));
 
-        this.shadowAsset = createCanvas(this.radius * 4, this.radius * 2, (r, c) => {
+        this.shadowAsset = once(() => createCanvas(this.radius * 4, this.radius * 2, (r, c) => {
             const gradient = r.createLinearGradient(0, 0, c.width, 0);
             gradient.addColorStop(0, '#000');
             gradient.addColorStop(1, 'rgba(0,0,0,0)');
@@ -71,7 +71,7 @@ class Planet extends Body {
             r.lineTo(c.width, 0);
 
             r.fill();
-        });
+        }));
     }
 
     updatePosition() {
@@ -206,12 +206,12 @@ class Planet extends Body {
 
         wrap(() => {
             rotate(this.angle);
-            drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
+            drawImage(this.asset(), -this.asset().width / 2, -this.asset().height / 2);
         });
 
         wrap(() => {
             rotate(this.orbitPhase);
-            drawImage(this.shadowAsset, 0, -this.shadowAsset.height / 2);
+            drawImage(this.shadowAsset(), 0, -this.shadowAsset().height / 2);
         });
 
         if (this.ring) {

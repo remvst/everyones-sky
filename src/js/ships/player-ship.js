@@ -54,7 +54,7 @@ class PlayerShip extends Ship {
         super.damage(source, amount);
 
         if (source != this) {
-            V.shake(amount / 0.1);
+            V.shake(0.1);
         }
 
         this.nextHealing = SHIP_HEALING_DAMAGE_TIMEOUT;
