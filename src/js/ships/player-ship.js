@@ -77,11 +77,7 @@ class PlayerShip extends Ship {
 
     currentWarning() {
         if (this.health <= 0.3) {
-            let warning = nomangle('SHIELDS LOW');
-            if (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES) {
-                warning += nomangle('. FIND RESOURCES TO REPAIR');
-            }
-            return warning;
+            return nomangle('SHIELDS LOW') + (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES ? nomangle('. FIND RESOURCES TO REPAIR') : '');
         } else if (this.nearStar()) {
             return nomangle('HEAT DAMAGING SHIELDS');
         } else if (U.pirates.filter(ship => dist(ship, this) < CANVAS_WIDTH).length) {
