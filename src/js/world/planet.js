@@ -5,7 +5,7 @@ class Planet extends Body {
 
         this.rng = createNumberGenerator(seed);
 
-        this.radius = this.rng.between(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS);
+        this.radius = ~~this.rng.between(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS);
         this.reachRadius = this.radius * 4;
 
         this.civilization = new Civilization(this, this.rng.floating());
@@ -38,7 +38,7 @@ class Planet extends Body {
             r.fill();
             r.globalCompositeOperation = nomangle('source-atop');
 
-            const rng = createNumberGenerator(seed);
+            const rng = createNumberGenerator(this.name.charCodeAt(0) + this.radius);
 
             let rgb = [rng.between(32, 255), rng.between(32, 255), rng.between(32, 255)];
 

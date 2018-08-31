@@ -131,7 +131,7 @@ class Universe {
                 const planets = rng.between(UNIVERSE_GENERATE_SYSTEM_MIN_PLANETS, UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS);
                 let orbitRadius = rng.between(UNIVERSE_GENERATE_ORBIT_MIN_MARGIN, UNIVERSE_GENERATE_ORBIT_MAX_MARGIN);
                 for (let j = 0 ; j < planets ; j++) {
-                    const planet = new Planet(star, orbitRadius, rng.floating());
+                    const planet = new Planet(star, orbitRadius, rng.floating() * 999);
                     this.bodies.push(planet);
 
                     star.reachRadius = orbitRadius + planet.radius;

@@ -20,6 +20,8 @@ class Body {
                 interp(ship, 'uncontrolledRotation', pick([-6, 6]), 0, 1);
 
                 ship.damage(this, 0.1);
+
+                explosionSound();
             }
         });
     }

@@ -396,28 +396,28 @@ class Game {
 
             G.proceedToMissionStep(new PromptMission(missionStep));
 
-            for (let i = 0, d = max(planet.radius, dist(U.playerShip, planet) - V.width) ; d < dist(U.playerShip, planet) ; i++, d += 50) {
-                const angle = angleBetween(planet, U.playerShip);
-                const particle = {
-                    'alpha': 0,
-                    'render': () => wrap(() => {
-                        R.strokeStyle = '#fff';
-                        R.lineWidth = 2;
-                        R.globalAlpha = particle.alpha;
-                        beginPath();
-                        arc(planet.x, planet.y, d, angle - PI / 16, angle + PI / 16);
-                        stroke();
+            // for (let i = 0, d = max(planet.radius, dist(U.playerShip, planet) - V.width) ; d < dist(U.playerShip, planet) ; i++, d += 50) {
+            //     const angle = angleBetween(planet, U.playerShip);
+            //     const particle = {
+            //         'alpha': 0,
+            //         'render': () => wrap(() => {
+            //             R.strokeStyle = '#fff';
+            //             R.lineWidth = 2;
+            //             R.globalAlpha = particle.alpha;
+            //             beginPath();
+            //             arc(planet.x, planet.y, d, angle - PI / 16, angle + PI / 16);
+            //             stroke();
 
-                        if (DEBUG) {
-                            G.renderedParticles++;
-                        }
-                    })
-                };
-                U.particles.push(particle)
+            //             if (DEBUG) {
+            //                 G.renderedParticles++;
+            //             }
+            //         })
+            //     };
+            //     U.particles.push(particle)
 
-                interp(particle, 'alpha', 1, 0, 0.1, i * 0.02 + 0.2, 0, () => U.remove(U.particles, particle));
-                interp(particle, 'alpha', 0, 1, 0.1, i * 0.02);
-            }
+            //     interp(particle, 'alpha', 1, 0, 0.1, i * 0.02 + 0.2, 0, () => U.remove(U.particles, particle));
+            //     interp(particle, 'alpha', 0, 1, 0.1, i * 0.02);
+            // }
         }
 
     }

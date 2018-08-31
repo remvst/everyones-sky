@@ -1,9 +1,9 @@
 class Civilization {
 
-    constructor(center) {
+    constructor(center, relationship) {
         this.resources = 0;
         this.center = center;
-        this.relationship = random();
+        this.relationship = relationship;
         this.initialRelationship = this.relationshipType();
     }
 
