@@ -76,8 +76,9 @@ class Universe {
 
                 const x3 = x2 + 30;
                 const y3 = y2;
-
-                R.strokeStyle = fs('#fff');
+                
+                fs('#fff');
+                R.strokeStyle = R.fillStyle;
                 R.lineWith = 2;
                 beginPath();
                 moveTo(body.x + x1, body.y + y1);

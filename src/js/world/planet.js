@@ -40,7 +40,7 @@ class Planet extends Body {
 
             const rng = createNumberGenerator(this.name.charCodeAt(0) + this.radius);
 
-            let rgb = [...Array(3)][rng.between(32, 255)];
+            let rgb = [...Array(3)].map(() => rng.between(32, 255));
 
             for (let y = 0 ; y < this.radius * 2 ; y += rng.between(PLANET_STRIPE_MIN_SIZE, PLANET_STRIPE_MAX_SIZE)) {
                 r.fs(nomangle('rgb') + '(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')');
