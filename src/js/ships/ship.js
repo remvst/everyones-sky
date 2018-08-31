@@ -101,29 +101,27 @@ class Ship {
         }
     }
 
-    shoot(type, interval = SHIP_SHOT_INTERVAL, spread = 0, shots = 1) {
+    shoot(type, interval = SHIP_SHOT_INTERVAL) {
         if ((G.clock - (this.lastShot || 0)) < interval || this.coolingDown) {
             return;
         }
 
         this.lastShot = G.clock;
 
-        for (let i = 0 ; i < shots ; i++) {
-            const projectile = new type(this, this.x, this.y, this.angle + (i / (shots - 1) || 0) * spread - spread / 2);
-            this.modifyProjectile(projectile);
-            U.projectiles.push(projectile);
+        const projectile = new type(this, this.x, this.y, this.angle);
+        this.modifyProjectile(projectile);
+        U.projectiles.push(projectile);
 
-            this.heat = min(0, max(this.heat, 0) + projectile.heat);
+        this.heat = min(1, max(this.heat, 0) + projectile.heat);
 
-            G.eventHub.emit(EVENT_SHOT, projectile);
-        }
+        G.eventHub.emit(EVENT_SHOT, projectile);
 
         if (this.heat >= 1) {
             this.coolingDown = true;
         }
     }
 
-    modifyProjectile(projectile) {
+    modifyProjectile() {
         // nothing, PlayerShip needs this tho
     }
 
