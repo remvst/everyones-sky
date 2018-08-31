@@ -142,8 +142,8 @@ class Universe {
                 // Create some pirates
                 const pirateAngle = rng.between(0, PI * 2);
                 this.createPirateGroup(
-                    cos(pirateAngle) * (radius - maxSystemRadius / 2),
-                    sin(pirateAngle) * (radius - maxSystemRadius / 2)
+                    cos(pirateAngle) * (radius + maxSystemRadius / 2),
+                    sin(pirateAngle) * (radius + maxSystemRadius / 2)
                 );
             }
         }
