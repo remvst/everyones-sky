@@ -8,7 +8,7 @@ class TimedMissionStep extends MissionStep {
             }
         });
 
-        G.showPrompt(() => this.instructions() + ' (' + formatTime(timeleft) + ')');
+        G.showPrompt(() => this.instructions() + ' - ' + formatTime(timeleft));
     }
 
 }

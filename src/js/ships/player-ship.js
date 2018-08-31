@@ -84,6 +84,8 @@ class PlayerShip extends Ship {
             return warning;
         } else if (this.nearStar()) {
             return nomangle('HEAT DAMAGING SHIELDS');
+        } else if (U.pirates.filter(ship => dist(ship, this) < CANVAS_WIDTH).length) {
+            return nomangle('PIRATE TERRITORY');
         }
     }
 

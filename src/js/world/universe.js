@@ -7,6 +7,7 @@ class Universe {
         this.particles = [];
         this.projectiles = [];
         this.items = [];
+        this.pirates = [];
 
         // Player ship
         this.ships.push(this.playerShip = new PlayerShip());
@@ -167,6 +168,7 @@ class Universe {
         })
 
         this.ships = this.ships.concat(ships);
+        this.pirates = this.pirates.concat(ships);
 
         return ships;
     }

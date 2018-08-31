@@ -171,6 +171,7 @@ class Ship {
         }
 
         U.remove(U.ships, this);
+        U.remove(U.pirates, this);
 
         if (V.isVisible(this.x, this.y)) {
             explosionSound();

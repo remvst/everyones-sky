@@ -24,9 +24,7 @@ class MissionStep {
     }
 
     proceed(nextStep) {
-        if (this.proceedListener) {
-            this.proceedListener(nextStep);
-        }
+        this.proceedListener(nextStep);
     }
 
 }

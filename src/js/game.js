@@ -250,7 +250,13 @@ class Game {
             }
 
             const currentWarning = U.playerShip.currentWarning();
-            if (currentWarning) {
+            if (currentWarning && currentWarning != G.currentWarning) {
+                G.currentWarningEnd = G.clock + 3;
+
+                warningSound();
+            }
+
+            if (G.currentWarning && G.clock < G.currentWarningEnd) {
                 R.fillStyle = 'rgba(255,0,0,0.5)';
                 fr(0, 200, CANVAS_WIDTH, 125);
 
@@ -261,9 +267,11 @@ class Game {
                 fillText(nomangle('/!\\ WARNING /!\\'), CANVAS_WIDTH / 2, 250);
 
                 R.font = '18pt Mono';
-                fillText(currentWarning, CANVAS_WIDTH / 2, 300);
+                fillText(G.currentWarning, CANVAS_WIDTH / 2, 300);
 
                 G.message = null; // don't want to have a warning and a message at the same time
+            } else {
+                G.currentWarning = null;
             }
 
             R.strokeStyle = '#fff';
