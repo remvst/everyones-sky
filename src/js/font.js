@@ -1,4 +1,4 @@
-function stickString(string, charSpacing) {
+function stickString(string) {
     const absoluteSegments = [];
 
     let characterX = 0;
@@ -14,7 +14,7 @@ function stickString(string, charSpacing) {
                 characterX + segment[2], 
                 segment[3]
             ]);
-            nextX = max(nextX, characterX + segment[0] + charSpacing, characterX + segment[2] + charSpacing);
+            nextX = max(nextX, characterX + segment[0] + 2 / 5, characterX + segment[2] + 2 / 5);
         });
 
         if (!charSegments.length) {
@@ -22,7 +22,7 @@ function stickString(string, charSpacing) {
         }
 
         characterX = nextX;
-        width = characterX - charSpacing;
+        width = characterX - 2 / 5;
     });
 
     const appearanceOffsets = [];

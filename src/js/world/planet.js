@@ -11,7 +11,7 @@ class Planet extends Body {
         this.civilization = new Civilization(this, this.rng.floating());
 
         this.name = randomName(this.rng);
-        this.stickString = stickString(this.name, 2 / 5);
+        this.stickString = stickString(this.name);
 
         this.rotationSpeed = this.rng.between(PI / 8, PI / 12)
 

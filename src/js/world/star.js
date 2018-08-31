@@ -6,7 +6,7 @@ class Star extends Body {
         super();
         this.radius = rng.between(UNIVERSE_GENERATE_STAR_MIN_RADIUS, UNIVERSE_GENERATE_STAR_MAX_RADIUS);
         this.name = randomName(rng);
-        this.stickString = stickString(this.name, 2 / 5);
+        this.stickString = stickString(this.name);
         // this.reachRadius = 0; // for reference only
         // this.systemDiscovered = false; // for reference only
         this.halo = haloAround(createCanvas(this.radius * 2, this.radius * 2, () => 0), 100, 'rgba(255,0,0,0.3)', 'rgba(255,0,0,0)');

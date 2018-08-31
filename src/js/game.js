@@ -13,9 +13,9 @@ class Game {
 
         // G.missionStep = null; // for reference
 
-        G.titleStickString = stickString(nomangle('everyone\'s'), 2 / 5);
-        G.subtitleStickString = stickString(nomangle('sky'), 2 / 5);
-        G.instructionsStickString = stickString(nomangle('press enter to start'), 2 / 5);
+        G.titleStickString = stickString(nomangle('everyone\'s'));
+        G.subtitleStickString = stickString(nomangle('sky'));
+        G.instructionsStickString = stickString(nomangle('press enter to start'));
 
         G.titleCharWidth = G.subtitleCharWidth = 50;
         G.titleCharHeight = G.subtitleCharHeight = 100;
@@ -377,7 +377,7 @@ class Game {
     }
 
     showMessage(message) {
-        G.message = stickString(message, 2 / 5);
+        G.message = stickString(message);
         interp(G, 'messageProgress', G.message.segments.length, 0, G.message.segments.length * 0.1, 3);
         interp(G, 'messageProgress', 0, G.message.segments.length, G.message.segments.length * 0.1);
     }
@@ -474,9 +474,9 @@ class Game {
             subtitle = nomangle('you brought peace');
         }
 
-        G.titleStickString = stickString(nomangle('game over'), 2 / 5);
-        G.subtitleStickString = stickString(subtitle, 2 / 5);
-        G.instructionsStickString = stickString(nomangle('press enter to try again'), 2 / 5);
+        G.titleStickString = stickString(nomangle('game over'));
+        G.subtitleStickString = stickString(subtitle);
+        G.instructionsStickString = stickString(nomangle('press enter to try again'));
 
         G.subtitleCharWidth = 25;
         G.subtitleCharHeight = 50;
