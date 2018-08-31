@@ -210,6 +210,7 @@ class Game {
                     translate(CANVAS_WIDTH / 2 + cos(angle) * distanceOnCircle, CANVAS_HEIGHT / 2 + sin(angle) * distanceOnCircle);
                     rotate(angle);
 
+                    R.globalAlpha = 0.5;
                     fs('#fff');
                     beginPath();
                     moveTo(0, 0);
