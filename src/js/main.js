@@ -6,18 +6,6 @@ onload = () => {
     can.height = CANVAS_HEIGHT;
 
     R = can.getContext('2d');
-    
-    R.font = nomangle('99pt f'); // Setting a font that obviously doesn't exist
-    const reference = R.measureText(w.title);
-
-    for (let fontName of [nomangle('Mono'), nomangle('Courier')]) {
-        R.font = '99pt ' + fontName;
-        const measurement = R.measureText(w.title);
-        if (measurement.width != reference.width || measurement.height != reference.height) {
-            monoFont = fontName;
-            break;
-        }
-    }
 
     // Shortcut for all canvas methods to the main canvas
     Object.getOwnPropertyNames(p).forEach(n => {
@@ -25,6 +13,19 @@ onload = () => {
             w[n] = p[n].bind(R);
         }
     });
+    
+    // Detect available fonts
+    R.font = nomangle('99pt f'); // Setting a font that obviously doesn't exist
+    const reference = measureText(w.title);
+
+    for (let fontName of [nomangle('Mono'), nomangle('Courier')]) {
+        R.font = '99pt ' + fontName;
+        const measurement = measureText(w.title);
+        if (measurement.width != reference.width || measurement.height != reference.height) {
+            monoFont = fontName;
+            break;
+        }
+    }
 
     new Game();
 
