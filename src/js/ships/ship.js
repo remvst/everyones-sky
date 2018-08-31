@@ -165,6 +165,8 @@ class Ship {
         }
 
         U.remove(U.ships, this);
+
+        explosionSound();
     }
 
 }

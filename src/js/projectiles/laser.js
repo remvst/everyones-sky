@@ -9,6 +9,8 @@ class Laser {
         // this.radius = 10;
         this.guideRadius = 0;
         this.age = 0;
+
+        shootSound();
     }
 
     cycle(e) {

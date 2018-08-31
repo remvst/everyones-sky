@@ -88,6 +88,12 @@ class AIShip extends Ship {
             this.updateControls();
             super.cycle(e);
         }
+
+        const angleWithPlanet = angleBetween(this.civilization.center, this);
+        const distanceToPlanet = max(dist(this, this.civilization.center), this.civilization.center.radius + this.radius * 2);
+        
+        this.x = this.civilization.center.x + cos(angleWithPlanet) * distanceToPlanet;
+        this.y = this.civilization.center.y + sin(angleWithPlanet) * distanceToPlanet;
     }
 
     render() {

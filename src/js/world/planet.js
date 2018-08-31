@@ -19,13 +19,10 @@ class Planet extends Body {
 
         this.ring = random() < 0.3;
 
-        if (this.orbitsAround) {
-            this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
-            this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
-        }
-
         this.stations = [];
         this.angle = 0;
+
+        this.updatePosition();
 
         const initialResources = this.civilization.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
         for (let i = 0 ; i < initialResources / PLANET_EVOLUTION_REQUIRED_RESOURCES ; i++) {
@@ -73,6 +70,11 @@ class Planet extends Body {
         });
     }
 
+    updatePosition() {
+        this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
+        this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
+    }
+
     cycle(e) {
         super.cycle(e);
 
@@ -82,9 +84,7 @@ class Planet extends Body {
 
         this.orbitPhase += e * angularVelocity;
 
-        this.x = this.orbitsAround.x + cos(this.orbitPhase) * this.orbitRadius;
-        this.y = this.orbitsAround.y + sin(this.orbitPhase) * this.orbitRadius;
-
+        this.updatePosition();
         this.angle += this.rotationSpeed * e;
 
         this.stations.forEach(station => station.cycle(e));
@@ -128,10 +128,12 @@ class Planet extends Body {
 
     spawnShip() {
         const ai = new AIShip(this.civilization);
-        const angle = rnd(0, PI * 2);
-        ai.x = this.x + cos(angle) * this.radius + ai.radius * 2;
-        ai.y = this.y + sin(angle) * this.radius + ai.radius * 2;
-        // ai.enemy = this.playerShip;
+
+        // Giving the ship a shitty position within the planet
+        // AI ships fix their position automatically since they can't crash into their own planet
+        ai.x = this.x + rnd(-1, 1);
+        ai.y = this.y + rnd(-1, 1);
+        
         U.ships.push(ai);
     }
 
