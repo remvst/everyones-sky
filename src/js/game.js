@@ -255,6 +255,10 @@ class Game {
                 warningSound();
             }
 
+            if (!currentWarning) {
+                G.currentWarning = 0;
+            }
+
             if (G.currentWarning && G.clock < G.currentWarningEnd) {
                 fs('rgba(255,0,0,0.5)');
                 fr(0, 200, CANVAS_WIDTH, 125);
