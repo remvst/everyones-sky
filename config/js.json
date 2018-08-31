@@ -41,7 +41,6 @@
     "src/js/stations/factory.js",
 
     "src/js/items/item.js",
-    "src/js/items/health-item.js",
     "src/js/items/resource-item.js",
 
     "src/js/projectiles/laser.js",
