@@ -7,14 +7,9 @@ class Universe {
         this.particles = [];
         this.projectiles = [];
         this.items = [];
-
-        this.playerCivilization = new Civilization();
-
+        
         // Player ship
-        this.playerShip = new PlayerShip(this.playerCivilization);
-        this.playerShip.x = CANVAS_WIDTH / 2;
-        this.playerShip.y = CANVAS_HEIGHT / 2;
-        this.ships.push(this.playerShip);
+        this.ships.push(this.playerShip = new PlayerShip());
 
         // setTimeout(() => this.generateUniverse(), 0);
         this.nextAsteroid = 0;
