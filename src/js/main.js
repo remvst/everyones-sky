@@ -22,7 +22,7 @@ onload = () => {
     // Shortcut for all canvas methods to the main canvas
     Object.getOwnPropertyNames(p).forEach(n => {
         if (R[n] && R[n].call) {
-            window[n] = p[n].bind(R);
+            w[n] = p[n].bind(R);
         }
     });
 

@@ -28,8 +28,6 @@ class Game {
         G.healthIconScale = 1;
 
         G.healthGaugeColor = '#fff';
-
-        setTimeout(introSound, 1000);
     }
 
     proceedToMissionStep(missionStep) {
@@ -337,6 +335,7 @@ class Game {
                 fs('#fff');
 
                 const info = [
+                    'fps: ' + G.fps,
                     'planets: ' + G.renderedPlanets,
                     'stars: ' + G.renderedStars,
                     'orbits: ' + G.renderedOrbits,
@@ -445,6 +444,8 @@ class Game {
 
         V.scale = V.targetScaleOverride = 1;
         setTimeout(() => G.proceedToMissionStep(new PromptTutorialStep()), 3000);
+
+        introSound();
     }
 
     gameOver() {
