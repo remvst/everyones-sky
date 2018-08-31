@@ -145,6 +145,8 @@ class Asteroid extends Body {
                 U.bodies.push(smallerAsteroid);
             }
         }
+
+        explosionSound();
     }
 
 }

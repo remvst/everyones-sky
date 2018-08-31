@@ -28,6 +28,8 @@ class Game {
         G.healthIconScale = 1;
 
         G.healthGaugeColor = '#fff';
+
+        setTimeout(introSound, 1000);
     }
 
     proceedToMissionStep(missionStep) {
@@ -87,6 +89,16 @@ class Game {
         interp(G, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
             interp(G, 'resourceIconAlpha', 0, 1, 0.3, 0.3);
         });
+    }
+
+    resourceAnimation() {
+        interp(G, 'resourceIconScale', 1, 2, 0.3, 0, 0, () => {
+            interp(G, 'resourceIconScale', 2, 1, 0.3);
+        });
+
+        // interp(G, 'resourceIconAlpha', 1, 0, 0.3, 0, 0, () => {
+        //     interp(G, 'resourceIconAlpha', 0, 1, 0.1);
+        // });
     }
 
     cycle(e) {
@@ -182,6 +194,7 @@ class Game {
                     } else if (!closestStars[0].systemDiscovered) {
                         closestStars[0].systemDiscovered = true;
                         G.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+                        findSytemSound();
                     }
                 }
             }
@@ -337,12 +350,17 @@ class Game {
         G.promptText = promptText && promptText.call ? promptText : () => promptText;
         G.promptClock = G.clock;
         G.promptOptions = options || [];
+
+        if (G.promptText()) {
+            promptSound();
+        }
     }
 
     selectPromptOption(character) {
         (G.promptOptions || []).forEach(option => {
             if (option.label.slice(0, 1).toLowerCase() === character.toLowerCase()) {
                 option.action();
+                selectSound();
             }
         });
     }

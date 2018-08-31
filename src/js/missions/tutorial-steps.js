@@ -32,9 +32,9 @@ class MovementStep extends MissionStep {
 class ShootingStep extends MissionStep {
 
     attach() {
-        G.showPrompt(nomangle('Press [SPACE] to use your blasters, or [Z] to shoot torpedoes'));
+        G.showPrompt(nomangle('Press [SPACE] for blasters, [Z] for torpedoes'));
 
-        let shots = 10;
+        let shots = 20;
         this.listen(EVENT_SHOT, projectile => {
             if (projectile.owner === U.playerShip && !--shots) {
                 this.proceed(new OfflineStep());

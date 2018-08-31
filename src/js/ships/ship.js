@@ -113,24 +113,30 @@ class Ship {
         }
     }
 
-    shoot(type, interval = SHIP_SHOT_INTERVAL) {
+    shoot(type, interval = SHIP_SHOT_INTERVAL, spread = 0, shots = 1) {
         if ((G.clock - (this.lastShot || 0)) < interval || this.coolingDown) {
             return;
         }
 
         this.lastShot = G.clock;
 
-        const p = new type(this, this.x, this.y, this.angle);
-        U.projectiles.push(p);
+        for (let i = 0 ; i < shots ; i++) {
+            const projectile = new type(this, this.x, this.y, this.angle + (i / (shots - 1) || 0) * spread - spread / 2);
+            this.modifyProjectile(projectile);
+            U.projectiles.push(projectile);
 
-        this.heat = max(this.heat + 0.05, 0);
+            this.heat = max(this.heat + projectile.heat, 0);
+
+            G.eventHub.emit(EVENT_SHOT, projectile);
+        }
+
         if (this.heat >= 1) {
             this.coolingDown = true;
         }
+    }
 
-        G.eventHub.emit(EVENT_SHOT, p);
-
-        return p;
+    modifyProjectile(projectile) {
+        // nothing, PlayerShip needs this tho
     }
 
     damage(projectile, amount) {
@@ -148,7 +154,7 @@ class Ship {
         }
     }
 
-    explode() {
+    explode(projectile) {
         this.health = 0;
 
         for (let i = 0 ; i < 100 ; i++) {
@@ -166,7 +172,14 @@ class Ship {
 
         U.remove(U.ships, this);
 
-        explosionSound();
+        if (V.isVisible(this.x, this.y)) {
+            explosionSound();
+        }
+
+        const item = new ResourceItem();
+        U.items.push(item);
+        interp(item, 'x', this.x, this.x + cos(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
+        interp(item, 'y', this.y, this.y + sin(projectile.angle + PI) * 50 + rnd(-20, 20), 0.3);
     }
 
 }

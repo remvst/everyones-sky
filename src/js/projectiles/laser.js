@@ -7,6 +7,7 @@ class Laser {
         this.angle = angle;
         // this.speed = 800;
         // this.radius = 10;
+        // this.heat = 0.05;
         this.guideRadius = 0;
         this.age = 0;
 
@@ -30,6 +31,8 @@ class Laser {
             if (dist(target, this) < target.radius + this.radius) {
                 U.remove(U.projectiles, this);
                 target.damage(this, this.damage);
+
+                hitSound();
             }
 
             if (dist(target, this) < this.guideRadius) {

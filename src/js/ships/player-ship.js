@@ -14,7 +14,7 @@ class PlayerShip extends Ship {
         if (w.down[39]) this.rotationDirection = 1;
 
         if (w.down[32]) this.shoot(SimpleLaser);
-        if (w.down[90]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
+        if (w.down[90]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL, PI / 16, 3);
 
         const star = this.nearStar();
         if (star) {
@@ -26,6 +26,15 @@ class PlayerShip extends Ship {
         }
 
         super.cycle(e);
+
+        if (this.thrust) {
+            if (!this.thrustSound) {
+                this.thrustSound = thrustSound();
+            }
+        } else if (this.thrustSound) {
+            this.thrustSound.pause();
+            this.thrustSound = null;
+        }
     }
 
     heal() {
@@ -53,11 +62,8 @@ class PlayerShip extends Ship {
         this.nextHealing = SHIP_HEALING_DAMAGE_TIMEOUT;
     }
 
-    shoot(type, interval) {
-        const p = super.shoot(type, interval);
-        if (p) {
-            p.guideRadius = 100;
-        }
+    modifyProjectile(projectile) {
+        projectile.guideRadius = 100;
     }
 
     shipColor() {
