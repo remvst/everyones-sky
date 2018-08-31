@@ -72,6 +72,10 @@ class PlayerShip extends Ship {
     explode(projectile) {
         super.explode(projectile);
         setTimeout(() => G.gameOver(), 2000);
+
+        if (this.thrustSound) {
+            this.thrustSound.pause();
+        }
     }
 
     currentWarning() {
