@@ -8,7 +8,7 @@ class Planet extends Body {
         this.radius = this.rng.between(UNIVERSE_GENERATE_PLANET_MIN_RADIUS, UNIVERSE_GENERATE_PLANET_MAX_RADIUS);
         this.reachRadius = this.radius * 4;
 
-        this.civilization = new Civilization(this);
+        this.civilization = new Civilization(this, this.rng.floating());
 
         this.name = randomName(this.rng);
         this.stickString = stickString(this.name, 2 / 5);
