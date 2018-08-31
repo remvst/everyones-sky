@@ -143,8 +143,6 @@ class Universe {
                     cos(pirateAngle) * (radius - maxSystemRadius / 2),
                     sin(pirateAngle) * (radius - maxSystemRadius / 2)
                 );
-
-                // return;
             }
         }
     }
