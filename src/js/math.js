@@ -42,7 +42,7 @@ moduloWithNegative = (x, y) => {
 
 normalize = x => {
     // Possibly faster version but definitely smaller
-    moduloWithNegative(x, PI);
+    return moduloWithNegative(x, PI);
     // while (x < -PI) x += PI * 2;
     // while (x > PI) x -= PI * 2;
     // return x;
