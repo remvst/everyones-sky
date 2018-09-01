@@ -1,4 +1,4 @@
-function particle(size, color, interpolations) {
+function particle(size, color, interpolations, render) {
     let p;
 
     // Add to the list of particles
@@ -6,7 +6,11 @@ function particle(size, color, interpolations) {
         size: size,
         color: color,
         alpha: 1,
-        render: () => {
+        render: () => wrap(() => {
+            if (render) {
+                return render(p);
+            }
+
             if (!V.isVisible(p.x, p.y, p.size)) {
                 return;
             }
@@ -21,7 +25,7 @@ function particle(size, color, interpolations) {
                 fill();
                 // fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
             });
-        }
+        })
     });
 
     // Interpolations
