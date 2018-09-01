@@ -24,13 +24,11 @@ class SuperLaser extends Laser {
     }
 
     render() {
-        wrap(() => {
-            translate(this.x, this.y);
-            rotate(this.angle);
+        translate(this.x, this.y);
+        rotate(this.angle);
 
-            fs('red');
-            fr(-5, -5, 10, 10);
-        });
+        fs('red');
+        fr(-5, -5, 10, 10);
     }
 
 }

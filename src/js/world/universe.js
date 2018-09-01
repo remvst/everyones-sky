@@ -36,6 +36,10 @@ class Universe {
         U.bodies.push(asteroid);
     }
 
+    forEach(arrays, func) {
+        arrays.forEach(x => x.forEach(y => func(y)));
+    }
+
     render() {
         fs('#000');
         fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -63,11 +67,9 @@ class Universe {
             scale(V.zoomScale, V.zoomScale);
             translate(-V.x, -V.y);
 
-            this.projectiles.forEach(projectile => projectile.render());
-            this.particles.forEach(particles => particles.render());
-            this.ships.forEach(ship => ship.render());
-            this.bodies.forEach(b => wrap(() => b.render()));
-            this.items.forEach(item => item.render());
+            this.forEach([this.projectiles, this.particles, this.ships, this.bodies, this.items], element => wrap(() => {
+                element.render();
+            }));
 
             R.shadowColor = '#000';
             R.shadowOffsetY = 4;
@@ -107,8 +109,7 @@ class Universe {
     }
 
     forEachTarget(fn) {
-        this.ships.forEach(fn);
-        this.bodies.forEach(fn);
+        this.forEach([this.ships, this.bodies], fn);
         this.bodies.forEach(p => (p.stations || []).forEach(fn));
     }
 
@@ -157,22 +158,22 @@ class Universe {
     }
 
     createPirateGroup(x, y) {
-        const pirateCivilization = new Civilization({
+        const civilization = new Civilization({
             'x': x,
             'y': y,
             'radius': 300
         });
-        pirateCivilization.relationship = 0; // make sure we're enemies
+        civilization.relationship = 0; // make sure we're enemies
 
         const ships = [];
         for (let i = 0 ; i < 5 ; i++) {
-            ships.push(new AIShip(pirateCivilization));
+            ships.push(new AIShip(civilization));
         }
 
         ships.forEach(ship => {
             ship.x = x + rnd(-300, 300);
             ship.y = y + rnd(-300, 300);
-        })
+        });
 
         this.ships = this.ships.concat(ships);
         this.pirates = this.pirates.concat(ships);

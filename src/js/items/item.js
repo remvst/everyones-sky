@@ -40,12 +40,10 @@ class Item {
             return;
         }
 
-        wrap(() => {
-            translate(this.x, this.y);
-            scale(sin(this.scaleRandom + PI * 2 * G.clock), 1); // Give the item a nice flip animation
+        translate(this.x, this.y);
+        scale(sin(this.scaleRandom + PI * 2 * G.clock), 1); // Give the item a nice flip animation
 
-            this.renderGraphic();
-        });
+        this.renderGraphic();
     }
 
     // For reference only

@@ -22,14 +22,12 @@ function particle(size, color, interpolations, render) {
                 G.renderedParticles++;
             }
 
-            wrap(() => {
-                R.globalAlpha = p.alpha;
-                fs(p.color);
-                beginPath();
-                arc(p.x, p.y, p.size / 2, 0, PI * 2);
-                fill();
-                // fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
-            });
+            R.globalAlpha = p.alpha;
+            fs(p.color);
+            beginPath();
+            arc(p.x, p.y, p.size / 2, 0, PI * 2);
+            fill();
+            // fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
         })
     });
 

@@ -46,8 +46,9 @@ class Laser {
         });
     }
 
-    render() {
-
-    }
+    // For reference only
+    // render() {
+    //
+    // }
 
 }

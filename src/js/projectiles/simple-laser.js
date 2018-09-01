@@ -21,13 +21,11 @@ class SimpleLaser extends Laser {
     }
 
     render() {
-        wrap(() => {
-            translate(this.x, this.y);
-            rotate(this.angle);
+        translate(this.x, this.y);
+        rotate(this.angle);
 
-            fs('cyan');
-            fr(0, -2, 8, 4);
-        });
+        fs('cyan');
+        fr(0, -2, 8, 4);
     }
 
 }

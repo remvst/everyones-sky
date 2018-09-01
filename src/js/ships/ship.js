@@ -67,7 +67,7 @@ class Ship {
             G.renderedShips++;
         }
 
-        wrap(() => {
+        // wrap(() => {
             fs(1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1 > 0 ? '#f00' : this.shipColor());
             translate(this.x, this.y);
             rotate(this.angle);
@@ -77,27 +77,30 @@ class Ship {
             lineTo(20, 0);
             lineTo(-10, -10);
             fill();
-        });
+        // });
 
+        // Shadow effect relative to the closest star
         const closestStar = U.stars
             .reduce((closest, star) => !closest || dist(closest, this) > dist(star, this) ? star : closest, null);
 
         if (closestStar) {
             const angleToClosestStar = normalize(this.angle - angleBetween(this, closestStar));
-            const alpha = 1 - abs(abs(angleToClosestStar) / PI - 1 / 2) * 2;
+            // const alpha = 1 - abs(abs(angleToClosestStar) / PI - 1 / 2) * 2;
 
-            wrap(() => {
+            // wrap(() => {
                 fs('#000');
-                R.globalAlpha = alpha * limit(0, (1 - dist(closestStar, this) / 5000), 1);
-                translate(this.x, this.y);
-                rotate(this.angle);
+
+                // This is crazy but I gotta save the byes
+                R.globalAlpha = (1 - abs(abs(angleToClosestStar) / PI - 1 / 2) * 2) * limit(0, (1 - dist(closestStar, this) / 5000), 1);
+                // translate(this.x, this.y);
+                // rotate(this.angle);
 
                 beginPath();
                 moveTo(-5, 0);
                 lineTo(-10, sign(angleToClosestStar) * 10);
                 lineTo(20, 0);
                 fill();
-            });
+            // });
         }
     }
 

@@ -96,12 +96,10 @@ class Asteroid extends Body {
             G.renderedAsteroids++;
         }
 
-        wrap(() => {
-            translate(this.x, this.y);
-            rotate(this.rotation);
+        translate(this.x, this.y);
+        rotate(this.rotation);
 
-            drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
-        });
+        drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
     }
 
     damage(projectile, amount) {
