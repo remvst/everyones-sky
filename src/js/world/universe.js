@@ -36,22 +36,28 @@ class Universe {
         U.bodies.push(asteroid);
     }
 
-    renderBackground(pattern, factor) {
-        wrap(() => {
-            const x = (V.width / 2 + V.x) * factor;
-            const y = (V.height / 2 + V.y) * factor;
-            translate(-x, -y);
-            fs(pattern);
-            fr(x, y, CANVAS_WIDTH, CANVAS_HEIGHT);
-        });
-    }
-
     render() {
         fs('#000');
         fr(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        this.renderBackground(starsPattern2, 0.2);
-        this.renderBackground(starsPattern1, 0.1);
+        const rng = createNumberGenerator(1);
+
+        wrap(() => {
+            translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+            scale(V.scale, V.scale);
+
+            fs('#fff');
+            for (let i = 0 ; i < 400 ; i++) {
+                const distanceFactor = rng.between(0.1, 0.3);
+                R.globalAlpha = rng.between(0.3, 0.8);
+                fr(
+                    moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
+                    moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT),
+                    1.5 / V.scale,
+                    1.5 / V.scale
+                );
+            }
+        });
 
         wrap(() => {
             scale(V.scale, V.scale);

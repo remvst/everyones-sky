@@ -28,10 +28,24 @@ sign = x => {
     return x < 0 ? -1 : (x > 0 ? 1 : 0);
 };
 
-normalize = x => {
-    while (x < -PI) x += PI * 2;
-    while (x > PI) x -= PI * 2;
+// Modulo centered around zero: the result will be between -y and +y
+moduloWithNegative = (x, y) => {
+    x = x % (y * 2);
+    if (x > y) {
+        x -= y * 2;
+    }
+    if (x < -y) {
+        x += y * 2;
+    }
     return x;
+};
+
+normalize = x => {
+    // Possibly faster version but definitely smaller
+    moduloWithNegative(x, PI);
+    // while (x < -PI) x += PI * 2;
+    // while (x > PI) x -= PI * 2;
+    // return x;
 };
 
 angleBetween = (a, b) => {
