@@ -90,6 +90,7 @@
         "source",
         "frame",
         "offset",
-        "index"
+        "index",
+        "prompt"
     ]
 }
