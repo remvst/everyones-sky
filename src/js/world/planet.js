@@ -103,21 +103,19 @@ class Planet extends Body {
     }
 
     evolve() {
-        if (this.civilization.resources < PLANET_EVOLUTION_REQUIRED_RESOURCES) {
-            return;
+        if (this.civilization.resources >= PLANET_EVOLUTION_REQUIRED_RESOURCES) {
+            this.civilization.resources -= PLANET_EVOLUTION_REQUIRED_RESOURCES;
+
+            pick([
+                () => this.spawnStation(City),
+                () => this.spawnStation(Mortar),
+                // () => this.spawnStation(Mountain),
+                () => this.spawnStation(Factory),
+                () => this.spawnShip()
+            ])();
+
+            this.nextEvolution = PLANET_EVOLUTION_INTERVAL;
         }
-
-        this.civilization.resources -= PLANET_EVOLUTION_REQUIRED_RESOURCES;
-
-        pick([
-            () => this.spawnStation(City),
-            () => this.spawnStation(Mortar),
-            // () => this.spawnStation(Mountain),
-            () => this.spawnStation(Factory),
-            () => this.spawnShip()
-        ])();
-
-        this.nextEvolution = PLANET_EVOLUTION_INTERVAL;
     }
 
     spawnStation(type) {
