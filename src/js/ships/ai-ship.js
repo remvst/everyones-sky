@@ -1,8 +1,11 @@
 class AIShip extends Ship {
 
-    constructor(civilization) {
+    constructor(civilization, x, y) {
         super(civilization);
         this.nextDecisionChange = 0;
+
+        this.x = x;
+        this.y = y;
     }
 
     shipColor() {

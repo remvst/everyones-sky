@@ -133,14 +133,14 @@ class Planet extends Body {
     }
 
     spawnShip() {
-        const ai = new AIShip(this.civilization);
+        U.ships.push(new AIShip(
+            this.civilization,
 
-        // Giving the ship a shitty position within the planet
-        // AI ships fix their position automatically since they can't crash into their own planet
-        ai.x = this.x + rnd(-1, 1);
-        ai.y = this.y + rnd(-1, 1);
-
-        U.ships.push(ai);
+            // Giving the ship a shitty position within the planet
+            // AI ships fix their position automatically since they can't crash into their own planet
+            this.x + rnd(-1, 1),
+            this.y + rnd(-1, 1)
+        ));
     }
 
     render() {

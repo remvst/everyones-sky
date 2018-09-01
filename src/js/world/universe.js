@@ -166,13 +166,12 @@ class Universe {
 
         const ships = [];
         for (let i = 0 ; i < 5 ; i++) {
-            ships.push(new AIShip(civilization));
+            ships.push(new AIShip(
+                civilization,
+                x + rnd(-300, 300),
+                y + rnd(-300, 300)
+            ));
         }
-
-        ships.forEach(ship => {
-            ship.x = x + rnd(-300, 300);
-            ship.y = y + rnd(-300, 300);
-        });
 
         this.ships = this.ships.concat(ships);
         this.pirates = this.pirates.concat(ships);
