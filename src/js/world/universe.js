@@ -28,7 +28,7 @@ class Universe {
         this.projectiles.forEach(projectile => projectile.cycle(e));
         V.cycle(e);
     }
-    
+
     randomAsteroid() {
         const asteroid = new Asteroid();
         asteroid.x = U.playerShip.x + pick([-1, 1]) * V.width / 2;
@@ -56,7 +56,7 @@ class Universe {
         wrap(() => {
             scale(V.scale, V.scale);
             translate(-V.x, -V.y);
-    
+
             this.projectiles.forEach(projectile => projectile.render());
             this.particles.forEach(particles => particles.render());
             this.ships.forEach(ship => ship.render());
@@ -76,7 +76,7 @@ class Universe {
 
                 const x3 = x2 + 30;
                 const y3 = y2;
-                
+
                 fs('#fff');
                 R.strokeStyle = R.fillStyle;
                 R.lineWith = 2;
@@ -152,7 +152,7 @@ class Universe {
 
     createPirateGroup(x, y) {
         const pirateCivilization = new Civilization({
-            'x': x, 
+            'x': x,
             'y': y,
             'radius': 300
         });
@@ -163,7 +163,7 @@ class Universe {
             ships.push(new AIShip(pirateCivilization));
         }
 
-        ships.forEach(ship => { 
+        ships.forEach(ship => {
             ship.x = x + rnd(-300, 300);
             ship.y = y + rnd(-300, 300);
         })

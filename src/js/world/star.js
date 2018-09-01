@@ -16,7 +16,7 @@ class Star extends Body {
         if (!V.isVisible(this.x, this.y, this.radius + 100)) {
             return;
         }
-        
+
         if (DEBUG) {
             G.renderedStars++;
         }

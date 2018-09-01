@@ -37,7 +37,7 @@ class Game {
 
         G.missionStep = missionStep;
         G.nextMission = 20;
-        
+
         G.showPrompt();
 
         if (!missionStep) {
@@ -196,7 +196,7 @@ class Game {
                     }
                 }
             }
-            
+
             targets.forEach(target => {
                 if (dist(target, U.playerShip) < (target.reachRadius || 0)) {
                     return;
@@ -329,7 +329,7 @@ class Game {
                 R.textAlign = nomangle('center');
 
                 G.gameRecap.forEach((line, i) => {
-                    fillText(line, CANVAS_WIDTH / 2, CANVAS_HEIGHT * 3 / 4 - 50 + i * 30);    
+                    fillText(line, CANVAS_WIDTH / 2, CANVAS_HEIGHT * 3 / 4 - 50 + i * 30);
                 });
             });
         });
@@ -348,7 +348,7 @@ class Game {
                     'ships: ' + G.renderedShips,
                     'particles: ' + G.renderedParticles
                 ];
-                let y = 20; 
+                let y = 20;
                 info.forEach(info => {
                     fillText(info, CANVAS_WIDTH - 200, y);
                     y += 20;
@@ -504,7 +504,7 @@ class Game {
         G.eventHub = new EventHub();
 
         G.promptText = () => 0;
-        
+
         G.started = false;
 
         G.titleYOffset = 0;
@@ -512,7 +512,7 @@ class Game {
         G.missionStep = 0;
         G.nextMission = 999;
         G.currentWarning = 0;
-        
+
         G.gameRecap = [];
     }
 

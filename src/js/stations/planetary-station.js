@@ -24,11 +24,11 @@ class PlanetaryStation {
         const damageFactor = 1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1;
 
         scale(1 + damageFactor * 0.2, 1 + damageFactor * 0.2);
-        
+
         fs(damageFactor > 0 ? '#fff' : this.planet.civilization.relationshipType());
         this.renderGraphic();
     }
-    
+
     // // For reference only
     // renderGraphic() {
 

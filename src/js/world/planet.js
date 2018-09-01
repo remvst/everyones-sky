@@ -137,7 +137,7 @@ class Planet extends Body {
         // AI ships fix their position automatically since they can't crash into their own planet
         ai.x = this.x + rnd(-1, 1);
         ai.y = this.y + rnd(-1, 1);
-        
+
         U.ships.push(ai);
     }
 

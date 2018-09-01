@@ -13,7 +13,7 @@ onload = () => {
             w[n] = p[n].bind(R);
         }
     });
-    
+
     // Detect available fonts
     R.font = nomangle('99pt f'); // Setting a font that obviously doesn't exist
     const reference = measureText(w.title);

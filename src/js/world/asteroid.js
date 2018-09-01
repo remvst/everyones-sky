@@ -30,7 +30,7 @@ class Asteroid extends Body {
 
                 r[i ? 'lineTo' : 'moveTo'](cos(a) * d, sin(a) * d);
             }
-            
+
             r.fill();
 
             r.globalCompositeOperation = 'destination-out';
@@ -97,11 +97,11 @@ class Asteroid extends Body {
         wrap(() => {
             translate(this.x, this.y);
             rotate(this.rotation);
-    
+
             drawImage(this.asset, -this.asset.width / 2, -this.asset.height / 2);
         });
     }
-    
+
     damage(projectile, amount) {
         particle(10, pick(['#aaa', '#fff', '#ccc']), [
             ['alpha', 1, 0, 1],

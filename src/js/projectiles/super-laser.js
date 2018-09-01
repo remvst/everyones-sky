@@ -27,7 +27,7 @@ class SuperLaser extends Laser {
         wrap(() => {
             translate(this.x, this.y);
             rotate(this.angle);
-    
+
             fs('red');
             fr(-5, -5, 10, 10);
         });

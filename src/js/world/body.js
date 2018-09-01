@@ -16,7 +16,7 @@ class Body {
                 ship.y = this.y + sin(angle) * (minDist + 5);
                 ship.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
                 ship.vY += sin(angle) * (overlap + SHIP_DECELERATION * 2);
-                
+
                 interp(ship, 'uncontrolledRotation', pick([-6, 6]), 0, 1);
 
                 ship.damage(this, 0.1);
@@ -34,7 +34,7 @@ class Body {
     // }
 
     damage() {
-        
+
     }
 
 }

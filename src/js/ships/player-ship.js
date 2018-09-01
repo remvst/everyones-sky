@@ -82,11 +82,11 @@ class PlayerShip extends Ship {
         if (this.health <= 0.3) {
             return nomangle('SHIELDS LOW') + (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES ? nomangle('. FIND RESOURCES TO REPAIR') : '');
         }
-        
+
         if (this.nearStar()) {
             return nomangle('HEAT DAMAGING SHIELDS');
         }
-        
+
         if (U.pirates.filter(ship => dist(ship, this) < CANVAS_WIDTH).length) {
             return nomangle('PIRATE TERRITORY');
         }

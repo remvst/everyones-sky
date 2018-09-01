@@ -18,7 +18,7 @@ class Civilization {
     updateRelationship(difference) {
         const relationshipTypeBefore = this.relationshipType();
         this.relationship = limit(0, this.relationship + difference, 1);
-        
+
         if (this.relationshipType() !== relationshipTypeBefore) {
             G.showMessage(this.center.name + nomangle(' is now your ') + this.relationshipLabel());
         }

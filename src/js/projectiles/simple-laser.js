@@ -24,7 +24,7 @@ class SimpleLaser extends Laser {
         wrap(() => {
             translate(this.x, this.y);
             rotate(this.angle);
-    
+
             fs('cyan');
             fr(0, -2, 8, 4);
         });

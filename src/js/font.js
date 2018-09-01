@@ -9,9 +9,9 @@ function stickString(string) {
         let nextX = characterX;
         charSegments.forEach(segment => {
             absoluteSegments.push([
-                characterX + segment[0], 
-                segment[1], 
-                characterX + segment[2], 
+                characterX + segment[0],
+                segment[1],
+                characterX + segment[2],
                 segment[3]
             ]);
             nextX = max(nextX, characterX + segment[0] + 2 / 5, characterX + segment[2] + 2 / 5);
@@ -46,14 +46,14 @@ function renderStickString(stickStringSettings, charWidth, charHeight, progress,
             const appearanceOffset = stickStringSettings.appearanceOffsets[index];
             const delay = appearanceOffset * segmentInterval;
             const factor = limit(0, (progress - delay) / appearanceTime, 1);
-            
+
             const direction = sign(((index + appearanceOffset) % 2) - 0.5);
             if (((index % 2) - 0.5) > 0) {
                 translate(direction * (1 - factor) * 50, 0);
             } else {
                 translate(0, direction * (1 - factor) * 50);
             }
-        
+
             R.globalAlpha *= factor;
 
             beginPath();
@@ -78,7 +78,7 @@ const characterSettings = {
     ],
     'b': [
         leftSegment,
-        bottomSegment, 
+        bottomSegment,
         middleHorizontalSegment,
         rightBottomSegment,
         [0, 0, 3 / 4, 0],
