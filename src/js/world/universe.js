@@ -44,7 +44,7 @@ class Universe {
 
         wrap(() => {
             translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-            scale(V.scale, V.scale);
+            scale(V.zoomScale, V.zoomScale);
 
             fs('#fff');
             for (let i = 0 ; i < 400 ; i++) {
@@ -53,14 +53,14 @@ class Universe {
                 fr(
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT),
-                    1.5 / V.scale,
-                    1.5 / V.scale
+                    1.5 / V.zoomScale,
+                    1.5 / V.zoomScale
                 );
             }
         });
 
         wrap(() => {
-            scale(V.scale, V.scale);
+            scale(V.zoomScale, V.zoomScale);
             translate(-V.x, -V.y);
 
             this.projectiles.forEach(projectile => projectile.render());

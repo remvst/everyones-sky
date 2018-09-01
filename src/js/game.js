@@ -448,7 +448,7 @@ class Game {
 
         interp(G, 'titleYOffset', 0, -CANVAS_HEIGHT, 0.3);
 
-        V.scale = V.targetScaleOverride = 1;
+        V.zoomScale = V.targetScaleOverride = 1;
         setTimeout(() => G.proceedToMissionStep(new PromptTutorialStep()), 3000);
 
         introSound();

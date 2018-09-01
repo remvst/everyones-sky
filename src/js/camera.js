@@ -4,7 +4,7 @@ class Camera {
         this.x = this.y = 0;
         this.shakeX = this.shakeY = 0;
 
-        this.scale = this.targetScale = 1;
+        this.zoomScale = this.targetScale = 1;
         // this.targetScaleOverride = null; // for reference only
     }
 
@@ -22,10 +22,10 @@ class Camera {
 
         const targetScale = this.targetScaleOverride || this.targetScale;
 
-        this.scale += limit(-0.5 * e, targetScale - this.scale, 0.5 * e);
+        this.zoomScale += limit(-0.5 * e, targetScale - this.zoomScale, 0.5 * e);
 
-        this.width = (CANVAS_WIDTH / this.scale);
-        this.height = (CANVAS_HEIGHT / this.scale);
+        this.width = (CANVAS_WIDTH / this.zoomScale);
+        this.height = (CANVAS_HEIGHT / this.zoomScale);
 
         if ((this.shakeTime -= e) > 0) {
             this.shakeX = rnd(-10, 10);
