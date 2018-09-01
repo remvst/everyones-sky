@@ -433,7 +433,7 @@ class Game {
 
         missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
 
-        G.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name.toUpperCase() + nomangle(' will remember that.'), [{
+        G.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name + nomangle(' will remember that.'), [{
             'label': nomangle('Dismiss'),
             'action': () => G.showPrompt()
         }]);

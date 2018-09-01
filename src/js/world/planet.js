@@ -229,7 +229,7 @@ class Planet extends Body {
     }
 
     nameWithRelationship() {
-        return this.name.toUpperCase() + ' (' + (this.civilization.relationshipType() === RELATIONSHIP_ENEMY ? nomangle('enemy') : nomangle('ally')) + ')';
+        return this.name + ' (' + (this.civilization.relationshipType() === RELATIONSHIP_ENEMY ? nomangle('enemy') : nomangle('ally')) + ')';
     }
 
 }

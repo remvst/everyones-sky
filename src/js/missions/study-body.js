@@ -13,7 +13,7 @@ class StudyBody extends TimedMissionStep {
         if (this.isClose()) {
             return nomangle('Collecting data... - ') + ~~(this.studied * 100) + '%';
         }
-        return nomangle('Get close to ') + this.body.name.toUpperCase();
+        return nomangle('Get close to ') + this.body.name;
     }
 
     attach() {
