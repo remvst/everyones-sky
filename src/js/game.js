@@ -192,7 +192,6 @@ class Game {
                     } else if (!closestStars[0].systemDiscovered) {
                         closestStars[0].systemDiscovered = true;
                         G.showMessage(nomangle('system discovered - ') + closestStars[0].name);
-                        findSytemSound();
                     }
                 }
             }
@@ -380,6 +379,8 @@ class Game {
         G.message = stickString(message);
         interp(G, 'messageProgress', G.message.segments.length, 0, G.message.segments.length * 0.1, 3);
         interp(G, 'messageProgress', 0, G.message.segments.length, G.message.segments.length * 0.1);
+
+        findSytemSound();
     }
 
     promptRandomMission() {
