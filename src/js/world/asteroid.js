@@ -1,14 +1,16 @@
 class Asteroid extends Body {
 
-    constructor(radius = 25, speed) {
+    constructor(radius, speed) {
         super();
-        this.radius = radius;
 
+        this.radius = radius || 25;
         this.reachRadius = radius * 10;
 
         this.health = 1;
 
         this.rotation = 0;
+
+        this.particleColor = () => pick(['#aaa', '#fff', '#ccc']);
 
         speed = speed || rnd(100, 200);
 
@@ -103,12 +105,7 @@ class Asteroid extends Body {
     }
 
     damage(projectile, amount) {
-        particle(10, pick(['#aaa', '#fff', '#ccc']), [
-            ['alpha', 1, 0, 1],
-            ['size', rnd(2, 4), rnd(5, 10), 1],
-            ['x', projectile.x, projectile.x + rnd(-20, 20), 1],
-            ['y', projectile.y, projectile.y + rnd(-20, 20), 1]
-        ]);
+        super.damage(projectile);
 
         this.lastDamage = G.clock;
 
@@ -118,7 +115,7 @@ class Asteroid extends Body {
     }
 
     explode() {
-        U.dropResources(this.x, this.y, this.radius * 0.5)
+        U.dropResources(this.x, this.y, this.radius * 0.5);
 
         for (let i = 0 ; i < 50 ; i++) {
             const angle = random() * PI * 2;

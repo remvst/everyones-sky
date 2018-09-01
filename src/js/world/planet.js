@@ -13,7 +13,9 @@ class Planet extends Body {
         this.name = randomName(this.rng);
         this.stickString = stickString(this.name);
 
-        this.rotationSpeed = this.rng.between(PI / 8, PI / 12)
+        this.rotationSpeed = this.rng.between(PI / 8, PI / 12);
+
+        this.particleColor = () => '#fff';
 
         this.orbitsAround = orbitsAround;
         this.orbitPhase = this.rng.between(0, PI * 2);
@@ -224,17 +226,6 @@ class Planet extends Body {
                 stroke();
             });
         }
-    }
-
-    damage(projectile) {
-        // TODO maybe super?
-
-        particle(10, '#fff', [
-            ['alpha', 1, 0, 1],
-            ['size', rnd(2, 4), rnd(5, 10), 1],
-            ['x', projectile.x, projectile.x + rnd(-20, 20), 1],
-            ['y', projectile.y, projectile.y + rnd(-20, 20), 1]
-        ]);
     }
 
     nameWithRelationship() {
