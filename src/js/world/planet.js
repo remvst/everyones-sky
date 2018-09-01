@@ -49,7 +49,7 @@ class Planet extends Body {
                 r.fillRect(0, y, this.radius * 2, this.radius * 2);
 
                 // Update colors for the next stripe
-                rgb = rgb.map(c => ~~limit(32, c + rnd(-PLANET_COLOR_CHANGE_FACTOR, PLANET_COLOR_CHANGE_FACTOR), 255));
+                rgb = rgb.map(c => ~~limit(32, c + rng.between(-PLANET_COLOR_CHANGE_FACTOR, PLANET_COLOR_CHANGE_FACTOR), 255));
             }
         }), 50, 'rgba(255,255,255,0.1)', 'rgba(255,255,255,0)'));
 
@@ -121,15 +121,18 @@ class Planet extends Body {
     }
 
     spawnStation(type) {
-        let attempts = 0;
-        let angle;
+        const maxStations = (2 * PI * this.radius) / 30;
 
-        const minAngleDifference = PI * 2 / (2 * PI * this.radius / 50);
-        do {
-            angle = random() * PI * 2;
-        } while(++attempts < 5 && this.stations.filter(otherStation => abs(normalize(angle, otherStation.angle)) < minAngleDifference).length);
+        const freeAngles = [];
+        for (let a = 0 ; a < PI * 2 ; a += PI * 2 / maxStations) {
+            freeAngles.push(a);
+        }
 
-        this.stations.push(new type(this, angle));
+        this.stations.forEach(station => U.remove(freeAngles, station.angleOnPlanet));
+
+        if (freeAngles.length) {
+            this.stations.push(new type(this, pick(freeAngles)));
+        }
     }
 
     spawnShip() {
