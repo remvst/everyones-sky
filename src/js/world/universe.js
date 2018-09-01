@@ -162,8 +162,7 @@ class Universe {
             'x': x,
             'y': y,
             'radius': 300
-        });
-        civilization.relationship = 0; // make sure we're enemies
+        }, 0); // make sure we're enemies
 
         const ships = [];
         for (let i = 0 ; i < 5 ; i++) {
