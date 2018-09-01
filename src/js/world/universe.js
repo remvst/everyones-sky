@@ -182,10 +182,7 @@ class Universe {
     dropResources(x, y, n) {
         // Drop resources
         for (let i = 0 ; i < n ; i++) {
-            const item = new ResourceItem();
-            U.items.push(item);
-            interp(item, 'x', x, x + rnd(-50, 50), 0.3);
-            interp(item, 'y', y, y + rnd(-50, 50), 0.3);
+            U.items.push(new ResourceItem(x, y));
         }
     }
 

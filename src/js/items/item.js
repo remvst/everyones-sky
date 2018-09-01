@@ -1,9 +1,11 @@
 class Item {
 
-    constructor() {
-        this.x = this.y = 0;
+    constructor(x, y) {
         this.scaleRandom = random();
         this.timeLeft = 10;
+
+        interp(this, 'x', x, x + rnd(-50, 50), 0.3);
+        interp(this, 'y', y, y + rnd(-50, 50), 0.3);
     }
 
     cycle(e) {
