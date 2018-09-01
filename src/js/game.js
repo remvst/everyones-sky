@@ -421,10 +421,6 @@ class Game {
                     beginPath();
                     arc(planet.x, planet.y, d, angle - PI / 16, angle + PI / 16);
                     stroke();
-
-                    if (DEBUG) {
-                        G.renderedParticles++;
-                    }
                 });
             }
         }

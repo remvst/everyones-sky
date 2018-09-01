@@ -8,6 +8,9 @@ function particle(size, color, interpolations, render) {
         alpha: 1,
         render: () => wrap(() => {
             if (render) {
+                if (DEBUG) {
+                    G.renderedParticles++;
+                }
                 return render(p);
             }
 
@@ -15,7 +18,9 @@ function particle(size, color, interpolations, render) {
                 return;
             }
 
-            G.renderedParticles++;
+            if (DEBUG) {
+                G.renderedParticles++;
+            }
 
             wrap(() => {
                 R.globalAlpha = p.alpha;
