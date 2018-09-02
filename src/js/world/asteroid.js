@@ -3,8 +3,8 @@ class Asteroid extends Body {
     constructor(radius, speed) {
         super();
 
-        this.radius = radius || 25;
-        this.reachRadius = radius * 10;
+        this.radius = radius || rnd(25, 50);
+        this.reachRadius = this.radius * 10;
 
         this.health = 1;
 
