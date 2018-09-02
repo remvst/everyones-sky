@@ -24,7 +24,7 @@ class Universe {
 
     cycle(e) {
         if ((this.nextAsteroid -= e) <= 0) {
-            this.nextAsteroid = this.stars.filter(star => dist(star, U.playerShip) < star.reachRadius).length ? 10 : 5; // Less asteroids when in a system
+            this.nextAsteroid = this.stars.filter(star => dist(star, U.playerShip) < star.reachRadius).length ? 5 : 2; // Less asteroids when in a system
             this.randomAsteroid(
                 // U.playerShip.x + pick([-1, 1]) * (V.width / 2 + 200),
                 // U.playerShip.y + pick([-1, 1]) * (V.height / 2 + 200)
