@@ -88,7 +88,7 @@ class PlayerShip extends Ship {
         }
 
         if (U.pirates.filter(ship => dist(ship, this) < CANVAS_WIDTH).length) {
-            return nomangle('PIRATE TERRITORY');
+            return nomangle('PIRATES NEARBY');
         }
     }
 

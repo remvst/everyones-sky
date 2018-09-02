@@ -149,10 +149,9 @@ class Universe {
 
         for (let i = 0 ; i < 4 ; i++) {
             const radius = i * maxSystemRadius;
-            const circumference = 2 * PI * radius;
             const phase = rng.between(0, PI * 2);
 
-            const maxSystems = ~~(circumference / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
+            const maxSystems = ~~(2 * PI * radius / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
 
             for (let i = 0 ; i < maxSystems ; i++) {
                 const angle = (i / maxSystems) * PI * 2;
