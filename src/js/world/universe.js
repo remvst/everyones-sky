@@ -55,16 +55,34 @@ class Universe {
             translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
             scale(V.zoomScale, V.zoomScale);
 
-            fs('#fff');
+            const gradient = createRadialGradient(0, 0, 0, 0, 0, 1);
+            gradient.addColorStop(0, 'rgba(255,255,200,1)');
+            gradient.addColorStop(0.3, 'rgba(255,255,200,0.1)');
+            gradient.addColorStop(1, 'rgba(255,255,200,0)');
+
+            fs(gradient);
+
             for (let i = 0 ; i < 400 ; i++) {
                 const distanceFactor = rng.between(0.1, 0.3);
-                R.globalAlpha = rng.between(0.5, 1);
-                fr(
-                    moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
-                    moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT),
-                    1 / V.zoomScale,
-                    1 / V.zoomScale
-                );
+
+                wrap(() => {
+                    translate(
+                        moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
+                        moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT)
+                    );
+
+                    scale(distanceFactor * 20, distanceFactor * 20);
+
+                    beginPath();
+                    arc(
+                        0,
+                        0,
+                        1,
+                        0,
+                        PI * 2
+                    );
+                    fill();
+                });
             }
         });
 
