@@ -4,7 +4,7 @@ class Asteroid extends Body {
         super();
 
         this.radius = radius || rnd(25, 50);
-        this.reachRadius = this.radius * 10;
+        this.reachRadius = this.radius * 2;
 
         this.health = 1;
 
@@ -76,9 +76,6 @@ class Asteroid extends Body {
                 // Using a ship constant LOL REMI WTF
                 this.vX += cos(angle) * (overlap + SHIP_DECELERATION * 2);
                 this.vY += sin(angle) * (overlap + SHIP_DECELERATION * 2);
-
-                this.damage(body, 0.2);
-                body.damage(this, 0.2);
             }
         });
 

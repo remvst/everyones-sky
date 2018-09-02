@@ -25,7 +25,10 @@ class Universe {
     cycle(e) {
         if ((this.nextAsteroid -= e) <= 0) {
             this.nextAsteroid = this.stars.filter(star => dist(star, U.playerShip) < star.reachRadius).length ? 10 : 5; // Less asteroids when in a system
-            this.randomAsteroid();
+            this.randomAsteroid(
+                // U.playerShip.x + pick([-1, 1]) * (V.width / 2 + 200),
+                // U.playerShip.y + pick([-1, 1]) * (V.height / 2 + 200)
+            );
         }
 
         this.forEach([this.bodies, this.ships, this.items, this.projectiles, [V]], element => element.cycle(e));
@@ -192,5 +195,17 @@ class Universe {
             U.items.push(new ResourceItem(x, y));
         }
     }
+
+    // randomAsteroidField(x, y) {
+    //     for (let i = 0 ; i < 10 ; i++) {
+    //         // const angle = random() * PI * 2;
+    //         // const dist = random() *
+    //         const asteroid = new Asteroid(0, rnd(-10, 10));
+    //         asteroid.preventAutomaticRemoval = true;
+    //         asteroid.x = x + rnd(-200, 200);
+    //         asteroid.y = y + rnd(-200, 200);
+    //         U.bodies.push(asteroid);
+    //     }
+    // }
 
 }
