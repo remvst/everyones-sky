@@ -53,12 +53,12 @@ class Universe {
             fs('#fff');
             for (let i = 0 ; i < 400 ; i++) {
                 const distanceFactor = rng.between(0.1, 0.3);
-                R.globalAlpha = rng.between(0.3, 0.8);
+                R.globalAlpha = rng.between(0.5, 1);
                 fr(
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT),
-                    2,
-                    2
+                    1 / V.zoomScale,
+                    1 / V.zoomScale
                 );
             }
         });
