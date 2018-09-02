@@ -140,7 +140,7 @@ class Game {
             G.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : G.healthGaugeColor, () => {
                 scale(0.5 * G.healthIconScale, 0.5 * G.healthIconScale);
                 beginPath();
-                moveTo(0, -15)
+                moveTo(0, -15);
                 lineTo(14, -10);
                 lineTo(10, 10);
                 lineTo(0, 18);
@@ -241,11 +241,18 @@ class Game {
 
                     if (length >= promptText.length) {
                         R.textAlign = nomangle('center');
+                        R.textBaseline = nomangle('middle');
+                        R.font = '16pt ' + monoFont;
 
                         G.promptOptions.forEach((option, i) => {
-                            const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
-                            const x = (i + 1) * step;
-                            fillText('[' + option.label[0] + ']' + option.label.slice(1), x, 100);
+                            const promptText = '[' + option.label[0] + ']' + option.label.slice(1);
+                            const x = (i + 1) * (CANVAS_WIDTH / (G.promptOptions.length + 1));
+
+                            fs('#fff');
+                            fr(x - PROMPT_OPTION_BOX_WIDTH / 2, 100 - PROMPT_OPTION_BOX_HEIGHT / 2, PROMPT_OPTION_BOX_WIDTH, PROMPT_OPTION_BOX_HEIGHT);
+
+                            fs('#000');
+                            fillText(promptText, x, 100);
                         });
                     }
                 });
@@ -545,7 +552,7 @@ class Game {
 
         G.subtitleCharWidth = 25;
         G.subtitleCharHeight = 50;
-        G.subtitleCharThickness = 6
+        G.subtitleCharThickness = 6;
 
         G.startable = G.started = false;
 
