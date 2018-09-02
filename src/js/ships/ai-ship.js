@@ -58,7 +58,7 @@ class AIShip extends Ship {
         if (abs(angleDiff) < PI / 64) {
             const moveAngle = atan2(this.vY, this.vX);
             const fullStopIn = velocity / SHIP_DECELERATION;
-            const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn
+            const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn;
             const positionAtFullStop = {
                 'x': this.x + distAtFullStop * cos(moveAngle),
                 'y': this.y + distAtFullStop * sin(moveAngle)
@@ -100,59 +100,42 @@ class AIShip extends Ship {
     }
 
     // render() {
+    //     if (!V.isVisible(this.x, this.y, 500)) {
+    //         return;
+    //     }
+    //
+    //     if (DEBUG) {
+    //         const velocity = distP(0, 0, this.vX, this.vY);
+    //         const moveAngle = atan2(this.vY, this.vX);
+    //         const fullStopIn = velocity / SHIP_DECELERATION;
+    //         const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn;
+    //         const positionAtFullStop = {
+    //             'x': this.x + distAtFullStop * cos(moveAngle),
+    //             'y': this.y + distAtFullStop * sin(moveAngle)
+    //         };
+    //
+    //         wrap(() => {
+    //             R.fillStyle = '#f00';
+    //             fr(positionAtFullStop.x, positionAtFullStop.y, 10, 10);
+    //
+    //             // fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
+    //
+    //             if (this.currentTarget()) {
+    //                 R.strokeStyle = '#f00';
+    //                 beginPath();
+    //                 // arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, PI * 2);
+    //                 moveTo(this.x, this.y);
+    //                 lineTo(this.currentTarget().x, this.currentTarget().y);
+    //                 stroke();
+    //             }
+    //         });
+    //     }
+    //
     //     super.render();
-
-    //     // if (DEBUG) {
-    //     //     const velocity = distP(0, 0, this.vX, this.vY);
-    //     //     const moveAngle = atan2(this.vY, this.vX);
-    //     //     const fullStopIn = velocity / SHIP_DECELERATION;
-    //     //     const distAtFullStop = -SHIP_DECELERATION * fullStopIn * fullStopIn / 2 + velocity * fullStopIn
-    //     //     const positionAtFullStop = {
-    //     //         'x': this.x + distAtFullStop * cos(moveAngle),
-    //     //         'y': this.y + distAtFullStop * sin(moveAngle)
-    //     //     };
-
-    //     //     R.fillStyle = '#f00';
-    //     //     fr(positionAtFullStop.x, positionAtFullStop.y, 10, 10);
-
-    //     //     fillText(distP(0, 0, this.vX, this.vY) / SHIP_DECELERATION + '', this.x + 50, this.y + 50);
-
-    //     //     if (this.target) {
-    //     //         R.strokeStyle = '#f00';
-    //     //         beginPath();
-    //     //         arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, PI * 2);
-    //     //         stroke();
-    //     //     }
-    //     // }
     // }
 
     pickNewTarget() {
-        // if (dist(U.playerShip, this) < 300) {
-        //     this.target = U.playerShip;
-        //     this.targetRadius = 300;
-        //     this.shootTarget = true;
-        //     return;
-        // }
-
         const pts = pointsAround(this.civilization.center, [this.civilization.center.radius + 150, this.civilization.center.radius + 250]);
-
-        const pathFinder = new PathFinder({
-            'hash': node => {
-                return node.x + ',' + node.y;
-            },
-            'neighbors': node => {
-                return node.neighbors;
-            },
-            'heuristic': (node, target) => {
-                return dist(node, target);
-            },
-            'isTarget': (node, target) => {
-                return dist(node, target) < 100;
-            },
-            'distance': (a, b) => {
-                return dist(a, b);
-            }
-        });
 
         function closestNode(target) {
             return pts.slice().sort((a, b) => {
@@ -162,18 +145,18 @@ class AIShip extends Ship {
 
         // Find the node we're the closest to
         const nodeStart = closestNode(this);
-        const nodeEnd = U.enemy ? closestNode(U.enemy) : pick(pts);
+        const nodeEnd = U.enemy ? closestNode(U.enemy) : pick(nodeStart.neighbors);
 
-        const path = pathFinder.findPath([nodeStart], nodeEnd);
+        const closestNodeToTarget = nodeStart.neighbors.concat([nodeStart]).reduce((closest, node) => {
+            return !closest || dist(node, nodeEnd) < dist(closest, nodeEnd) ? node : closest;
+        }, null);
+
         this.targetRadius = AI_MOVE_TARGET_RADIUS;
 
-        do {
-            this.target = path.shift();
-        } while (path.length && dist(this.target, this) < this.targetRadius * 1.5);
+        // If the node we picked is further than the target, might as well go for the target instead
+        this.target = dist(this, closestNodeToTarget) > dist(this, nodeEnd) ? nodeEnd : closestNodeToTarget;
 
-        this.shootTarget = false;
-
-        this.nextDecisionChange = 3;
+        this.nextDecisionChange = 2;
     }
 
     damage(projectile, amount) {
