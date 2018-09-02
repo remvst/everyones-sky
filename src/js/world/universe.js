@@ -57,8 +57,8 @@ class Universe {
                 fr(
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
                     moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT),
-                    1.5 / V.zoomScale,
-                    1.5 / V.zoomScale
+                    2,
+                    2
                 );
             }
         });
