@@ -1,4 +1,4 @@
-function stickString(string) {
+stickString = string => {
     const absoluteSegments = [];
 
     let characterX = 0;
@@ -38,9 +38,9 @@ function stickString(string) {
         'width': width,
         'height': 1
     };
-}
+};
 
-function renderStickString(stickStringSettings, charWidth, charHeight, progress, segmentInterval, appearanceTime) {
+renderStickString = (stickStringSettings, charWidth, charHeight, progress, segmentInterval, appearanceTime) => {
     stickStringSettings.segments.forEach((segment, index) => {
         wrap(() => {
             const appearanceOffset = stickStringSettings.appearanceOffsets[index];

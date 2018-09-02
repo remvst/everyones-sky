@@ -137,11 +137,9 @@ class AIShip extends Ship {
     pickNewTarget() {
         const pts = pointsAround(this.civilization.center, [this.civilization.center.radius + 150, this.civilization.center.radius + 250]);
 
-        function closestNode(target) {
-            return pts.slice().sort((a, b) => {
-                return dist(a, target) - dist(b, target);
-            })[0];
-        }
+        const closestNode = target => pts.slice().sort((a, b) => {
+            return dist(a, target) - dist(b, target);
+        })[0];
 
         // Find the node we're the closest to
         const nodeStart = closestNode(this);

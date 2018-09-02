@@ -1,4 +1,4 @@
-function pointsAround(center, radiuses) {
+pointsAround = (center, radiuses) => {
     const pts = [];
 
     const circles = [];

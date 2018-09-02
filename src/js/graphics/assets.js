@@ -1,10 +1,10 @@
-function renderResourcesIcon() {
+renderResourcesIcon = () => {
     beginPath(); arc(0, -12, 15, 0, PI * 2); fill();
     beginPath(); arc(12, 12, 15, 0, PI * 2); fill();
     beginPath(); arc(-12, 12, 15, 0, PI * 2); fill();
-}
+};
 
-function haloAround(asset, haloRadius, colorStart, colorEnd) {
+haloAround = (asset, haloRadius, colorStart, colorEnd) => {
     return createCanvas(asset.width + haloRadius * 2, asset.height + haloRadius * 2, (r, can) => {
         const gradient = r.createRadialGradient(can.width / 2, can.height / 2, asset.width / 2, can.width / 2, can.height / 2, asset.width / 2 + haloRadius);
         gradient.addColorStop(0, colorStart);
@@ -15,4 +15,4 @@ function haloAround(asset, haloRadius, colorStart, colorEnd) {
 
         try { r.drawImage(asset, haloRadius, haloRadius); } catch(e) {}
     });
-}
+};

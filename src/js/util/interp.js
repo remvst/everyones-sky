@@ -1,6 +1,6 @@
 linear = (t, b, c, d) => {
     return (t / d) * c + b;
-}
+};
 
 interp = (o, p, a, b, d, l, f, e) => {
     var i = {
@@ -13,7 +13,7 @@ interp = (o, p, a, b, d, l, f, e) => {
         f: f || linear, // easing function
         e: e || (() => 0), // end callback
         t: 0,
-        cycle: function(e){
+        cycle: e => {
             if (i.l > 0) {
                 i.l -= e;
                 i.o[i.p] = i.a;
@@ -30,6 +30,6 @@ interp = (o, p, a, b, d, l, f, e) => {
         }
     };
     INTERPOLATIONS.push(i);
-}
+};
 
 INTERPOLATIONS = [];

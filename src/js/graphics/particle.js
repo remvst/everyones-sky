@@ -1,4 +1,4 @@
-function particle(color, interpolations, render) {
+particle = (color, interpolations, render) => {
     let p;
 
     // Add to the list of particles
@@ -42,4 +42,4 @@ function particle(color, interpolations, render) {
         // Apply the interpolation
         interp.apply(0, args);
     });
-}
+};
