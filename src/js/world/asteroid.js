@@ -6,7 +6,7 @@ class Asteroid extends Body {
         this.radius = radius || rnd(25, 50);
         this.reachRadius = this.radius * 2;
 
-        this.health = 1;
+        this.health = this.radius / 25;
 
         this.rotation = 0;
 
