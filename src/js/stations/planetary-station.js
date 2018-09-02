@@ -35,21 +35,21 @@ class PlanetaryStation {
     // }
 
     damage(source, amount) {
-        particle('#ff0', [
-            ['alpha', 1, 0, 1],
-            ['size', rnd(2, 4), rnd(5, 10), 1],
-            ['x', this.x, this.x + rnd(-20, 20), 1],
-            ['y', this.y, this.y + rnd(-20, 20), 1]
-        ]);
+        if (source.owner == U.playerShip) { // only get damage from the player (prevents mortars from destroying friendly stations)
+            particle('#ff0', [
+                ['alpha', 1, 0, 1],
+                ['size', rnd(2, 4), rnd(5, 10), 1],
+                ['x', this.x, this.x + rnd(-20, 20), 1],
+                ['y', this.y, this.y + rnd(-20, 20), 1]
+            ]);
 
-        this.lastDamage = G.clock;
+            this.lastDamage = G.clock;
 
-        if (source.owner == U.playerShip) {
             this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
-        }
 
-        if ((this.health -= amount) <= 0) {
-            this.explode(source);
+            if ((this.health -= amount) <= 0) {
+                this.explode(source);
+            }
         }
     }
 
