@@ -14,8 +14,7 @@ class PlayerShip extends Ship {
         if (w.down[32]) this.shoot(SimpleLaser);
         if (w.down[13]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 
-        const star = this.nearStar();
-        if (star) {
+        if (this.nearStar()) {
             this.damage(this, e * 0.15);
         }
 
