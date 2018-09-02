@@ -490,11 +490,11 @@ class Game {
             const otherPlanetAndStars = () => otherPlanets().concat(U.stars.filter(close));
 
             const missionStep = pick([
-                // new AttackPlanet(pick(otherPlanets())),
-                // new StudyBody(pick(otherPlanetAndStars())),
+                new AttackPlanet(pick(otherPlanets())),
+                new StudyBody(pick(otherPlanetAndStars())),
                 new CollectResources(),
-                // new Asteroids(),
-                // new Pirates()
+                new Asteroids(),
+                new Pirates()
             ]);
             missionStep.civilization = planet.civilization;
 
