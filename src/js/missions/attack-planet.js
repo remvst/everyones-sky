@@ -3,7 +3,7 @@ class AttackPlanet extends TimedMissionStep {
     constructor(planet) {
         super();
         this.planet = planet;
-        this.prompt = nomangle('Help us fight ') + planet.nameWithRelationship() + nomangle(', destroy some of their stations');
+        this.prompt = nomangle('Destroy facilities on ') + planet.nameWithRelationship();
         this.targets = [planet];
 
         this.stationsToDestroy = min(this.planet.stations.length, ~~rnd(3, 5));
