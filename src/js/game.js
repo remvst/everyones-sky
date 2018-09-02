@@ -223,28 +223,32 @@ class Game {
             // Prompt
             const promptText = G.promptText();
             if (promptText) {
-                fs('rgba(0,0,0,0.5)');
-                R.font = '20pt ' + monoFont;
-                fr(0, CANVAS_HEIGHT - 200, CANVAS_WIDTH, 200);
+                wrap(() => {
+                    fs('rgba(0,0,0,0.5)');
+                    R.font = '20pt ' + monoFont;
 
-                const textWidth = measureText(promptText + '_').width;
+                    translate(0, CANVAS_WIDTH - (isTouch ? 400 : 200));
+                    fr(0, 0, CANVAS_WIDTH, 200);
 
-                const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
-                const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
+                    const textWidth = measureText(promptText + '_').width;
 
-                fs('#fff');
-                R.textAlign = nomangle('left');
-                fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, CANVAS_HEIGHT - 200 + 50);
+                    const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
+                    const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
 
-                if (length >= promptText.length) {
-                    R.textAlign = nomangle('center');
+                    fs('#fff');
+                    R.textAlign = nomangle('left');
+                    fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, 50);
 
-                    G.promptOptions.forEach((option, i) => {
-                        const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
-                        const x = (i + 1) * step;
-                        fillText('[' + option.label[0] + ']' + option.label.slice(1), x, CANVAS_HEIGHT - 200 + 100);
-                    });
-                }
+                    if (length >= promptText.length) {
+                        R.textAlign = nomangle('center');
+
+                        G.promptOptions.forEach((option, i) => {
+                            const step = CANVAS_WIDTH / (G.promptOptions.length + 1);
+                            const x = (i + 1) * step;
+                            fillText('[' + option.label[0] + ']' + option.label.slice(1), x, 100);
+                        });
+                    }
+                });
             }
 
             const currentWarning = U.playerShip.currentWarning();

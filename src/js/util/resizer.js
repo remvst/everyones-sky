@@ -3,7 +3,7 @@ onresize = () => {
         mh = innerHeight,
 
         ar = mw / mh, // available ratio
-        br = evaluate(CANVAS_WIDTH / CANVAS_HEIGHT), // base ratio
+        br = CANVAS_WIDTH / CANVAS_HEIGHT, // base ratio
         w,
         h,
         s = document.querySelector('#cc').style;
