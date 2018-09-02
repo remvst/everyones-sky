@@ -484,7 +484,8 @@ class Game {
             .reduce((closest, body) => !closest || dist(U.playerShip, body) < dist(U.playerShip, closest) ? body : closest, null);
 
         if (planet && !G.missionStep) {
-            const otherPlanet = pick(U.bodies.filter(body => body.orbitsAround == planet.orbitsAround && body != planet));
+            // Pick another planet that's not too far yet not too close
+            const otherPlanet = pick(U.bodies.filter(body => body.orbitsAround && between(1000, dist(body, planet), 10000)));
 
             const missionStep = pick([
                 new AttackPlanet(otherPlanet),
