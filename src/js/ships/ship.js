@@ -28,12 +28,14 @@ class Ship {
             this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
             this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
 
-            particle('#fff', [
-                ['alpha', 1, 0, 1],
-                ['size', rnd(2, 4), rnd(5, 10), 1],
-                ['x', this.x, this.x + rnd(-20, 20), 1],
-                ['y', this.y, this.y + rnd(-20, 20), 1]
-            ]);
+            for (let i = 0 ; i < ceil(e * 60) ; i++) {
+                particle('#fff', [
+                    ['alpha', 1, 0, 1],
+                    ['size', rnd(2, 4), rnd(5, 10), 1],
+                    ['x', this.x, this.x + rnd(-20, 20), 1],
+                    ['y', this.y, this.y + rnd(-20, 20), 1]
+                ]);
+            }
         }
 
         const angle = atan2(this.vY, this.vX);
