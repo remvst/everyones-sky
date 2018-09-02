@@ -74,7 +74,7 @@ class PlanetaryStation {
 
         G.eventHub.emit(EVENT_STATION_DESTROYED, this);
 
-        U.dropResources(this.x, this.y, 15);
+        U.dropResources(this.x, this.y, 10);
     }
 
 }
