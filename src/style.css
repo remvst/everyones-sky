@@ -19,6 +19,8 @@ body, html, #t, canvas{
     margin: 0;
 
     -webkit-touch-callout: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 canvas{
