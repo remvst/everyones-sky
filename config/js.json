@@ -54,6 +54,7 @@
 
     "src/js/event-hub.js",
     "src/js/keyboard.js",
+    "src/js/touch.js",
     "src/js/camera.js",
     "src/js/game.js",
     "src/js/main.js"

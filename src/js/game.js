@@ -333,6 +333,60 @@ class Game {
             });
         });
 
+        // Touch controls
+        wrap(() => {
+            if (!isTouch) {
+                // return;
+            }
+
+            translate(0, CANVAS_HEIGHT - 200);
+
+            R.globalAlpha = 0.8;
+            fs('#000');
+            fr(0, 0, CANVAS_WIDTH, 200);
+
+            fs('#fff');
+
+            translate(0, 100);
+
+            wrap(() => {
+                R.globalAlpha = w.down[37] ? 1 : 0.5;
+
+                translate(CANVAS_WIDTH * 1 / 8, 0);
+                rotate(PI);
+
+                G.mobileArrow();
+            });
+
+            wrap(() => {
+                R.globalAlpha = w.down[39] ? 1 : 0.5;
+
+                translate(CANVAS_WIDTH * 3 / 8, 0);
+
+                G.mobileArrow();
+            });
+
+            wrap(() => {
+                R.globalAlpha = w.down[32] ? 1 : 0.5;
+
+                translate(CANVAS_WIDTH * 5 / 8, 0);
+
+                beginPath();
+                moveTo(0, 0);
+                arc(0, 0, MOBILE_BUTTON_SIZE / 2, 0, PI * 2);
+                fill();
+            });
+
+            wrap(() => {
+                R.globalAlpha = w.down[38] ? 1 : 0.5;
+
+                translate(CANVAS_WIDTH * 7 / 8, 0);
+                rotate(-PI / 2);
+
+                G.mobileArrow();
+            });
+        });
+
         if (DEBUG) {
             wrap(() => {
                 R.font = '10pt ' + monoFont;
@@ -354,6 +408,14 @@ class Game {
                 });
             });
         }
+    }
+
+    mobileArrow() {
+        beginPath();
+        moveTo(MOBILE_BUTTON_SIZE / 2, 0);
+        lineTo(-MOBILE_BUTTON_SIZE / 2, -MOBILE_BUTTON_SIZE / 2);
+        lineTo(-MOBILE_BUTTON_SIZE / 2, MOBILE_BUTTON_SIZE / 2);
+        fill();
     }
 
     showPrompt(promptText, options) {
@@ -440,7 +502,7 @@ class Game {
     }
 
     start() {
-        if (G.started) {
+        if (G.started || !G.startable) {
             return;
         }
 
