@@ -3,8 +3,8 @@
     "false": 0,
     "const": "let",
 
-    "_CANVAS_WIDTH": 1000,
-    "CANVAS_HEIGHT": 1000,
+    "CANVAS_WIDTH": 1000,
+    "_CANVAS_HEIGHT": 1000,
 
     "STAR_PATTERN_SIZE": 400,
     "STAR_PATTERN_STARS": 50,

@@ -5,6 +5,6 @@ let R, // canvas context
     w = window,
     isTouch,
     mobile = navigator.userAgent.match(nomangle(/andro|ipho|ipa|ipo|windows ph/i)),
-    CANVAS_WIDTH = mobile ? 700 : 1000;
+    CANVAS_HEIGHT = mobile ? 1400 : 1000;
 
 let monoFont;
