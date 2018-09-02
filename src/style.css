@@ -17,9 +17,11 @@ body, html, #t, canvas{
     height: 100%;
     background-color: #000;
     margin: 0;
+
+    -webkit-touch-callout: none;
 }
 
 canvas{
     display: block;
-    /*cursor: none;*/
+    cursor: none;
 }
