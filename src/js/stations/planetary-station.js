@@ -44,7 +44,7 @@ class PlanetaryStation {
 
         this.lastDamage = G.clock;
 
-        if (source == U.playerShip) {
+        if (source.owner == U.playerShip) {
             this.planet.civilization.updateRelationship(RELATIONSHIP_UPDATE_DAMAGE_STATION);
         }
 
