@@ -37,4 +37,8 @@ class Star extends Body {
         fill();
     }
 
+    nameWithRelationship() {
+        return this.name + nomangle('(star)');
+    }
+
 }

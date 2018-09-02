@@ -456,7 +456,7 @@ class Game {
 
     selectPromptOption(characterOrIndex) {
         const actualText = G.currentPromptText();
-        if (actualText.length < (G.promptText() || '').length && isTouch || G.selectedPromptOption) {
+        if (actualText.length < (G.promptText() || '').length || G.selectedPromptOption) {
             return;
         }
 
@@ -485,11 +485,13 @@ class Game {
 
         if (planet && !G.missionStep) {
             // Pick another planet that's not too far yet not too close
-            const otherPlanet = pick(U.bodies.filter(body => body.orbitsAround && between(1000, dist(body, planet), 10000)));
+            const close = body => between(1000, dist(body, planet), 10000);
+            const otherPlanets = () => U.bodies.filter(body => body.orbitsAround).filter(close);
+            const otherPlanetAndStars = () => otherPlanets().concat(U.stars.filter(close));
 
             const missionStep = pick([
-                new AttackPlanet(otherPlanet),
-                new StudyBody(otherPlanet),
+                new AttackPlanet(pick(otherPlanets())),
+                new StudyBody(pick(otherPlanetAndStars())),
                 new CollectResources(),
                 new Asteroids(),
                 new Pirates()

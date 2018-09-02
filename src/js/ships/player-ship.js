@@ -16,7 +16,7 @@ class PlayerShip extends Ship {
 
         const star = this.nearStar();
         if (star) {
-            this.damage(this, e * 0.05);
+            this.damage(this, e * 0.15);
         }
 
         if ((this.nextHealing -= e) < 0) {
