@@ -28,7 +28,7 @@ class Ship {
             this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
             this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
 
-            particle(10, '#fff', [
+            particle('#fff', [
                 ['alpha', 1, 0, 1],
                 ['size', rnd(2, 4), rnd(5, 10), 1],
                 ['x', this.x, this.x + rnd(-20, 20), 1],
@@ -129,7 +129,7 @@ class Ship {
     }
 
     damage(projectile, amount) {
-        particle(10, '#ff0', [
+        particle('#ff0', [
             ['alpha', 1, 0, 1],
             ['size', rnd(2, 4), rnd(5, 10), 1],
             ['x', this.x, this.x + rnd(-20, 20), 1],
@@ -151,7 +151,7 @@ class Ship {
             const distance = rnd(5, 50);
             const d = rnd(0.2, 1.5);
 
-            particle(10, pick(['#ff0', '#f80', '#f00']), [
+            particle(pick(['#ff0', '#f80', '#f00']), [
                 ['alpha', 1, 0, d],
                 ['size', rnd(2, 4), rnd(5, 10), d],
                 ['x', this.x, this.x + cos(angle) * distance, d],

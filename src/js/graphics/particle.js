@@ -1,9 +1,8 @@
-function particle(size, color, interpolations, render) {
+function particle(color, interpolations, render) {
     let p;
 
     // Add to the list of particles
     U.particles.push(p = {
-        size: size,
         color: color,
         alpha: 1,
         render: () => wrap(() => {

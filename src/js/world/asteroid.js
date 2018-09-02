@@ -116,7 +116,7 @@ class Asteroid extends Body {
             const angle = random() * PI * 2;
             const distance = random() * this.radius;
 
-            particle(10, pick(['#aaa', '#fff', '#ccc']), [
+            particle(pick(['#aaa', '#fff', '#ccc']), [
                 ['alpha', 1, 0, 1],
                 ['size', rnd(2, 4), rnd(5, 10), 1],
                 ['x', this.x + cos(angle) * distance, this.x + cos(angle) * distance + rnd(-20, 20), 1],

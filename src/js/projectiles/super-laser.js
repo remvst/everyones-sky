@@ -15,7 +15,7 @@ class SuperLaser extends Laser {
         const s = sin((this.clock += e) * PI * 2 * 4) * 0;
 
         const d = 0.5;
-        particle(0, 'red', [
+        particle('red', [
             ['alpha', 1, 0, d],
             ['size', 16, rnd(16, 32), d],
             ['x', this.x + cos(this.angle + PI / 2) * s * 10, this.x + cos(this.angle + PI / 2) * s * 10 + rnd(-16, 16), d],

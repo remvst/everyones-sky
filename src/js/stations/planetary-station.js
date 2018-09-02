@@ -35,7 +35,7 @@ class PlanetaryStation {
     // }
 
     damage(source, amount) {
-        particle(10, '#ff0', [
+        particle('#ff0', [
             ['alpha', 1, 0, 1],
             ['size', rnd(2, 4), rnd(5, 10), 1],
             ['x', this.x, this.x + rnd(-20, 20), 1],
@@ -58,7 +58,7 @@ class PlanetaryStation {
             const angle = this.globalAngle + rnd(-PI / 2, PI / 2);
             const distance = rnd(30, 50);
 
-            particle(10, pick(['#ff0', '#f80', '#f00']), [
+            particle(pick(['#ff0', '#f80', '#f00']), [
                 ['alpha', 1, 0, 1],
                 ['size', rnd(2, 4), rnd(5, 10), 1],
                 ['x', this.x, this.x + cos(angle) * distance, 1],

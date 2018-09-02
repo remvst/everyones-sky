@@ -508,7 +508,7 @@ class Game {
                 // };
                 // U.particles.push(particle);
 
-                particle(0, 0, [
+                particle(0, [
                     ['alpha', 1, 0, 0.1, i * 0.02 + 0.2],
                     ['alpha', 0, 1, 0.1, i * 0.02]
                 ], particle => {
