@@ -20,7 +20,11 @@ class CollectResources extends TimedMissionStep {
             U.playerShip.civilization.resources--; // make sure the player doesn't get these resources
 
             if (++this.collectedResources >= this.requiredResources) {
-                G.missionDone(true);
+                const step = new ReachTarget(this.civilization.center, nomangle('Return to ') + this.civilization.center.name);
+                step.civilization = this.civilization;
+                this.proceed(step);
+
+                step.timeleft = this.timeleft;
             }
         });
     }
