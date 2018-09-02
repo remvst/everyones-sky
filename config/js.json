@@ -8,8 +8,6 @@
     "src/js/graphics/assets.js",
     "src/js/graphics/particle.js",
 
-    "src/js/ai/path-finder.js",
-
     "src/js/missions/mission-step.js",
     "src/js/missions/tutorial-steps.js",
     "src/js/missions/prompt-mission.js",
