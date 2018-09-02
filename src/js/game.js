@@ -263,7 +263,7 @@ class Game {
                 fs('rgba(255,0,0,0.5)');
                 fr(0, 200, CANVAS_WIDTH, 125);
 
-                R.font = '36pt Mono';
+                R.font = '36pt ' + monoFont;
                 R.textBaseline = 'middle';
                 R.textAlign = nomangle('center');
                 fs('#fff');
