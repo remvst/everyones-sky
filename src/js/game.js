@@ -231,15 +231,13 @@ class Game {
                     fr(0, 0, CANVAS_WIDTH, 200);
 
                     const textWidth = measureText(promptText + '_').width;
-
-                    const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
-                    const actualText = promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
+                    const actualText = this.currentPromptText();
 
                     fs('#fff');
                     R.textAlign = nomangle('left');
                     fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, 50);
 
-                    if (length >= promptText.length) {
+                    if (actualText.length >= promptText.length) {
                         R.textAlign = nomangle('center');
                         R.textBaseline = nomangle('middle');
                         R.font = '16pt ' + monoFont;
@@ -439,9 +437,14 @@ class Game {
         }
     }
 
-    selectPromptOption(character) {
-        (G.promptOptions || []).forEach(option => {
-            if (option.label[0].toLowerCase() === character.toLowerCase()) {
+    selectPromptOption(characterOrIndex) {
+        const actualText = G.currentPromptText();
+        if (actualText.length < G.promptText().length && isTouch) {
+            return;
+        }
+
+        (G.promptOptions || []).forEach((option, i) => {
+            if (i === characterOrIndex || characterOrIndex && characterOrIndex.length && option.label[0].toLowerCase() === characterOrIndex.toLowerCase()) {
                 option.action();
                 selectSound();
             }
@@ -586,6 +589,12 @@ class Game {
         G.currentWarning = 0;
 
         G.gameRecap = [];
+    }
+
+    currentPromptText() {
+        const promptText = G.promptText() || '';
+        const length = ~~min((G.clock - G.promptClock) * 20, promptText.length);
+        return promptText.slice(0, length) + (length < promptText.length || (G.clock % 1) > 0.5 ? '_' : '');
     }
 
 }
