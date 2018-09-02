@@ -9,11 +9,17 @@ class Universe {
         this.items = [];
         this.pirates = [];
 
-        // Player ship
-        this.ships.push(this.playerShip = new PlayerShip());
+        this.center = {'x': 0, 'y': 0};
+
+        this.createPlayerShip();
 
         // setTimeout(() => this.generateUniverse(), 0);
         this.nextAsteroid = 0;
+    }
+
+    createPlayerShip() {
+        this.remove(this.ships, this.playerShip);
+        this.ships.push(this.playerShip = new PlayerShip(this.center.x, this.center.y));
     }
 
     cycle(e) {
@@ -22,11 +28,7 @@ class Universe {
             this.randomAsteroid();
         }
 
-        this.bodies.forEach(b => b.cycle(e));
-        this.ships.forEach(ship => ship.cycle(e));
-        this.items.forEach(item => item.cycle(e));
-        this.projectiles.forEach(projectile => projectile.cycle(e));
-        V.cycle(e);
+        this.forEach([this.bodies, this.ships, this.items, this.projectiles, [V]], element => element.cycle(e));
     }
 
     randomAsteroid() {
@@ -114,6 +116,11 @@ class Universe {
     }
 
     generateUniverse() {
+        this.center = {
+            'x': U.playerShip.x,
+            'y': U.playerShip.y
+        };
+
         const maxOrbitsGap = UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
         const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * maxOrbitsGap + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
 

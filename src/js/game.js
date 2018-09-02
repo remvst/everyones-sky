@@ -3,6 +3,9 @@ class Game {
     constructor() {
         G = this;
 
+        U = new Universe();
+
+        V = new Camera();
         G.setupNewGame();
 
         G.clock = 0;
@@ -15,11 +18,12 @@ class Game {
 
         G.titleStickString = stickString(nomangle('everyone\'s'));
         G.subtitleStickString = stickString(nomangle('sky'));
-        G.instructionsStickString = stickString(nomangle('press enter to start'));
+        G.instructionsStickString = stickString(nomangle('press enter to send a ship'));
 
         G.titleCharWidth = G.subtitleCharWidth = 50;
         G.titleCharHeight = G.subtitleCharHeight = 100;
 
+        G.startedOnce = false;
         G.startable = true;
 
         G.resourceIconOffsetY = 0;
@@ -113,7 +117,7 @@ class Game {
 
         INTERPOLATIONS.slice().forEach(i => i.cycle(e));
 
-        if (w.down[13] && G.startable) {
+        if (w.down[13]) {
             G.start();
         }
 
@@ -534,12 +538,17 @@ class Game {
             return;
         }
 
-        G.started = true;
+        U.createPlayerShip();
 
         interp(G, 'titleYOffset', 0, -CANVAS_HEIGHT, 0.3);
 
-        V.zoomScale = V.targetScaleOverride = 1;
-        setTimeout(() => G.proceedToMissionStep(new PromptTutorialStep()), 3000);
+        if (!G.startedOnce) {
+            V.zoomScale = V.targetScaleOverride = 1;
+            setTimeout(() => G.proceedToMissionStep(new PromptTutorialStep()), 3000);
+        }
+
+        G.nextMission = G.startedOnce ? 20 : 9;
+        G.started = G.startedOnce = true;
 
         introSound();
     }
@@ -565,7 +574,7 @@ class Game {
 
         G.titleStickString = stickString(nomangle('game over'));
         G.subtitleStickString = stickString(subtitle);
-        G.instructionsStickString = stickString(nomangle('press enter to try again'));
+        G.instructionsStickString = stickString(nomangle('press enter to send another ship'));
 
         G.subtitleCharWidth = 25;
         G.subtitleCharHeight = 50;
@@ -587,9 +596,6 @@ class Game {
     }
 
     setupNewGame() {
-        U = new Universe();
-        V = new Camera();
-
         G.eventHub = new EventHub();
 
         G.promptText = () => 0;
@@ -599,7 +605,6 @@ class Game {
         G.titleYOffset = 0;
 
         G.missionStep = 0;
-        G.nextMission = 999;
         G.currentWarning = 0;
 
         G.gameRecap = [];

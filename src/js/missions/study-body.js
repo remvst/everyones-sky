@@ -3,7 +3,7 @@ class StudyBody extends TimedMissionStep {
     constructor(body) {
         super();
         this.body = body;
-        this.prompt = nomangle('We need to study ') + body.nameWithRelationship() + nomangle(', collect some data for us');
+        this.prompt = nomangle('Collect some data on ') + body.nameWithRelationship() + nomangle(' for us');
         this.targets = [body];
 
         this.studied = 0;

@@ -1,7 +1,7 @@
 class PlayerShip extends Ship {
 
-    constructor() {
-        super(new Civilization());
+    constructor(x, y) {
+        super(new Civilization(), x, y);
 
         this.nextHealing = 0;
     }
