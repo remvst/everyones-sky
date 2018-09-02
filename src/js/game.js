@@ -361,19 +361,33 @@ class Game {
             wrap(() => {
                 R.globalAlpha = w.down[37] ? 1 : 0.5;
 
-                translate(CANVAS_WIDTH * 1 / 8, 0);
-                rotate(PI);
+                translate(CANVAS_WIDTH * 2 / 8, 0);
+                // rotate(PI);
 
-                G.mobileArrow();
+                // G.mobileArrow();
+
+                R.strokeStyle = '#fff';
+                R.lineWidth = 2;
+
+                beginPath();
+                arc(0, 0, MOBILE_BUTTON_SIZE / 2, 0, PI * 2);
+                stroke();
+
+                if (U.playerShip.targetAngle) {
+                    beginPath();
+                    moveTo(0, 0);
+                    arc(cos(U.playerShip.targetAngle) * MOBILE_BUTTON_SIZE / 2, sin(U.playerShip.targetAngle) * MOBILE_BUTTON_SIZE / 2, 10, 0, PI * 2);
+                    fill();
+                }
             });
 
-            wrap(() => {
-                R.globalAlpha = w.down[39] ? 1 : 0.5;
-
-                translate(CANVAS_WIDTH * 3 / 8, 0);
-
-                G.mobileArrow();
-            });
+            // wrap(() => {
+            //     R.globalAlpha = w.down[39] ? 1 : 0.5;
+            //
+            //     translate(CANVAS_WIDTH * 3 / 8, 0);
+            //
+            //     G.mobileArrow();
+            // });
 
             wrap(() => {
                 R.globalAlpha = w.down[32] ? 1 : 0.5;

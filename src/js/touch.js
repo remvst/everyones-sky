@@ -6,18 +6,20 @@ ontouchmove = ontouchend = (e, isTouchStart) => {
     const canvasRect = document.querySelector('canvas').getBoundingClientRect();
 
     w.down[32] = false;
-    w.down[37] = false;
     w.down[38] = false;
-    w.down[39] = false;
+
+    U.playerShip.targetAngle = null;
 
     for (let i = 0 ; i < e.touches.length ; i++) {
         const x = (e.touches[i].clientX - canvasRect.left) / canvasRect.width;
         const y = (e.touches[i].clientY - canvasRect.top) / canvasRect.height;
         if (y > 1 - 200 / CANVAS_HEIGHT) {
-            if (x < 0.25) {
-                w.down[37] = true;
-            } else if (x < 0.5) {
-                w.down[39] = true;
+            if (x < 0.5) {
+                U.playerShip.targetAngle = angleBetween({
+                    'x': 0.25,
+                    'y': 1 - 100 / CANVAS_HEIGHT
+                }, {'x': x, 'y': y});
+                w.down[38] = true;
             } else if (x < 0.75) {
                 w.down[32] = true;
             } else {

@@ -17,6 +17,8 @@ body, html, #t, canvas{
     height: 100%;
     background-color: #000;
     margin: 0;
+    overflow: auto;
+    touch-action: none;
 
     -webkit-touch-callout: none;
 }

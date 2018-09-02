@@ -11,6 +11,10 @@ class PlayerShip extends Ship {
 
         this.rotationDirection = w.down[37] ? -1 : (w.down[39] ? 1 : 0);
 
+        if (!isNaN(this.targetAngle)) {
+            this.angle += limit(-e * SHIP_ROTATION_SPEED, normalize(this.targetAngle - this.angle), e * SHIP_ROTATION_SPEED);
+        }
+
         if (w.down[32]) this.shoot(SimpleLaser);
         if (w.down[13]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 

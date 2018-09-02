@@ -10,7 +10,7 @@ class Ship {
         // this.thrust = false; // don't need this line, only here for reference
         this.rotationDirection = 0;
 
-        this.angle = 0;
+        this.angle = PI / 4;
 
         this.radius = 20;
         this.reachRadius = 200;
