@@ -15,7 +15,7 @@ class PlanetaryStation {
         return this.angleOnPlanet + this.planet.angle;
     }
 
-    cycle(e) {
+    cycle() {
         this.x = this.planet.x + (this.planet.radius - 2) * cos(this.globalAngle);
         this.y = this.planet.y + (this.planet.radius - 2) * sin(this.globalAngle);
     }
