@@ -17,8 +17,9 @@ class CollectResources extends TimedMissionStep {
         super.attach();
 
         this.listen(EVENT_PICKUP_RESOURCE, () => {
+            U.playerShip.civilization.resources--; // make sure the player doesn't get these resources
+
             if (++this.collectedResources >= this.requiredResources) {
-                U.playerShip.civilization -= this.requiredResources;
                 G.missionDone(true);
             }
         });
