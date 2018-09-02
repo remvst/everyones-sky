@@ -10,15 +10,17 @@ ontouchstart = ontouchmove = ontouchend = e => {
 
     for (let i = 0 ; i < e.touches.length ; i++) {
         const x = (e.touches[i].clientX - canvasRect.left) / canvasRect.width;
-
-        if (x < 0.25) {
-            w.down[37] = true;
-        } else if (x < 0.5) {
-            w.down[39] = true;
-        } else if (x < 0.75) {
-            w.down[32] = true;
-        } else {
-            w.down[38] = true;
+        const y = (e.touches[i].clientY - canvasRect.top) / canvasRect.height;
+        if (y > 1 - 200 / CANVAS_HEIGHT) {
+            if (x < 0.25) {
+                w.down[37] = true;
+            } else if (x < 0.5) {
+                w.down[39] = true;
+            } else if (x < 0.75) {
+                w.down[32] = true;
+            } else {
+                w.down[38] = true;
+            }
         }
     }
 
