@@ -4,5 +4,8 @@ onkeydown = e => {
 };
 onkeyup = e => {
     w.down[e.keyCode] = false;
-    G.selectPromptOption(String.fromCharCode(e.keyCode));
+    const character = String.fromCharCode(e.keyCode).toLowerCase();
+    if (isNaN(character)) {
+        G.selectPromptOption(character);
+    }
 };

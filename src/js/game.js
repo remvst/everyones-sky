@@ -235,7 +235,9 @@ class Game {
 
                     fs('#fff');
                     R.textAlign = nomangle('left');
-                    fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, 50);
+                    if (!G.selectedPromptOption) {
+                        fillText(actualText, (CANVAS_WIDTH - textWidth) / 2, 50);
+                    }
 
                     if (actualText.length >= promptText.length) {
                         R.textAlign = nomangle('center');
@@ -243,12 +245,22 @@ class Game {
                         R.font = '16pt ' + monoFont;
 
                         G.promptOptions.forEach((option, i) => {
+                            fs('#fff');
+
+                            if (G.selectedPromptOption) {
+                                if (G.selectedPromptOption != option) {
+                                    return;
+                                }
+
+                                R.globalAlpha = (sin(G.clock * PI * 2 * 4) + 1) / 2;
+                            }
+
                             const promptText = '[' + option.label[0] + ']' + option.label.slice(1);
                             const x = (i + 1) * (CANVAS_WIDTH / (G.promptOptions.length + 1));
 
-                            fs('#fff');
                             fr(x - PROMPT_OPTION_BOX_WIDTH / 2, 100 - PROMPT_OPTION_BOX_HEIGHT / 2, PROMPT_OPTION_BOX_WIDTH, PROMPT_OPTION_BOX_HEIGHT);
 
+                            R.globalAlpha = 1;
                             fs('#000');
                             fillText(promptText, x, 100);
                         });
@@ -431,6 +443,7 @@ class Game {
         G.promptText = promptText && promptText.call ? promptText : () => promptText;
         G.promptClock = G.clock;
         G.promptOptions = options || [];
+        G.selectedPromptOption = null;
 
         if (G.promptText()) {
             promptSound();
@@ -439,13 +452,14 @@ class Game {
 
     selectPromptOption(characterOrIndex) {
         const actualText = G.currentPromptText();
-        if (actualText.length < G.promptText().length && isTouch) {
+        if (actualText.length < (G.promptText() || '').length && isTouch || G.selectedPromptOption) {
             return;
         }
 
         (G.promptOptions || []).forEach((option, i) => {
-            if (i === characterOrIndex || characterOrIndex && characterOrIndex.length && option.label[0].toLowerCase() === characterOrIndex.toLowerCase()) {
-                option.action();
+            if (i == characterOrIndex || option.label[0].toLowerCase() === characterOrIndex) {
+                G.selectedPromptOption = option;
+                setTimeout(option.action, 500); // add a short delay so we can show that the option was selected
                 selectSound();
             }
         });
