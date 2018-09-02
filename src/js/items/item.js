@@ -9,14 +9,7 @@ class Item {
     }
 
     cycle(e) {
-        let closestShip;
-        U.ships.forEach(ship => {
-            if (!closestShip || dist(ship, this) < dist(closestShip, this)) {
-                closestShip = ship;
-            }
-        });
-
-        if (!closestShip) {
+        if (U.playerShip.health <= 0) {
             return;
         }
 
