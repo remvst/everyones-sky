@@ -2,7 +2,7 @@ class Asteroids extends TimedMissionStep {
 
     constructor() {
         super();
-        this.prompt = nomangle('There asteroids are threatening us. Destroy them');
+        this.prompt = nomangle('Destroy these asteroids for us');
     }
 
     instructions() {
