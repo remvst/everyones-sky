@@ -599,8 +599,8 @@ class Game {
 
         setTimeout(() => {
             G.gameRecap = [
-                enemiesMade + nomangle(' planets have declared war against us.'),
-                alliesMade + nomangle(' species are now our allies.')
+                enemiesMade + nomangle(' planets have declared war against you'),
+                alliesMade + nomangle(' species are now your allies')
             ];
             G.startable = true;
         }, 4000);
