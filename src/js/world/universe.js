@@ -11,6 +11,11 @@ class Universe {
 
         this.center = {'x': 0, 'y': 0};
 
+        this.backgroundStarGradient = createRadialGradient(0, 0, 0, 0, 0, 1);
+        this.backgroundStarGradient.addColorStop(0, 'rgba(255,255,200,1)');
+        this.backgroundStarGradient.addColorStop(0.3, 'rgba(255,255,200,0.1)');
+        this.backgroundStarGradient.addColorStop(1, 'rgba(255,255,200,0)');
+
         this.createPlayerShip();
 
         // setTimeout(() => this.generateUniverse(), 0);
@@ -55,17 +60,11 @@ class Universe {
             translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
             scale(V.zoomScale, V.zoomScale);
 
-            const gradient = createRadialGradient(0, 0, 0, 0, 0, 1);
-            gradient.addColorStop(0, 'rgba(255,255,200,1)');
-            gradient.addColorStop(0.3, 'rgba(255,255,200,0.1)');
-            gradient.addColorStop(1, 'rgba(255,255,200,0)');
-
-            fs(gradient);
+            fs(this.backgroundStarGradient);
 
             for (let i = 0 ; i < 400 ; i++) {
-                const distanceFactor = rng.between(0.1, 0.3);
-
                 wrap(() => {
+                    const distanceFactor = rng.between(0.1, 0.3);
                     translate(
                         moduloWithNegative(rng.between(-1, 1) * CANVAS_WIDTH - U.playerShip.x * distanceFactor, CANVAS_WIDTH),
                         moduloWithNegative(rng.between(-1, 1) * CANVAS_HEIGHT - U.playerShip.y * distanceFactor, CANVAS_HEIGHT)
