@@ -192,7 +192,7 @@ class Universe {
         }, 0); // make sure we're enemies
 
         const ships = [];
-        for (let i = 0 ; i < 5 ; i++) {
+        for (let i = 0 ; i < rnd(5, 8) ; i++) {
             ships.push(new AIShip(
                 civilization,
                 x + rnd(-300, 300),
