@@ -154,7 +154,7 @@ class Game {
             });
 
             wrap(() => {
-                R.shadowColor = 'cyan';
+                R.shadowColor = '#0f0';
                 R.shadowBlur = 10;
 
                 fs('cyan');
