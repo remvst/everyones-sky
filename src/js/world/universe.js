@@ -183,6 +183,48 @@ class Universe {
         }
     }
 
+    // debugView() {
+    //     const can = document.createElement('canvas');
+    //     can.width = 500;
+    //     can.height = 500;
+    //
+    //     const ctx = can.getContext('2d');
+    //
+    //     const furthestStar = this.stars.reduce((furthestStar, star) => {
+    //         return max(furthestStar, dist(star, this.center));
+    //     }, 0);
+    //
+    //     ctx.fs('#000');
+    //     ctx.fr(0, 0, can.width, can.height);
+    //
+    //     this.bodies.concat(this.ships).forEach(body => {
+    //         if (body instanceof Star) {
+    //             ctx.fs('#ff0');
+    //         }
+    //
+    //         if (body instanceof Planet) {
+    //             ctx.fs('#00f');
+    //         }
+    //
+    //         if (body instanceof Ship) {
+    //             ctx.fs('#f00');
+    //         }
+    //
+    //         const distance = dist(body, this.center);
+    //         const angle = angleBetween(this.center, body);
+    //         const relativeDistance = distance / furthestStar;
+    //
+    //         ctx.fr(
+    //             can.width / 2 + cos(angle) * relativeDistance * can.width / 2,
+    //             can.height / 2 + sin(angle) * relativeDistance * can.height / 2,
+    //             5,
+    //             5
+    //         );
+    //     });
+    //
+    //     document.body.appendChild(can);
+    // }
+
     createPirateGroup(x, y) {
         const civilization = new Civilization({
             'x': x,

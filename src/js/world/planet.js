@@ -28,11 +28,6 @@ class Planet extends Body {
 
         this.updatePosition();
 
-        const initialResources = this.civilization.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
-        for (let i = 0 ; i < initialResources / PLANET_EVOLUTION_REQUIRED_RESOURCES ; i++) {
-            this.evolve();
-        }
-
         this.asset = once(() => haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
             r.fs('#fff');
@@ -95,10 +90,19 @@ class Planet extends Body {
 
         this.stations.forEach(station => station.cycle(e));
 
-        this.civilization.resources = min(PLANET_MAX_RESOURCES, this.civilization.resources + e * PLANET_RESOURCES_PER_SECOND);
+        if (this.didInitialEvolution) {
+            this.civilization.resources = min(PLANET_MAX_RESOURCES, this.civilization.resources + e * PLANET_RESOURCES_PER_SECOND);
 
-        if ((this.nextEvolution -= e) < 0) {
-            this.evolve();
+            if ((this.nextEvolution -= e) < 0) {
+                this.evolve();
+            }
+        } else if(V.isVisible(this.x, this.y, this.radius * 4)) {
+            this.didInitialEvolution = true;
+
+            const initialResources = this.civilization.resources = rnd(PLANET_MIN_INITIAL_RESOURCES, PLANET_MAX_INITIAL_RESOURCES);
+            for (let i = 0 ; i < initialResources / PLANET_EVOLUTION_REQUIRED_RESOURCES ; i++) {
+                this.evolve();
+            }
         }
     }
 

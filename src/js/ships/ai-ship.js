@@ -81,16 +81,18 @@ class AIShip extends Ship {
     }
 
     cycle(e) {
+        if (!V.isVisible(this.x, this.y, 500)) {
+            return;
+        }
+
         this.enemy = this.civilization.relationshipType() === RELATIONSHIP_ENEMY ? U.playerShip : null;
 
         if (!this.target || dist(this, this.target) < this.targetRadius || dist(this.civilization.center, this.target) < this.civilization.center.radius || (this.nextDecisionChange -= e) <= 0) {
             this.pickNewTarget();
         }
 
-        if (V.isVisible(this.x, this.y, V.width)) {
-            this.updateControls();
-            super.cycle(e);
-        }
+        this.updateControls();
+        super.cycle(e);
 
         const angleWithPlanet = angleBetween(this.civilization.center, this);
         const distanceToPlanet = max(dist(this, this.civilization.center), this.civilization.center.radius + this.radius * 2);
