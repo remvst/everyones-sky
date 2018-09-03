@@ -5,15 +5,18 @@ class PlayerShip extends Ship {
 
         this.nextHealing = 0;
         this.shield = 1;
+        this.age = 0;
     }
 
     cycle(e) {
+        this.age += e;
+
         this.thrust = w.down[38];
 
         this.rotationDirection = w.down[37] ? -1 : (w.down[39] ? 1 : 0);
 
         if (w.down[32]) this.shoot(SimpleLaser);
-        if (w.down[13]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
+        if (w.down[13] && this.age > 1) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 
         const nearStar = this.nearStar();
         if (nearStar) {
