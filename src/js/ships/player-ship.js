@@ -4,6 +4,7 @@ class PlayerShip extends Ship {
         super(new Civilization(), x, y);
 
         this.nextHealing = 0;
+        this.shield = 1;
     }
 
     cycle(e) {
@@ -14,9 +15,15 @@ class PlayerShip extends Ship {
         if (w.down[32]) this.shoot(SimpleLaser);
         if (w.down[13]) this.shoot(SuperLaser, SHIP_SUPERSHOT_INTERVAL);
 
-        if (this.nearStar()) {
-            this.damage(this, e * 0.15);
+        const nearStar = this.nearStar();
+        if (nearStar) {
+            this.damage(nearStar, e * 0.15);
         }
+
+        if ((G.clock - this.lastShieldDamage) > SHIELD_RECOVERY_DELAY) {
+            this.shield += SHIELD_RECOVERY_SPEED * e;
+        }
+        this.shield = min(this.health, this.shield); // make sure shields don't surpass health
 
         if ((this.nextHealing -= e) < 0) {
             this.heal();
@@ -49,13 +56,25 @@ class PlayerShip extends Ship {
     }
 
     damage(source, amount) {
-        amount *= PLAYER_SHIP_DAMAGE_FACTOR; // Less damage for the player
+        const isStar = source instanceof Star;
 
-        super.damage(source, amount);
+        if (this.shield > 0) {
+            this.shield -= amount;
 
-        if (source != this) {
+            if (!isStar || (G.clock - (this.lastShieldDamage || 0)) > 0.3) {
+                this.lastShieldDamage = G.clock;
+
+                this.shieldEffectAngle = angleBetween(this, source);
+                interp(this, 'shieldEffectScale', 0.8, 1, 0.2);
+            }
+            return;
+        }
+
+        if (!isStar) {
             V.shake(0.1);
         }
+
+        super.damage(source, amount); // Less damage for the player
 
         this.nextHealing = SHIP_HEALING_DAMAGE_TIMEOUT;
     }
@@ -79,20 +98,43 @@ class PlayerShip extends Ship {
 
     currentWarning() {
         if (this.health <= 0.3) {
-            return nomangle('SHIELDS LOW') + (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES ? nomangle('. FIND RESOURCES TO REPAIR') : '');
+            return nomangle('CRITICAL HULL DAMAGE') + (this.civilization.resources < SHIP_HEALING_REQUIRED_RESOURCES ? nomangle('. FIND RESOURCES TO REPAIR') : '');
         }
 
         if (this.nearStar()) {
-            return nomangle('HEAT DAMAGING SHIELDS');
+            return nomangle('CRITICAL HEAT');
         }
 
         if (U.pirates.filter(ship => dist(ship, this) < CANVAS_WIDTH).length) {
             return nomangle('PIRATES NEARBY');
         }
+
+        if (this.shield <= 0) {
+            return nomangle('SHIELDS OFFLINE');
+        }
     }
 
     nearStar() {
         return U.stars.filter(star => dist(this, star) < star.radius * 2)[0];
+    }
+
+    render() {
+        wrap(() => super.render());
+
+        translate(this.x, this.y);
+        rotate(this.shieldEffectAngle);
+
+        fs('#fff');
+
+        beginPath();
+        arc(0, 0, 25, -PI / 2, PI / 2);
+
+        wrap(() => {
+            scale(this.shieldEffectScale, 1);
+            arc(0, 0, 25, PI / 2, -PI / 2, true);
+        });
+
+        fill();
     }
 
 }

@@ -153,6 +153,14 @@ class Game {
                 fill();
             });
 
+            wrap(() => {
+                R.shadowColor = 'cyan';
+                R.shadowBlur = 10;
+
+                fs('cyan');
+                fr(100, 45, 200 * limit(0, U.playerShip.shield, 1), 10);
+            });
+
             G.renderGauge(100, 80, U.playerShip.civilization.resources / PLANET_MAX_RESOURCES, '#fff', () => {
                 R.globalAlpha = G.resourceIconAlpha;
 
