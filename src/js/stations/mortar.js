@@ -36,7 +36,7 @@ class Mortar extends PlanetaryStation {
         this.lastShot = G.clock;
 
         const angle = this.globalAngle + this.shootAngle;
-        U.projectiles.push(new SuperLaser(this, this.x + cos(angle) * this.radius, this.y + sin(angle) * this.radius, angle));
+        U.projectiles.push(new SuperLaser(this, this.x + cos(angle) * (this.radius + 15), this.y + sin(angle) * (this.radius + 15), angle));
     }
 
 }

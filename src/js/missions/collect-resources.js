@@ -5,7 +5,7 @@ class CollectResources extends TimedMissionStep {
 
         this.prompt = nomangle('We need resources, please collect some for us');
 
-        this.requiredResources = 50;
+        this.requiredResources = 100;
         this.collectedResources = 0;
     }
 

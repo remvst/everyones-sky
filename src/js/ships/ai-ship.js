@@ -70,7 +70,7 @@ class AIShip extends Ship {
 
         if (this.canShootEnemy()) {
             if (abs(angleDiff) > PI / 64 && !this.coolingDown) {
-                this.heat += 0.1; // hack to make AI ships shoot shorter bursts
+                this.heat += 0.05; // hack to make AI ships shoot shorter bursts
                 this.shoot(SimpleLaser);
             }
         }
