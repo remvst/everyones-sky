@@ -49,7 +49,7 @@ class OfflineStep extends MissionStep {
     attach() {
         G.showPrompt(nomangle('Communications are OFFLINE. Find resources to repair them'), [{
             'label': nomangle('Help'),
-            'action': () => G.showPrompt(nomangle('Resources can be collected by shooting asteroids'))
+            'action': () => G.showPrompt(nomangle('Resources can be collected by destroying asteroids'))
         }]);
 
         this.listen(EVENT_CYCLE, () => {
@@ -58,7 +58,7 @@ class OfflineStep extends MissionStep {
             }
         });
 
-        this.listen(EVENT_CYCLE, e => {
+        this.listen(EVENT_CYCLE, () => {
             if (U.bodies.length < 10) {
                 U.randomAsteroid();
             }

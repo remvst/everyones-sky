@@ -4,7 +4,7 @@ class Asteroid extends Body {
         super();
 
         this.radius = radius || rnd(25, 50);
-        this.reachRadius = this.radius * 2;
+        this.reachRadius = this.radius * 5;
 
         this.health = this.radius / 25;
 
@@ -126,7 +126,7 @@ class Asteroid extends Body {
 
         U.remove(U.bodies, this);
 
-        if (this.radius > 15) {
+        if (this.radius > 20) {
             for (let i = 0 ; i < 2 ; i++) {
                 const smallerAsteroid = new Asteroid(this.radius / 2, this.speed / 4);
                 smallerAsteroid.x = this.x + rnd(-this.radius, this.radius);
