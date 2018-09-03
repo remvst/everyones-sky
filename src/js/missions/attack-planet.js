@@ -10,7 +10,7 @@ class AttackPlanet extends TimedMissionStep {
     }
 
     instructions() {
-        return nomangle('Destroy ') + this.stationsToDestroy + nomangle(' stations on ') + this.planet.name;
+        return nomangle('Destroy ') + this.stationsToDestroy + nomangle(' facilities on ') + this.planet.name;
     }
 
     attach() {
