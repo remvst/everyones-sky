@@ -24,7 +24,7 @@ class StudyBody extends TimedMissionStep {
                 this.studied += e * (1 / 40);
 
                 if (this.studied >= 1) {
-                    G.missionDone(true);
+                    this.reach(this.civilization.center, nomangle('Return to ') + this.civilization.center.name);
                 }
             }
         });

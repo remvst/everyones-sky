@@ -11,4 +11,12 @@ class TimedMissionStep extends MissionStep {
         G.showPrompt(() => this.instructions() + ' - ' + formatTime(this.timeleft));
     }
 
+    reach(target, prompt) {
+        const step = new ReachTarget(target, prompt);
+        step.civilization = this.civilization;
+        this.proceed(step);
+
+        step.timeleft = this.timeleft;
+    }
+
 }
