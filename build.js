@@ -73,7 +73,7 @@ compiler.run((tasks) => {
                 'html': buildHTML(true)
             }),
             tasks.combine(),
-            tasks.output(__dirname + '/build/game.html'),
+            tasks.output(__dirname + '/build/index.html'),
             tasks.label('Building ZIP'),
             tasks.zip('index.html'),
             tasks.output(__dirname + '/build/game.zip'),
