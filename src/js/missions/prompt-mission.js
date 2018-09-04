@@ -33,4 +33,17 @@ class PromptMission extends MissionStep {
         }]);
     }
 
+    proceed(missionStep) {
+        super.proceed(missionStep);
+
+        if (!missionStep) {
+            this.missionStep.civilization.updateRelationship(RELATIONSHIP_UPDATE_MISSION_IGNORED);
+            G.showPrompt(nomangle('Communication ignored. ') + this.missionStep.civilization.center.name + nomangle(' will remember that'), [{
+                'label': nomangle('Dismiss'),
+                'action': () => G.showPrompt()
+            }]);
+            setTimeout(() => G.showPrompt(), 3000);
+        }
+    }
+
 }
