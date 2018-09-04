@@ -178,6 +178,17 @@ class Game {
             // Rendering targets
             let targets = [];
 
+            const closestStars = U.stars.sort((a, b) => {
+                return dist(a, U.playerShip) - dist(b, U.playerShip);
+            }).slice(0, 3);
+
+            const isInSystem = closestStars[0] && dist(closestStars[0], U.playerShip) < closestStars[0].reachRadius;
+
+            if (isInSystem && !closestStars[0].systemDiscovered) {
+                closestStars[0].systemDiscovered = true;
+                G.showMessage(nomangle('system discovered - ') + closestStars[0].name);
+            }
+
             if (G.missionStep) {
                 targets = G.missionStep.targets || [];
                 // (G.missionStep.targets || []).forEach(target => wrap(() => {
@@ -193,19 +204,8 @@ class Game {
                 //     lineTo(target.x, target.y);
                 //     stroke();
                 // }));
-            } else {
-                const closestStars = U.stars.sort((a, b) => {
-                    return dist(a, U.playerShip) - dist(b, U.playerShip);
-                }).slice(0, 3);
-
-                if (closestStars[0]) {
-                    if (dist(closestStars[0], U.playerShip) > closestStars[0].reachRadius) {
-                        targets = closestStars;
-                    } else if (!closestStars[0].systemDiscovered) {
-                        closestStars[0].systemDiscovered = true;
-                        G.showMessage(nomangle('system discovered - ') + closestStars[0].name);
-                    }
-                }
+            } else if(!isInSystem) {
+                targets = closestStars;
             }
 
             targets.forEach(target => {
@@ -600,7 +600,7 @@ class Game {
         setTimeout(() => {
             G.gameRecap = [
                 enemiesMade + nomangle(' planets have declared war against you'),
-                alliesMade + nomangle(' species are now your allies')
+                alliesMade + nomangle(' species have become your allies')
             ];
             G.startable = true;
         }, 4000);
