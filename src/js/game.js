@@ -356,7 +356,7 @@ class Game {
                     renderStickString(G.instructionsStickString, instructionCharWidth, instructionCharHeight, G.clock - 5, 0.01, 0.2);
                 });
 
-                R.font = '20pt Mono';
+                R.font = '20pt ' + monoFont;
                 fs('#fff');
                 R.textAlign = nomangle('center');
 
