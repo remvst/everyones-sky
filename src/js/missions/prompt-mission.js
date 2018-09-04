@@ -42,7 +42,7 @@ class PromptMission extends MissionStep {
                 'label': nomangle('Dismiss'),
                 'action': () => G.showPrompt()
             }]);
-            setTimeout(() => G.showPrompt(), 3000);
+            setTimeout(() => G.showPrompt(), 5000);
         }
     }
 
