@@ -13,8 +13,8 @@ class Pirates extends TimedMissionStep {
         super.attach();
 
         const pirates = U.createPirateGroup(
-            this.civilization.center.orbitsAround.x + pick([-1, 1]) * (this.civilization.center.orbitsAround.reachRadius + 800 ),
-            this.civilization.center.y + rnd(-5000, 5000)
+            this.civilization.center.orbitsAround.x + pick([-1, 1]) * (this.civilization.center.orbitsAround.reachRadius + 2000),
+            this.civilization.center.y + rnd(-2000, 2000)
         );
 
         this.listen(EVENT_CYCLE, () => {
