@@ -12,7 +12,7 @@ class PlayerShip extends Ship {
     cycle(e) {
         this.age += e;
 
-        this.thrust = w.down[38];
+        this.thrust = w.down[38] ? 1 : (w.down[40] ? -1 : 0);
 
         this.rotationDirection = w.down[37] ? -1 : (w.down[39] ? 1 : 0);
 

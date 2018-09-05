@@ -7,7 +7,7 @@ class Ship {
         this.vX = this.vY = 0;
 
         // Controls
-        // this.thrust = false; // don't need this line, only here for reference
+        this.thrust = 0;
         this.rotationDirection = 0;
 
         this.angle = 0;
@@ -25,8 +25,8 @@ class Ship {
         this.y += this.vY * e;
 
         if (this.thrust && !this.uncontrolledRotation) {
-            this.vX += cos(this.angle) * SHIP_ACCELERATION * e;
-            this.vY += sin(this.angle) * SHIP_ACCELERATION * e;
+            this.vX += this.thrust * cos(this.angle) * SHIP_ACCELERATION * e;
+            this.vY += this.thrust * sin(this.angle) * SHIP_ACCELERATION * e;
 
             for (let i = 0 ; i < ceil(e * 60) ; i++) {
                 particle('#fff', [
