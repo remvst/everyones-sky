@@ -221,8 +221,8 @@ class Game {
                     translate(CANVAS_WIDTH / 2 + cos(angle) * distanceOnCircle, CANVAS_HEIGHT / 2 + sin(angle) * distanceOnCircle);
                     rotate(angle);
 
-                    R.globalAlpha = 0.5;
-                    fs('#fff');
+                    // R.globalAlpha = 0.5;
+                    fs(G.missionStep ? '#f80' : '#888');
                     beginPath();
                     moveTo(0, 0);
                     lineTo(-14, 10);
