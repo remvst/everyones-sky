@@ -2,13 +2,17 @@ class Item {
 
     constructor(x, y) {
         this.scaleRandom = random();
-        this.timeLeft = 10;
+        this.timeLeft = 15;
 
         interp(this, 'x', x, x + rnd(-50, 50), 0.3);
         interp(this, 'y', y, y + rnd(-50, 50), 0.3);
     }
 
     cycle(e) {
+        if ((this.timeLeft -= e) <= 0) {
+            U.remove(U.items, this);
+        }
+
         if (U.playerShip.health <= 0) {
             return;
         }
@@ -23,10 +27,6 @@ class Item {
         if (distance < ITEM_PICKUP_RADIUS) {
             U.remove(U.items, this);
             this.pickUp(U.playerShip);
-        }
-
-        if ((this.timeLeft -= e) <= 0) {
-            U.remove(U.items, this);
         }
     }
 
