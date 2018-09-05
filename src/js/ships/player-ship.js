@@ -12,6 +12,10 @@ class PlayerShip extends Ship {
     cycle(e) {
         this.age += e;
 
+        // // Hairy condition here: we only want to brake if the user is pressing the down arrow AND we're moving towards the same direction we're pointing to
+        // // This is to avoid having a reverse mode
+        // this.thrust = (w.down[40] && (this.vX || this.vY) && abs(normalize(atan2(this.vY, this.vX) - this.angle)) < PI / 2) ?
+        //     -1 : (w.down[38] ? 1 : 0);
         this.thrust = w.down[38] ? 1 : (w.down[40] ? -1 : 0);
 
         this.rotationDirection = w.down[37] ? -1 : (w.down[39] ? 1 : 0);
