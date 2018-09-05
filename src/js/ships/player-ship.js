@@ -3,6 +3,7 @@ class PlayerShip extends Ship {
     constructor(x, y) {
         super(new Civilization(), x, y);
 
+        this.angle = -PI / 8;
         this.nextHealing = 0;
         this.shield = 1;
         this.age = 0;
