@@ -102,7 +102,11 @@ class Asteroid extends Body {
     damage(projectile, amount) {
         super.damage(projectile);
 
-        this.lastDamage = G.clock;
+        if (projectile.owner) {
+            const x = projectile.speed * 0.05 * (1 - this.radius / 50);
+            this.vX += cos(projectile.angle) * x;
+            this.vY += sin(projectile.angle) * x;
+        }
 
         if ((this.health -= amount) <= 0) {
             this.explode();
@@ -126,7 +130,7 @@ class Asteroid extends Body {
 
         U.remove(U.bodies, this);
 
-        if (this.radius > 20) {
+        if (this.radius > 23) {
             for (let i = 0 ; i < 2 ; i++) {
                 const smallerAsteroid = new Asteroid(this.radius / 2, this.speed / 4);
                 smallerAsteroid.x = this.x + rnd(-this.radius, this.radius);
