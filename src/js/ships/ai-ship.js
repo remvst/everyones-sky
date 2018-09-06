@@ -38,7 +38,7 @@ class AIShip extends Ship {
 
     updateControls() {
         this.rotationDirection = 0;
-        this.thrust = false;
+        this.thrust = 0;
 
         const target = this.currentTarget();
         if (!target) {
@@ -65,7 +65,7 @@ class AIShip extends Ship {
             };
 
             const distanceToTargetAtFullStop = dist(positionAtFullStop, target);
-            this.thrust = distanceToTargetAtFullStop > AI_MOVE_TARGET_RADIUS;
+            this.thrust = distanceToTargetAtFullStop > AI_MOVE_TARGET_RADIUS ? 1 : 0;
         }
 
         if (this.canShootEnemy()) {
@@ -76,7 +76,7 @@ class AIShip extends Ship {
         }
 
         if (velocity > AI_SHIP_MAX_SPEED) {
-            this.thrust = false;
+            this.thrust = 0;
         }
     }
 
