@@ -138,8 +138,22 @@ class Game {
 
             fs('rgba(0,0,0,0.5)');
             R.strokeStyle = '#fff';
-            fr(50, 30, 270, 100);
-            strokeRect(50.5, 30.5, 270, 100);
+            fr(50, 30, 270, 125);
+            strokeRect(50.5, 30.5, 270, 125);
+
+            R.font = '10pt ' + monoFont;
+            R.textAlign = nomangle('center');
+            fs('#fff');
+
+            const allyMap = U.bodies.reduce((map, body) => {
+                if (body.civilization) {
+                    map[body.civilization.relationshipType()]++;
+                    map.total++;
+                }
+                return map;
+            }, {'total': 1, RELATIONSHIP_ALLY: 0});
+
+            fillText(nomangle('Peace: ') + ~~(allyMap[RELATIONSHIP_ALLY] * 100 / allyMap.total) + '%', 185, 140);
 
             G.renderGauge(100, 50, U.playerShip.health, (U.playerShip.health < 0.25 || G.clock - U.playerShip.lastDamage < 0.2) ? '#f00' : G.healthGaugeColor, () => {
                 scale(0.5 * G.healthIconScale, 0.5 * G.healthIconScale);
