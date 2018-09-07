@@ -1,6 +1,6 @@
 ontouchstart = e => ontouchmove(e, true);
 
-ontouchmove = ontouchend = (e, mobileStart) => {
+ontouchmove = ontouchend = (e, isTouchStart) => {
     e.preventDefault();
 
     const canvasRect = document.querySelector('canvas').getBoundingClientRect();
@@ -23,7 +23,7 @@ ontouchmove = ontouchend = (e, mobileStart) => {
             } else {
                 w.down[38] = true;
             }
-        } else if (mobileStart && y > 1 - 400 / CANVAS_HEIGHT) {
+        } else if (isTouchStart && y > 1 - 400 / CANVAS_HEIGHT) {
             G.selectPromptOption(~~(x / (1 / (G.promptOptions || []).length)));
         }
     }
