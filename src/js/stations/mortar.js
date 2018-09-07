@@ -20,7 +20,7 @@ class Mortar extends PlanetaryStation {
         // Smooth angle transition
         const angleToPlayer = normalize(angleBetween(this, U.playerShip) - this.globalAngle);
         const targetAngle = limit(-PI / 4, angleToPlayer, PI / 4);
-        const maxRotation = e * PI / 8;
+        const maxRotation = e * PI / 4;
         this.shootAngle += limit(-maxRotation, targetAngle - this.shootAngle, maxRotation);
 
         if (dist(this, U.playerShip) < 500 && abs(normalize(this.shootAngle - angleToPlayer)) < PI / 64 && this.planet.civilization.relationshipType() === RELATIONSHIP_ENEMY) {
