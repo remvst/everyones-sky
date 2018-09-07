@@ -7,24 +7,24 @@ particle = (color, interpolations, render) => {
         alpha: 1,
         render: () => wrap(() => {
             if (render) {
-                if (DEBUG) {
-                    G.renderedParticles++;
-                }
+                // if (DEBUG) {
+                //     G.renderedParticles++;
+                // }
                 return render(p);
             }
 
-            if (!V.isVisible(p.x, p.y, p.size)) {
+            if (!V.isVisible(p, p.size)) {
                 return;
             }
 
-            if (DEBUG) {
-                G.renderedParticles++;
-            }
+            // if (DEBUG) {
+            //     G.renderedParticles++;
+            // }
 
             R.globalAlpha = p.alpha;
             fs(p.color);
             beginPath();
-            arc(p.x, p.y, p.size / 2, 0, PI * 2);
+            arc(p.x, p.y, p.size / 2, 0, TWO_PI);
             fill();
             // fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
         })

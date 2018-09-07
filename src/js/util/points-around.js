@@ -7,7 +7,7 @@ pointsAround = (center, radiuses) => {
         circles.push(circle);
 
         for (let i = 0 ; i < 6 ; i++) {
-            const angle = PI * 2 * (i / 6);
+            const angle = TWO_PI * (i / 6);
             const pt = {
                 'x': cos(angle) * radius + center.x,
                 'y': sin(angle) * radius + center.y,

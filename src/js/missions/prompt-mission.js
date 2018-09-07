@@ -39,7 +39,7 @@ class PromptMission extends MissionStep {
         if (!missionStep) {
             this.missionStep.civilization.updateRelationship(RELATIONSHIP_UPDATE_MISSION_IGNORED);
             G.showPrompt(nomangle('Communication ignored. ') + this.missionStep.civilization.center.name + nomangle(' will remember that'), [{
-                'label': nomangle('Dismiss'),
+                'label': dismiss,
                 'action': () => G.showPrompt()
             }]);
             setTimeout(() => G.showPrompt(), 5000);

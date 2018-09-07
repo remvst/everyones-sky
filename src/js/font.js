@@ -26,17 +26,14 @@ stickString = string => {
     });
 
     const appearanceOffsets = [];
-    let offset = 0;
-    for (let i = 0 ; i < absoluteSegments.length ; i++) {
+    absoluteSegments.forEach((x, offset) => {
         appearanceOffsets.splice(~~(random() * appearanceOffsets.length), 0, offset);
-        offset += 1;
-    }
+    });
 
     return {
         'segments': absoluteSegments,
         'appearanceOffsets': appearanceOffsets,
-        'width': width,
-        'height': 1
+        'width': width
     };
 };
 

@@ -18,7 +18,7 @@ class Planet extends Body {
         this.particleColor = () => '#fff';
 
         this.orbitsAround = orbitsAround;
-        this.orbitPhase = this.rng.between(0, PI * 2);
+        this.orbitPhase = this.rng.between(0, TWO_PI);
         this.orbitRadius = orbitRadius;
 
         this.ring = this.rng.floating() < 0.3;
@@ -36,7 +36,7 @@ class Planet extends Body {
         this.asset = once(() => haloAround(createCanvas(this.radius * 2, this.radius * 2, r => {
             // Make sure we only fill the circle
             r.fs('#fff');
-            r.arc(this.radius, this.radius, this.radius, 0 , PI * 2);
+            r.arc(this.radius, this.radius, this.radius, 0 , TWO_PI);
             r.fill();
             r.globalCompositeOperation = nomangle('source-atop');
 
@@ -84,9 +84,8 @@ class Planet extends Body {
     cycle(e) {
         super.cycle(e);
 
-        const velocity = 25; // px/s
-        const yearTime = 2 * PI * this.orbitRadius / velocity;
-        const angularVelocity = 2 * PI / yearTime;
+        const yearTime = TWO_PI * this.orbitRadius / 25;
+        const angularVelocity = TWO_PI / yearTime;
 
         this.orbitPhase += e * angularVelocity;
 
@@ -119,10 +118,10 @@ class Planet extends Body {
     }
 
     spawnStation(type) {
-        const maxStations = (2 * PI * this.radius) / 30;
+        const maxStations = (TWO_PI * this.radius) / 30;
 
         const freeAngles = [];
-        for (let a = 0 ; a < PI * 2 ; a += PI * 2 / maxStations) {
+        for (let a = 0 ; a < TWO_PI ; a += TWO_PI / maxStations) {
             freeAngles.push(a);
         }
 
@@ -145,7 +144,7 @@ class Planet extends Body {
     }
 
     render() {
-        if (!V.isVisible(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius + this.radius * 2)) { // * 2 for the halo
+        if (!V.isVisible(this.orbitsAround, this.orbitRadius + this.radius * 2)) { // * 2 for the halo
             return;
         }
 
@@ -153,36 +152,36 @@ class Planet extends Body {
         R.lineWidth = 10;
         R.strokeStyle = 'rgba(255,255,255,0.1)';
         beginPath();
-        arc(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius, 0, PI * 2);
+        arc(this.orbitsAround.x, this.orbitsAround.y, this.orbitRadius, 0, TWO_PI);
         stroke();
 
-        if (DEBUG) {
-            G.renderedOrbits++;
+        // if (DEBUG) {
+        //     G.renderedOrbits++;
+        //
+        //     // const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
+        //
+        //     // R.lineWidth = 2;
+        //     // pts.forEach(pt => {
+        //     //     R.fs('#0f0');
+        //     //     fillRect(pt.x - 2, pt.y - 2, 4, 4);
+        //
+        //     //     pt.neighbors.forEach(neighbor => {
+        //     //         beginPath();
+        //     //         R.strokeStyle = '#0f0';
+        //     //         moveTo(pt.x, pt.y);
+        //     //         lineTo(neighbor.x, neighbor.y);
+        //     //         stroke();
+        //     //     });
+        //     // });
+        // }
 
-            // const pts = this.pointsAround([this.radius + 100, this.radius + 200]);
-
-            // R.lineWidth = 2;
-            // pts.forEach(pt => {
-            //     R.fs('#0f0');
-            //     fillRect(pt.x - 2, pt.y - 2, 4, 4);
-
-            //     pt.neighbors.forEach(neighbor => {
-            //         beginPath();
-            //         R.strokeStyle = '#0f0';
-            //         moveTo(pt.x, pt.y);
-            //         lineTo(neighbor.x, neighbor.y);
-            //         stroke();
-            //     });
-            // });
-        }
-
-        if (!V.isVisible(this.x, this.y, this.radius + 50)) {
+        if (!V.isVisible(this, this.radius + 50)) {
             return;
         }
 
-        if (DEBUG) {
-            G.renderedPlanets++;
-        }
+        // if (DEBUG) {
+        //     G.renderedPlanets++;
+        // }
 
         R.strokeStyle = '#fff';
         R.lineWidth = 60;
@@ -227,6 +226,8 @@ class Planet extends Body {
                 stroke();
             });
         }
+
+        this.renderName();
     }
 
     nameWithRelationship() {

@@ -12,7 +12,7 @@ class SuperLaser extends Laser {
     cycle(e) {
         super.cycle(e);
 
-        const s = sin((this.clock += e) * PI * 2 * 4) * 0;
+        const s = sin((this.clock += e) * TWO_PI * 4) * 0;
 
         const d = 0.5;
         particle('red', [

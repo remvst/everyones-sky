@@ -4,10 +4,10 @@ class PromptTutorialStep extends MissionStep {
         V.targetScaleOverride = 1;
 
         G.showPrompt(nomangle('Follow a quick tutorial?'), [{
-            'label': 'Yes',
+            'label': nomangle('Yes'),
             'action': () => this.proceed(new MovementStep())
         }, {
-            'label': 'No',
+            'label': nomangle('No'),
             'action': () => this.proceed(new InstructionsStep())
         }]);
     }
@@ -47,7 +47,7 @@ class ShootingStep extends MissionStep {
 class OfflineStep extends MissionStep {
 
     attach() {
-        G.showPrompt(nomangle('Communications are OFFLINE. Find resources to repair them'), [{
+        G.showPrompt(nomangle('Communications OFFLINE. Find resources to repair'), [{
             'label': nomangle('Help'),
             'action': () => G.showPrompt(nomangle('Resources can be collected by destroying asteroids'))
         }]);
@@ -56,9 +56,7 @@ class OfflineStep extends MissionStep {
             if (U.playerShip.civilization.resources >= 20) {
                 this.proceed(new TutorialFinishedStep());
             }
-        });
 
-        this.listen(EVENT_CYCLE, () => {
             if (U.bodies.length < 10) {
                 U.randomAsteroid();
             }
@@ -69,7 +67,7 @@ class OfflineStep extends MissionStep {
 
 class TutorialFinishedStep extends MissionStep {
     attach() {
-        G.showPrompt(nomangle('Communications are ONLINE. Good job'));
+        G.showPrompt(nomangle('Communications ONLINE. Good job'));
 
         setTimeout(() => this.proceed(new InstructionsStep()), 5000);
     }
@@ -81,8 +79,8 @@ class InstructionsStep extends MissionStep {
 
         U.generateUniverse();
 
-        G.showPrompt(nomangle('Bring PEACE to the galaxy, or WAR... your call'), [{
-            'label': nomangle('Dismiss'),
+        G.showPrompt(nomangle('Bring PEACE to the galaxy, or WAR...'), [{
+            'label': dismiss,
             'action': () => this.proceed()
         }]);
 

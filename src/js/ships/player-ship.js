@@ -46,7 +46,7 @@ class PlayerShip extends Ship {
             }
         } else if (this.thrustSound) {
             this.thrustSound.pause();
-            this.thrustSound = null;
+            this.thrustSound = 0;
         }
     }
 
@@ -82,7 +82,7 @@ class PlayerShip extends Ship {
             V.shake(0.1);
         }
 
-        super.damage(source, amount); // Less damage for the player
+        super.damage(source, amount * 0.5); // Less damage for the player
 
         this.nextHealing = SHIP_HEALING_DAMAGE_TIMEOUT;
     }
