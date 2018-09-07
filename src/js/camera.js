@@ -15,7 +15,7 @@ class Camera {
         });
 
         if (minDistance > BODY_UNZOOM_THRESHOLD) {
-            this.targetScale = touch ? 0.7 : 0.5;
+            this.targetScale = isTouch ? 0.7 : 0.5;
         } else if (minDistance < BODY_ZOOM_THRESHOLD) {
             this.targetScale = 1;
         }
