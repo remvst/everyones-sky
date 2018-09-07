@@ -18,7 +18,7 @@ class Laser {
         this.x += cos(this.angle) * this.speed * e;
         this.y += sin(this.angle) * this.speed * e;
 
-        if (!V.isVisible(this) || (this.age += e) >= 2) {
+        if (!V.isVisible(this, 500) || (this.age += e) >= 2) {
             U.remove(U.projectiles, this);
         }
 
