@@ -28,7 +28,7 @@ ontouchmove = ontouchend = (e, isTouchStart) => {
         }
     }
 
-    mobile = true;
+    isTouch = true;
 
     G.start();
 };

@@ -253,7 +253,7 @@ class Game {
                     fs('rgba(0,0,0,0.5)');
                     R.font = '20pt ' + monoFont;
 
-                    translate(0, CANVAS_HEIGHT - (mobile ? 400 : 200));
+                    translate(0, CANVAS_HEIGHT - (isTouch ? 400 : 200));
                     fr(0, 0, CANVAS_WIDTH, 200);
 
                     const textWidth = measureText(promptText + '_').width;
@@ -382,7 +382,7 @@ class Game {
 
         // Touch controls
         wrap(() => {
-            if (!mobile) {
+            if (!isTouch) {
                 return;
             }
 
