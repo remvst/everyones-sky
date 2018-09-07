@@ -16,12 +16,11 @@ onload = () => {
 
     // Detect available fonts
     R.font = nomangle('99pt f'); // Setting a font that obviously doesn't exist
-    const reference = measureText(w.title);
+    const reference = measureText(w.title).width;
 
     for (let fontName of [nomangle('Mono'), nomangle('Courier')]) {
         R.font = '99pt ' + fontName;
-        const measurement = measureText(w.title);
-        if (measurement.width != reference.width || measurement.height != reference.height) {
+        if (measureText(w.title).width != reference) {
             monoFont = fontName;
             break;
         }
