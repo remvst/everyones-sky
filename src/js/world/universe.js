@@ -114,7 +114,7 @@ class Universe {
 
         const rng = createNumberGenerator(1);
 
-        for (let i = 0 ; i < 4 ; i++) {
+        for (let i = 0 ; i < 3 ; i++) {
             const radius = i * maxSystemRadius;
             const phase = rng.between(0, TWO_PI);
 
@@ -194,7 +194,7 @@ class Universe {
     // }
 
     createPirateGroup(x, y) {
-        const ships = [...Array(~~rnd(5, 8))].map(() => new AIShip(
+        const ships = [...Array(~~rnd(4, 6))].map(() => new AIShip(
             new Civilization({'x': x, 'y': y, 'radius': 300}, 0),
             x + rnd(-300, 300),
             y + rnd(-300, 300)

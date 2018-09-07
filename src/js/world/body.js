@@ -44,9 +44,6 @@ class Body {
 
     renderName() {
         wrap(() => {
-            R.shadowColor = '#000';
-            R.shadowOffsetY = 4;
-
             const x1 = cos(-PI / 4) * (this.radius + 20);
             const y1 = sin(-PI / 4) * (this.radius + 20);
 
