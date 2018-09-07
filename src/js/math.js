@@ -43,8 +43,8 @@ moduloWithNegative = (x, y) => {
 normalize = x => {
     // Possibly faster version but definitely smaller
     return moduloWithNegative(x, PI);
-    // while (x < -PI) x += PI * 2;
-    // while (x > PI) x -= PI * 2;
+    // while (x < -PI) x += TWO_PI;
+    // while (x > PI) x -= TWO_PI;
     // return x;
 };
 
@@ -55,3 +55,5 @@ angleBetween = (a, b) => {
 // Make Math global
 const m = Math;
 Object.getOwnPropertyNames(m).forEach(n => w[n] = w[n] || m[n]);
+
+TWO_PI = PI * 2;

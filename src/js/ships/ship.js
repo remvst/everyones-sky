@@ -61,13 +61,13 @@ class Ship {
     // }
 
     render() {
-        if (!V.isVisible(this.x, this.y, this.radius)) {
+        if (!V.isVisible(this, this.radius)) {
             return;
         }
 
-        if (DEBUG) {
-            G.renderedShips++;
-        }
+        // if (DEBUG) {
+        //     G.renderedShips++;
+        // }
 
         // wrap(() => {
             fs(1 - limit(0, G.clock - this.lastDamage, 0.1) / 0.1 > 0 ? '#f00' : this.shipColor());
@@ -145,11 +145,11 @@ class Ship {
         }
     }
 
-    explode(projectile) {
+    explode() {
         this.health = 0;
 
         for (let i = 0 ; i < 100 ; i++) {
-            const angle = random() * PI * 2;
+            const angle = random() * TWO_PI;
             const distance = rnd(5, 50);
             const d = rnd(0.2, 1.5);
 
@@ -164,7 +164,7 @@ class Ship {
         U.remove(U.ships, this);
         U.remove(U.pirates, this);
 
-        if (V.isVisible(this.x, this.y)) {
+        if (V.isVisible(this)) {
             explosionSound();
         }
 

@@ -3,8 +3,8 @@ let R, // canvas context
     V, // Camera instance
     U, // Universe instance
     w = window,
-    isTouch,
     mobile = navigator.userAgent.match(nomangle(/andro|ipho|ipa|ipo|windows ph/i)),
-    CANVAS_HEIGHT = mobile ? 1400 : 1000;
+    CANVAS_HEIGHT = mobile ? 1400 : 1000,
+    monoFont;
 
-let monoFont;
+const dismiss = nomangle('Dismiss');

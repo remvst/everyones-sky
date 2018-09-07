@@ -15,7 +15,7 @@ class Camera {
         });
 
         if (minDistance > BODY_UNZOOM_THRESHOLD) {
-            this.targetScale = isTouch ? 0.7 : 0.5;
+            this.targetScale = mobile ? 0.7 : 0.5;
         } else if (minDistance < BODY_ZOOM_THRESHOLD) {
             this.targetScale = 1;
         }
@@ -24,23 +24,23 @@ class Camera {
 
         this.zoomScale += limit(-0.5 * e, targetScale - this.zoomScale, 0.5 * e);
 
-        this.width = (CANVAS_WIDTH / this.zoomScale);
-        this.height = (CANVAS_HEIGHT / this.zoomScale);
+        this.visibleWidth = (CANVAS_WIDTH / this.zoomScale);
+        this.visibleHeight = (CANVAS_HEIGHT / this.zoomScale);
 
         if ((this.shakeTime -= e) > 0) {
             this.shakeX = rnd(-10, 10);
             this.shakeY = rnd(-10, 10);
         }
 
-        this.x = U.playerShip.x - this.width / 2 + this.shakeX;
-        this.y = U.playerShip.y - this.height / 2 + this.shakeY;
+        this.x = U.playerShip.x - this.visibleWidth / 2 + this.shakeX;
+        this.y = U.playerShip.y - this.visibleHeight / 2 + this.shakeY;
     }
 
-    isVisible(x, y, radius = 0) {
-        return x + radius > this.x &&
-            y + radius > this.y &&
-            x - radius < this.x + this.width &&
-            y - radius < this.y + this.height;
+    isVisible(point, radius = 0) {
+        return point.x + radius > this.x &&
+            point.y + radius > this.y &&
+            point.x - radius < this.x + this.visibleWidth &&
+            point.y - radius < this.y + this.visibleHeight;
     }
 
     shake(duration) {

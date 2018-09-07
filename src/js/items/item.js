@@ -31,12 +31,12 @@ class Item {
     }
 
     render() {
-        if (!V.isVisible(this.x, this.y) || this.timeLeft < 3 && (this.timeLeft % 0.25) < 0.125) {
+        if (!V.isVisible(this) || this.timeLeft < 3 && (this.timeLeft % 0.25) < 0.125) {
             return;
         }
 
         translate(this.x, this.y);
-        scale(sin(this.scaleRandom + PI * 2 * G.clock), 1); // Give the item a nice flip animation
+        scale(sin(this.scaleRandom + TWO_PI * G.clock), 1); // Give the item a nice flip animation
 
         this.renderGraphic();
     }

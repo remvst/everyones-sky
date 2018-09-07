@@ -81,7 +81,7 @@ class AIShip extends Ship {
     }
 
     cycle(e) {
-        if (!V.isVisible(this.x, this.y, 500)) {
+        if (!V.isVisible(this, 500)) {
             return;
         }
 
@@ -104,7 +104,7 @@ class AIShip extends Ship {
     }
 
     // render() {
-    //     if (!V.isVisible(this.x, this.y, 500)) {
+    //     if (!V.isVisible(this, 500)) {
     //         return;
     //     }
     //
@@ -127,7 +127,7 @@ class AIShip extends Ship {
     //             if (this.currentTarget()) {
     //                 R.strokeStyle = '#f00';
     //                 beginPath();
-    //                 // arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, PI * 2);
+    //                 // arc(this.currentTarget().x, this.currentTarget().y, this.targetRadius, 0, TWO_PI);
     //                 moveTo(this.x, this.y);
     //                 lineTo(this.currentTarget().x, this.currentTarget().y);
     //                 stroke();

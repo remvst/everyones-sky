@@ -21,7 +21,7 @@ class Body {
 
                 ship.damage(this, 0.1);
 
-                if (V.isVisible(ship.x, ship.y)) {
+                if (V.isVisible(ship)) {
                     explosionSound();
                 }
             }
@@ -40,6 +40,35 @@ class Body {
             ['x', projectile.x, projectile.x + rnd(-20, 20), 1],
             ['y', projectile.y, projectile.y + rnd(-20, 20), 1]
         ]);
+    }
+
+    renderName() {
+        wrap(() => {
+            R.shadowColor = '#000';
+            R.shadowOffsetY = 4;
+
+            const x1 = cos(-PI / 4) * (this.radius + 20);
+            const y1 = sin(-PI / 4) * (this.radius + 20);
+
+            const x2 = cos(-PI / 4) * (this.radius + 50);
+            const y2 = sin(-PI / 4) * (this.radius + 50);
+
+            const x3 = x2 + 30;
+            const y3 = y2;
+
+            fs('#fff');
+            R.strokeStyle = R.fillStyle;
+            R.lineWidth = 2;
+            beginPath();
+            moveTo(x1, y1);
+            lineTo(x2, y2);
+            lineTo(x3, y3);
+            stroke();
+
+            R.lineWith = 8;
+            translate(x3 + 10, y3 - 7);
+            renderStickString(this.stickString, 10, 15, 1, 0, 0);
+        });
     }
 
 }

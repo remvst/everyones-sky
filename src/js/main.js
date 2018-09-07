@@ -34,9 +34,9 @@ onload = () => {
         let n = Date.now(),
             e = (n - lf) / 1000;
 
-        if(DEBUG){
-            G.fps = ~~(1 / e);
-        }
+        // if(DEBUG){
+        //     G.fps = ~~(1 / e);
+        // }
 
         lf = n;
 

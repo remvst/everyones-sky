@@ -14,7 +14,7 @@ class Asteroid extends Body {
 
         speed = speed || rnd(100, 200);
 
-        const angle = random() * PI * 2;
+        const angle = random() * TWO_PI;
         this.vX = cos(angle) * speed;
         this.vY = sin(angle) * speed;
 
@@ -27,7 +27,7 @@ class Asteroid extends Body {
             r.beginPath();
 
             for (let i = 0 ; i < 40 ; i++) {
-                const a = (i / 40) * PI * 2;
+                const a = (i / 40) * TWO_PI;
                 const d = rnd(this.radius * 0.75, this.radius);
 
                 r[i ? 'lineTo' : 'moveTo'](cos(a) * d, sin(a) * d);
@@ -39,10 +39,10 @@ class Asteroid extends Body {
             r.fs('#000');
             r.lineWidth = 2;
             for (let i = 0 ; i < 10 ; i++) {
-                const a = rnd(0, PI * 2);
+                const a = rnd(0, TWO_PI);
                 const d = rnd(0, this.radius * 1.5);
                 r.beginPath();
-                r.arc(cos(a) * d, sin(a) * d, rnd(this.radius * 2 / 25, this.radius * 5 / 25), 0, PI * 2, 0);
+                r.arc(cos(a) * d, sin(a) * d, rnd(this.radius * 2 / 25, this.radius * 5 / 25), 0, TWO_PI, 0);
                 r.fill();
             }
         });
@@ -79,19 +79,19 @@ class Asteroid extends Body {
             }
         });
 
-        if (!V.isVisible(this.x, this.y, V.width) && !this.preventAutomaticRemoval) {
+        if (!V.isVisible(this, V.visibleWidth) && !this.preventAutomaticRemoval) {
             U.remove(U.bodies, this);
         }
     }
 
     render() {
-        if (!V.isVisible(this.x, this.y, this.radius)) {
+        if (!V.isVisible(this, this.radius)) {
             return;
         }
 
-        if (DEBUG) {
-            G.renderedAsteroids++;
-        }
+        // if (DEBUG) {
+        //     G.renderedAsteroids++;
+        // }
 
         translate(this.x, this.y);
         rotate(this.rotation);
@@ -117,7 +117,7 @@ class Asteroid extends Body {
         U.dropResources(this.x, this.y, this.radius * 0.5);
 
         for (let i = 0 ; i < 50 ; i++) {
-            const angle = random() * PI * 2;
+            const angle = random() * TWO_PI;
             const distance = random() * this.radius;
 
             particle(pick(['#aaa', '#fff', '#ccc']), [

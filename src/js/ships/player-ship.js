@@ -46,7 +46,7 @@ class PlayerShip extends Ship {
             }
         } else if (this.thrustSound) {
             this.thrustSound.pause();
-            this.thrustSound = null;
+            this.thrustSound = 0;
         }
     }
 

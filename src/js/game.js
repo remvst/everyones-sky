@@ -121,14 +121,14 @@ class Game {
             G.start();
         }
 
-        if (DEBUG) {
-            G.renderedPlanets = 0;
-            G.renderedOrbits = 0;
-            G.renderedStars = 0;
-            G.renderedAsteroids = 0;
-            G.renderedShips = 0;
-            G.renderedParticles = 0;
-        }
+        // if (DEBUG) {
+        //     G.renderedPlanets = 0;
+        //     G.renderedOrbits = 0;
+        //     G.renderedStars = 0;
+        //     G.renderedAsteroids = 0;
+        //     G.renderedShips = 0;
+        //     G.renderedParticles = 0;
+        // }
 
         U.render();
 
@@ -253,7 +253,7 @@ class Game {
                     fs('rgba(0,0,0,0.5)');
                     R.font = '20pt ' + monoFont;
 
-                    translate(0, CANVAS_HEIGHT - (isTouch ? 400 : 200));
+                    translate(0, CANVAS_HEIGHT - (mobile ? 400 : 200));
                     fr(0, 0, CANVAS_WIDTH, 200);
 
                     const textWidth = measureText(promptText + '_').width;
@@ -278,7 +278,7 @@ class Game {
                                     return;
                                 }
 
-                                R.globalAlpha = (sin(G.clock * PI * 2 * 4) + 1) / 2;
+                                R.globalAlpha = (sin(G.clock * TWO_PI * 4) + 1) / 2;
                             }
 
                             const promptText = '[' + option.label[0] + ']' + option.label.slice(1);
@@ -345,7 +345,7 @@ class Game {
 
                 R.lineWidth = 8;
 
-                const everyonesY = (CANVAS_HEIGHT - G.titleCharHeight * (G.titleStickString.height + 2 / 5 + G.subtitleStickString.height)) / 2;
+                const everyonesY = (CANVAS_HEIGHT - G.titleCharHeight * 12 / 5) / 2;
                 wrap(() => {
                     translate((CANVAS_WIDTH - G.titleStickString.width * G.titleCharWidth) / 2, everyonesY);
                     renderStickString(G.titleStickString, G.titleCharWidth, G.titleCharHeight, G.clock - 0.5, 0.1, 1);
@@ -353,7 +353,7 @@ class Game {
 
                 wrap(() => {
                     R.lineWidth = G.subtitleCharThickness;
-                    translate((CANVAS_WIDTH - G.subtitleStickString.width * G.subtitleCharWidth) / 2, everyonesY + G.titleCharHeight * G.subtitleStickString.height * 7 / 5);
+                    translate((CANVAS_WIDTH - G.subtitleStickString.width * G.subtitleCharWidth) / 2, everyonesY + G.titleCharHeight * 7 / 5);
                     renderStickString(G.subtitleStickString, G.subtitleCharWidth, G.subtitleCharHeight, G.clock - 0.5, 0.1 * (G.titleStickString.segments.length / G.subtitleStickString.segments.length), 1);
                 });
 
@@ -382,7 +382,7 @@ class Game {
 
         // Touch controls
         wrap(() => {
-            if (!isTouch) {
+            if (!mobile) {
                 return;
             }
 
@@ -420,7 +420,7 @@ class Game {
 
                 beginPath();
                 moveTo(0, 0);
-                arc(0, 0, MOBILE_BUTTON_SIZE / 2, 0, PI * 2);
+                arc(0, 0, MOBILE_BUTTON_SIZE / 2, 0, TWO_PI);
                 fill();
             });
 
@@ -434,27 +434,27 @@ class Game {
             });
         });
 
-        if (DEBUG) {
-            wrap(() => {
-                R.font = '10pt ' + monoFont;
-                fs('#fff');
-
-                const info = [
-                    'fps: ' + G.fps,
-                    'planets: ' + G.renderedPlanets,
-                    'stars: ' + G.renderedStars,
-                    'orbits: ' + G.renderedOrbits,
-                    'asteroids: ' + G.renderedAsteroids,
-                    'ships: ' + G.renderedShips,
-                    'particles: ' + G.renderedParticles
-                ];
-                let y = 20;
-                info.forEach(info => {
-                    fillText(info, CANVAS_WIDTH - 200, y);
-                    y += 20;
-                });
-            });
-        }
+        // if (DEBUG) {
+        //     wrap(() => {
+        //         R.font = '10pt ' + monoFont;
+        //         fs('#fff');
+        //
+        //         const info = [
+        //             'fps: ' + G.fps,
+        //             'planets: ' + G.renderedPlanets,
+        //             'stars: ' + G.renderedStars,
+        //             'orbits: ' + G.renderedOrbits,
+        //             'asteroids: ' + G.renderedAsteroids,
+        //             'ships: ' + G.renderedShips,
+        //             'particles: ' + G.renderedParticles
+        //         ];
+        //         let y = 20;
+        //         info.forEach(info => {
+        //             fillText(info, CANVAS_WIDTH - 200, y);
+        //             y += 20;
+        //         });
+        //     });
+        // }
     }
 
     mobileArrow() {
@@ -469,7 +469,7 @@ class Game {
         G.promptText = promptText && promptText.call ? promptText : () => promptText;
         G.promptClock = G.clock;
         G.promptOptions = options || [];
-        G.selectedPromptOption = null;
+        G.selectedPromptOption = 0;
 
         if (G.promptText()) {
             promptSound();
@@ -522,7 +522,7 @@ class Game {
 
             G.proceedToMissionStep(new PromptMission(missionStep));
 
-            for (let i = 0, d = max(planet.radius, dist(U.playerShip, planet) - V.width) ; d < dist(U.playerShip, planet) ; i++, d += 50) {
+            for (let i = 0, d = max(planet.radius, dist(U.playerShip, planet) - V.visibleWidth) ; d < dist(U.playerShip, planet) ; i++, d += 50) {
                 const angle = angleBetween(planet, U.playerShip);
                 // const particle = {
                 //     'alpha': 0,
@@ -553,7 +553,7 @@ class Game {
         missionStep.civilization.updateRelationship(success ? RELATIONSHIP_UPDATE_MISSION_SUCCESS : RELATIONSHIP_UPDATE_MISSION_FAILED);
 
         G.showPrompt(nomangle('Mission ') + (success ? nomangle('SUCCESS') : nomangle('FAILED')) + '. ' + missionStep.civilization.center.name + nomangle(' will remember that.'), [{
-            'label': nomangle('Dismiss'),
+            'label': dismiss,
             'action': () => G.showPrompt()
         }]);
     }

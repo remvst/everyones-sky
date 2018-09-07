@@ -29,11 +29,8 @@ class Universe {
 
     cycle(e) {
         if ((this.nextAsteroid -= e) <= 0) {
-            this.nextAsteroid = this.stars.filter(star => dist(star, U.playerShip) < star.reachRadius).length ? 5 : 2; // Less asteroids when in a system
-            this.randomAsteroid(
-                // U.playerShip.x + pick([-1, 1]) * (V.width / 2 + 200),
-                // U.playerShip.y + pick([-1, 1]) * (V.height / 2 + 200)
-            );
+            this.nextAsteroid = 3;
+            this.randomAsteroid();
         }
 
         this.forEach([this.bodies, this.ships, this.items, this.projectiles, [V]], element => element.cycle(e));
@@ -41,8 +38,8 @@ class Universe {
 
     randomAsteroid() {
         const asteroid = new Asteroid();
-        asteroid.x = U.playerShip.x + pick([-1.1, 1.1]) * V.width / 2;
-        asteroid.y = U.playerShip.y + pick([-1.1, 1.1]) * V.height / 2;
+        asteroid.x = U.playerShip.x + pick([-1.1, 1.1]) * V.visibleWidth / 2;
+        asteroid.y = U.playerShip.y + pick([-1.1, 1.1]) * V.visibleHeight / 2;
         U.bodies.push(asteroid);
     }
 
@@ -78,7 +75,7 @@ class Universe {
                         0,
                         1,
                         0,
-                        PI * 2
+                        TWO_PI
                     );
                     fill();
                 });
@@ -91,34 +88,6 @@ class Universe {
 
             this.forEach([this.projectiles, this.particles, this.ships, this.bodies, this.items], element => wrap(() => {
                 element.render();
-            }));
-
-            R.shadowColor = '#000';
-            R.shadowOffsetY = 4;
-
-            const closeBodies = this.bodies.filter(body => body.name && dist(body, U.playerShip) < V.width / 2);
-            closeBodies.forEach(body => wrap(() => {
-                const x1 = cos(-PI / 4) * (body.radius + 20);
-                const y1 = sin(-PI / 4) * (body.radius + 20);
-
-                const x2 = cos(-PI / 4) * (body.radius + 50);
-                const y2 = sin(-PI / 4) * (body.radius + 50);
-
-                const x3 = x2 + 30;
-                const y3 = y2;
-
-                fs('#fff');
-                R.strokeStyle = R.fillStyle;
-                R.lineWith = 2;
-                beginPath();
-                moveTo(body.x + x1, body.y + y1);
-                lineTo(body.x + x2, body.y + y2);
-                lineTo(body.x + x3, body.y + y3);
-                stroke();
-
-                R.lineWith = 8;
-                translate(body.x + x3 + 10, body.y + y3 - 7);
-                renderStickString(body.stickString, 10, 15, 1, 0, 0);
             }));
         });
     }
@@ -141,19 +110,18 @@ class Universe {
             'y': U.playerShip.y
         };
 
-        const maxOrbitsGap = UNIVERSE_GENERATE_ORBIT_MAX_MARGIN;
-        const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * maxOrbitsGap + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
+        const maxSystemRadius = UNIVERSE_GENERATE_SYSTEM_MAX_PLANETS * UNIVERSE_GENERATE_ORBIT_MAX_MARGIN + UNIVERSE_GENERATE_SYSTEM_MIN_MARGIN;
 
         const rng = createNumberGenerator(1);
 
         for (let i = 0 ; i < 4 ; i++) {
             const radius = i * maxSystemRadius;
-            const phase = rng.between(0, PI * 2);
+            const phase = rng.between(0, TWO_PI);
 
-            const maxSystems = ~~(2 * PI * radius / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
+            const maxSystems = ~~(TWO_PI * radius / maxSystemRadius); // using the circumference leads to slightly incorrect margins, but whatever
 
             for (let i = 0 ; i < maxSystems ; i++) {
-                const angle = (i / maxSystems) * PI * 2;
+                const angle = (i / maxSystems) * TWO_PI;
 
                 // Generate a system there
                 const star = new Star(rng);
@@ -174,7 +142,7 @@ class Universe {
                 }
 
                 // Create some pirates
-                const pirateAngle = rng.between(0, PI * 2);
+                const pirateAngle = rng.between(0, TWO_PI);
                 this.createPirateGroup(
                     cos(pirateAngle) * (radius + maxSystemRadius / 2),
                     sin(pirateAngle) * (radius + maxSystemRadius / 2)
@@ -226,20 +194,11 @@ class Universe {
     // }
 
     createPirateGroup(x, y) {
-        const civilization = new Civilization({
-            'x': x,
-            'y': y,
-            'radius': 300
-        }, 0); // make sure we're enemies
-
-        const ships = [];
-        for (let i = 0 ; i < rnd(5, 8) ; i++) {
-            ships.push(new AIShip(
-                civilization,
-                x + rnd(-300, 300),
-                y + rnd(-300, 300)
-            ));
-        }
+        const ships = [...Array(~~rnd(5, 8))].map(() => new AIShip(
+            new Civilization({'x': x, 'y': y, 'radius': 300}, 0),
+            x + rnd(-300, 300),
+            y + rnd(-300, 300)
+        ));
 
         this.ships = this.ships.concat(ships);
         this.pirates = this.pirates.concat(ships);
@@ -249,14 +208,12 @@ class Universe {
 
     dropResources(x, y, n) {
         // Drop resources
-        for (let i = 0 ; i < n ; i++) {
-            U.items.push(new ResourceItem(x, y));
-        }
+        [...Array(~~n)].forEach(() => U.items.push(new ResourceItem(x, y)));
     }
 
     // randomAsteroidField(x, y) {
     //     for (let i = 0 ; i < 10 ; i++) {
-    //         // const angle = random() * PI * 2;
+    //         // const angle = random() * TWO_PI;
     //         // const dist = random() *
     //         const asteroid = new Asteroid(0, rnd(-10, 10));
     //         asteroid.preventAutomaticRemoval = true;
